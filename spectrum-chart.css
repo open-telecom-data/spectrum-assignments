@@ -1,0 +1,186 @@
+.bar {
+  fill: steelblue;
+  stroke: grey;
+  stroke-width: .5;
+}
+
+.bar text {
+  fill: #fff;
+  font: 10px sans-serif;
+}
+
+/*
+.bar:hover {
+   fill: grey;
+}
+.label:hover {
+  fill: black;
+}
+*/
+
+.FreqLegend {
+  fill: #144667;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 22px;
+}
+
+
+.label {
+  fill: white;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 16px;
+}
+
+.axis--x path {
+  display: none;
+}
+
+.axis--y {
+  font-size: 14px;
+  border: 10px;
+}
+
+.axis--y path {
+  display: none;
+}
+
+text {
+  fill: steelblue;
+  font-family: sans-serif
+}
+
+.axis--x .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+.Orange {
+  fill: #f16e00;
+}
+.Safaricom {
+  fill: #61a60e;
+}
+.Yu(Safaricom) {
+  fill: #61a60e;
+}
+.Airtel {
+  fill: #A7010A;
+}
+.CellC {
+  fill: #0b0b0b;
+}
+.MTN {
+  fill: #ffbe00;
+}
+.Vodacom {
+  fill: #e60000
+}
+.Vodafone {
+  fill: #e60000;
+}
+.Mascom {
+  fill: #fee100;
+}
+.BeMobile {
+  fill: #65BD0F;
+}
+.Onatel {
+  fill: #E5418A;
+}
+.Telecel {
+  fill: #527B97;
+}
+.Etisalat {
+  fill: #719E19;
+}
+.Tigo {
+  fill: #162458;
+}
+.Glo {
+  fill: #45B649;
+}
+.MTC {
+  fill: #00AAF0;
+}
+.Telecom_Namibia {
+  fill: #FD8326;
+}
+.mcel {
+  fill: #FFCF1D;
+}
+.Movitel {
+  fill: #FE9413;
+}
+.ntel {
+  fill: #E6077C;
+}
+.Africell {
+  fill: #ff6220;
+}
+.UTL {
+  fill: #34479B;
+}
+
+.selected {
+  fill: #144667;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  width: 320px;
+  height: 150px;
+  padding: 5px;
+  font-family: arial;
+  font-size: 1em;
+  line-height: 1.5;
+  padding: 1.5em;
+  background: #144667;
+  border: 2px;
+  color: white;
+  border-radius: 3px;
+  pointer-events: none;
+  -webkit-transform: translate3d(0,-0.5em,0);
+  transform: translate3d(0,-0.5em,0);
+  -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+div.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
+.div-table {
+float: left;
+padding: 10px;
+width: auto;
+}
+
+.tab-row {
+float: left;
+width: 400px;
+  border-radius: 3px;
+
+}
+
+.cell-left {
+border: 1px solid;
+float: left;
+padding: 3px;
+width: 200px;
+}
+
+.cell-right {
+border: 1px solid;
+float: left;
+text-align: right;
+padding: 3px;
+width: 100px;
+}
