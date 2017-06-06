@@ -54,6 +54,7 @@ d3.csv("900MHz.csv", function(d) {
       .attr("class", "axis axis--y")
       .call(d3.axisLeft(y).tickSize(5))
     .selectAll(".tick text")
+      .classed("countryName", true)
       .call(wrap, margin.left);
 
   /* Iterate through data file */

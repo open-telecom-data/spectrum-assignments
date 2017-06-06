@@ -44,6 +44,12 @@
   display: none;
 }
 
+.countryName {
+  fill: #144667;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 14px;
+}
+
 text {
   fill: steelblue;
   font-family: sans-serif
