@@ -44,21 +44,18 @@
   display: none;
 }
 
-.countryName {
+.countryStyle {
   fill: #144667;
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 14px;
-}
-
-text {
-  fill: steelblue;
-  font-family: sans-serif
 }
 
 .axis--x .tick line {
     stroke-width: 1;
     stroke: rgba(0, 0, 0, 0.5);
 }
+
+/*  Operator colour assignments based on corporate colours */
 
 .Orange {
   fill: #f16e00;
@@ -126,12 +123,24 @@ text {
 .UTL {
   fill: #34479B;
 }
+.Zantel {
+  fill: #8bc53f;
+}
+.Tigo {
+  fill: #01214D;
+}
+.Hits_Telecom {
+  fill: #4F9E2D;
+}
+.Halotel {
+  fill: #F47920;
+}
 
 .selected {
   fill: #144667;
 }
 
-div.tooltip {
+div.operatorTip {
   position: absolute;
   text-align: left;
   width: 320px;
@@ -152,7 +161,7 @@ div.tooltip {
   transition: opacity 0.1s, transform 0.1s;
 }
 
-div.tooltip:hover:before{
+div.operatorTip:hover:before{
     border: solid;
     border-color: #333 transparent;
     border-width: 6px 6px 0 6px;
@@ -162,6 +171,40 @@ div.tooltip:hover:before{
     position: absolute;
     z-index: 99;
 }
+
+/*  Country ToolTip  */
+
+
+div.countryTip {
+  position: fixed;
+  z-index: 99;
+  text-align: left;
+  padding: 5px;
+  font-family: arial;
+  font-size: 1em;
+  line-height: 1.5;
+  padding: 1.5em;
+  background: #144667;
+  border: 2px;
+  color: white;
+  border-radius: 3px;
+  pointer-events: none;
+  -webkit-transform: translate3d(0,-0.5em,0);
+  transform: translate3d(0,-0.5em,0);
+  -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+div.countryTip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    position: fixed;
+    z-index: 99;
+}
+
 
 .div-table {
 float: left;
@@ -189,4 +232,58 @@ float: left;
 text-align: right;
 padding: 3px;
 width: 100px;
+}
+
+/*  tabbed layout styling  */
+
+.wrapper {
+  width: 80%; 
+  margin: 0 auto;
+  font-family: sans-serif;
+  color: #555;
+  font-size: 14px;
+  line-height: 24px;
+}
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+h1 + p {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.tabs ul {
+  list-style-type: none;
+}
+
+.tabs li {
+  float: left;
+  width: 20%;
+  list-style: none;
+}
+.tabs a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #888;
+  padding: 0;
+  border-bottom: 2px solid #888;
+  background: #f7f7f7;
+}
+.tabs a:hover,
+.tabs a.active {
+  background: #ddd;
+}
+.tabgroup div {
+  padding: 0px;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
 }

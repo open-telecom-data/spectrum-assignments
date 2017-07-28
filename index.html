@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <link rel="stylesheet" href="spectrum-chart.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Spectrum Assignments</h1>
+    <p>Prototyping a new comparative visualisation of spectrum assignments around the world</p>
+    <ul class="tabs clearfix" data-tabgroup="first-tab-group">
+      <li><a href="#tab1" class="active">900 MHz</a></li>
+      <li><a href="#tab2">1800 MHz</a></li>
+      <li><a href="#tab3">2100 MHz</a></li>
+    </ul>
+    <section id="first-tab-group" class="tabgroup">
+      <div id="tab1">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz900" width="1000" height="1600"></svg>
+      </div>
+      <div id="tab2">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz1800" width="1000" height="1200"></svg>
+      </div>
+      <div id="tab3">
+        <svg id="2100" width="1000" height="800"></svg>
+      </div>
+    </section>
+  </div>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="byCountry.js"></script>
+  <script type="text/javascript" src="tab.js"></script>
+</body>
+</html>

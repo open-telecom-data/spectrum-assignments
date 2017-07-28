@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.bar {
+  fill: steelblue;
+  stroke: grey;
+  stroke-width: .5;
+}
+
+.bar text {
+  fill: #fff;
+  font: 10px sans-serif;
+}
+
+/*
+.bar:hover {
+   fill: grey;
+}
+.label:hover {
+  fill: black;
+}
+*/
+
+.FreqLegend {
+  fill: blue;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 22px;
+}
+
+
+.label {
+  fill: white;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 16px;
+}
+
+.axis--x path {
+  display: none;
+}
+
+.axis--y {
+  font-size: 14px;
+  border: 10px;
+}
+
+.axis--y path {
+  display: none;
+}
+
+text {
+  fill: steelblue;
+  font-family: sans-serif
+}
+
+.axis--x .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+.Orange {
+  fill: #f16e00;
+}
+.Safaricom {
+  fill: #61a60e;
+}
+.Yu(Safaricom) {
+  fill: #61a60e;
+}
+.Airtel {
+  fill: #db030c;
+}
+.CellC {
+  fill: #0b0b0b;
+}
+.MTN {
+  fill: #ffbe00;
+}
+.Vodacom {
+  fill: #e60000
+}
+.Vodafone {
+  fill: #e60000;
+}
+.Mascom {
+  fill: #fee100;
+}
+.BeMobile {
+  fill: #65BD0F;
+}
+.Onatel {
+  fill: #E5418A;
+}
+.Telecel {
+  fill: #527B97;
+}
+.Etisalat {
+  fill: #719E19;
+}
+.Tigo {
+  fill: #162458;
+}
+.Glo {
+  fill: #45B649;
+}
+.MTC {
+  fill: #00AAF0;
+}
+.TelecomNamibia {
+  fill: #FD8326;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  width: 120px;
+  height: 60px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: grey;
+  border: 0px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+</style>
+<svg width="800" height="1200"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+var svg = d3.select("svg"),
+    margin = {top: 60, right: 50, bottom: 30, left: 70},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
+
+var x = d3.scaleLinear().rangeRound([0, width]),
+    y = d3.scaleBand().rangeRound([0, height]).padding(0.1);
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + margin.left  + "," + margin.top + ")");
+
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+var f = d3.format(".1f");
+
+d3.csv("test_1.csv", function(d) {
+  d.freqStart = +d.freqStart;
+  d.freqEnd = +d.freqEnd;
+  return d;
+}, function(error, data) {
+  if (error) throw error;
+
+  x.domain([d3.min(data, function(d) { return d.freqStart; }), d3.max(data, function(d) { return d.freqEnd; })]);
+  y.domain(data.map(function(d) { return d.Country; }));
+
+  g.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x).ticks(20).tickSize(-height))
+    .append("text")
+      .attr("x", 20)
+      .attr("y", 30)
+      .text("Frequency (MHz)");
+
+  g.append("g")
+      .attr("class", "axis axis--x")
+      .call(d3.axisTop(x).ticks(20).tickSize(-height))
+    .append("text")
+      .classed("FreqLegend", true)
+      .attr("x", 20)
+      .attr("y", -30)
+      .text("900 MHz Band");
+
+  g.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y).tickSize(5))
+    .selectAll(".tick text")
+      .call(wrap, margin.left);
+
+  g.selectAll(".bar")
+    .data(data)
+    .enter().append("g")
+    .attr("class", "bars")
+    .append("rect")
+      .attr("class", function(d) { return d.Operator; })
+      .classed("bar", true)
+      .attr("y", function(d) { return y(d.Country);    })
+      .attr("x", function(d) { return x(d.freqStart); })
+      .attr("width", function(d) { return x(d.freqEnd) - x(d.freqStart); })
+      .attr("height", y.bandwidth())
+    .on("mouseover", function(d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Country: " + d.Country + "<br/>Operator: " + d.Operator + "<br/>Freq: " + f(d.freqEnd - d.freqStart) + " MHz")
+         .style("left", x(d.freqStart) + margin.left + 5 + "px")
+         .style("top", y(d.Country) + margin.top + 10 + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+    
+    var bars = svg.selectAll(".bars");
+    bars.append("text")
+      .attr("class", "label")
+      .attr('transform', 'rotate(-90)')
+      .attr("y", function(d) { return x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart))/2 + 5; })
+      .attr("x", function(d) { return -y(d.Country) - y.bandwidth() + 10 ; })
+      .text(function(d) { return d.Operator; });
+});
+
+/*  Wrap text function  */
+
+function wrap (text, width) {
+
+  text.each(function() {
+
+    var breakChars = ['/', '&', '-'],
+      text = d3.select(this),
+      textContent = text.text(),
+      spanContent;
+
+    breakChars.forEach(char => {
+      // Add a space after each break char for the function to use to determine line breaks
+      textContent = textContent.replace(char, char + ' ');
+    });
+
+    var words = textContent.split(/\s+/).reverse(),
+      word,
+      line = [],
+      lineNumber = 0,
+      lineHeight = 1.1, // ems
+      x = text.attr('x'),
+      y = text.attr('y'),
+      dy = parseFloat(text.attr('dy') || 0),
+      tspan = text.text(null).append('tspan').attr('x', x).attr('y', y).attr('dy', dy + 'em');
+
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(' '));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        spanContent = line.join(' ');
+        breakChars.forEach(char => {
+          // Remove spaces trailing breakChars that were added above
+          spanContent = spanContent.replace(char + ' ', char);
+        });
+        tspan.text(spanContent);
+        line = [word];
+        tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', ++lineNumber * lineHeight + dy + 'em').text(word);
+      }
+    }
+  });
+
+}
+
+</script>
+
