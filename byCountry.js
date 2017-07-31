@@ -61,6 +61,11 @@ d3.csv("900MHz.csv", function(d) {
   x900.domain([d3.min(data, function(d) { return d.freqStart; }), d3.max(data, function(d) { return d.freqEnd; })]);
   y900.domain(data.map(function(d) { return d.Country; }));
 
+  var byCountry = d3.nest()
+    .key(function(d) { return d.Country; })
+    .entries(data);  
+
+
   /* Set lower X-axis and legend */
   g.append("g")
       .attr("class", "axis axis--x")
@@ -90,6 +95,76 @@ d3.csv("900MHz.csv", function(d) {
       .call(wrap, margin.left);
 
 
+  /* Iterate through data file */
+  g.selectAll("bar")
+    .data(data)
+    .enter().append("g")
+    .attr("class", "bars")
+    .append("rect")
+      .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + " " + d.Country.replace(/\s+/g, '_'); })
+      .attr("y", function(d) { return y900(d.Country); })
+      .attr("x", function(d) { return x900(d.freqStart); })
+      .attr("width", function(d) { return x900(d.freqEnd) - x900(d.freqStart); })
+      .attr("height", y900.bandwidth());
+
+  /* Add guards bands */
+  g.selectAll("guard")
+    .data(data)
+    .enter().append("g")
+    .attr("class", "guardbands")
+    .append("rect")
+      .attr("class", "guardband")
+      .attr("y", function(d) { return y900(d.Country); })
+      .attr("x", x900(guardStart900))
+      .attr("width", function(d) { return x900(guardEnd900) - x900(guardStart900); })
+      .attr("height", y900.bandwidth());
+
+  /*  Add label to guardbands */
+  var bars = MHz900.selectAll(".guardbands");
+  bars.append("text")
+    .attr("class", "label")
+    .attr('transform', 'rotate(-90)')
+    .attr("y", function(d) { return x900(guardStart900) + (x900(guardEnd900) - x900(guardStart900))/2 + 5; })
+    .attr("x", function(d) { return -y900(d.Country) - y900.bandwidth() + 10 ; })
+    .text("Guard Band")
+    .call(wrap, y900.bandwidth());
+
+  /*  Add label to each spectrum assignment */
+  var bars = MHz900.selectAll(".bars");
+  bars.append("text")
+    .attr("class", "label")
+    .attr('transform', 'rotate(-90)')
+    .attr("y", function(d) { return x900(d.freqStart) + (x900(d.freqEnd) - x900(d.freqStart))/2 + 5; })
+    .attr("x", function(d) { return -y900(d.Country) - y900.bandwidth() + 10 ; })
+    .text(function(d) { return d.Operator; })
+    .call(wrap, y900.bandwidth());
+
+   /* ToolTip for spectrum assignments*/  
+  bars.on("mouseover", function(d) {
+    /* calculate total spectrum assigned */
+    g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_')).each(function(d) {
+      totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
+      sumSpec = sumSpec + d.freqEnd - d.freqStart;
+    });
+    g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
+    .classed("selected", true)
+    infoBox.transition()
+      .duration(200)
+      .style("opacity", );
+    infoBox.html('<div class="tab-row"><div class="cell-right">Country:</div><div class="cell-left">' + d.Country + '</div></div><div class="tab-row"><div class="cell-right">Operator:</div><div class="cell-left">' + d.Operator + '</div></div><div class="tab-row"><div class="cell-right">Band:</div><div class="cell-left">' + d.Band + '</div></div><div class="tab-row"><div class="cell-right">Assignment:</div><div class="cell-left">' + totSpec.replace(/\s\+\s$/, '') + ' MHz</div></div><div class="tab-row"><div class="cell-right">Total:</div><div class="cell-left">' + f(sumSpec) + " MHz</div></div>")
+      .style("left", x900(d.freqStart) + 20 + "px")
+      .style("top", y900(d.Country) + 2*y900.bandwidth() + 42 + "px");
+     /* console.log("d.freqStart: " + d.freqStart + "  d.Country: " + d.Country + " y(d.country): " + y900(d.Country)); */
+    })
+  .on("mouseout", function(d) {
+    totSpec = "";
+    sumSpec = 0;
+     g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
+     .classed("selected", false)
+     infoBox.transition()
+       .duration(500)
+       .style("opacity", 0);
+     });  
 
   /*  Build mouseover for y axis legend */
   g.selectAll(".axis--y .tick text")
@@ -124,88 +199,11 @@ d3.csv("900MHz.csv", function(d) {
          .style("opacity", 0);
     });
 
-  /* Iterate through data file */
-  g.selectAll(".bar")
-    .data(data)
-    .enter().append("g")
-    .attr("class", "bars")
-    .classed("MHz", true)
-    .append("rect")
-      .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + " " + d.Country.replace(/\s+/g, '_'); })
-      .classed("bar", true)
-      .attr("y", function(d) { return y900(d.Country);    })
-      .attr("x", function(d) { return x900(d.freqStart); })
-      .attr("width", function(d) { return x900(d.freqEnd) - x900(d.freqStart); })
-      .attr("height", y900.bandwidth())
-
-        /* ToolTip for spectrum assignments */  
-    .on("mouseover", function(d) {
-      /* calculate total spectrum assigned */
-      g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_')).each(function(d) {
-        totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
-        sumSpec = sumSpec + d.freqEnd - d.freqStart;
-      });
-      g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-      .classed("selected", true)
-      infoBox.transition()
-        .duration(200)
-        .style("opacity", );
-      infoBox.html('<div class="tab-row"><div class="cell-right">Country:</div><div class="cell-left">' + d.Country + '</div></div><div class="tab-row"><div class="cell-right">Operator:</div><div class="cell-left">' + d.Operator + '</div></div><div class="tab-row"><div class="cell-right">Band:</div><div class="cell-left">' + d.Band + '</div></div><div class="tab-row"><div class="cell-right">Assignment:</div><div class="cell-left">' + totSpec.replace(/\s\+\s$/, '') + ' MHz</div></div><div class="tab-row"><div class="cell-right">Total:</div><div class="cell-left">' + f(sumSpec) + " MHz</div></div>")
-        .style("left", x900(d.freqStart) + 20 + "px")
-        .style("top", y900(d.Country) + 2*y900.bandwidth() + 42 + "px");
-        /* console.log("d.freqStart: " + d.freqStart + "  d.Country: " + d.Country + " y(d.country): " + y900(d.Country)); */
-      })
-    .on("mouseout", function(d) {
-      totSpec = "";
-      sumSpec = 0;
-       g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-       .classed("selected", false)
-       infoBox.transition()
-         .duration(500)
-         .style("opacity", 0);
-       });
-
-    /*  Add label to each spectrum assignments */
-    var bars = MHz900.selectAll(".bars");
-    bars.append("text")
-      .attr("class", "label")
-      .attr('transform', 'rotate(-90)')
-      .attr("y", function(d) { return x900(d.freqStart) + (x900(d.freqEnd) - x900(d.freqStart))/2 + 5; })
-      .attr("x", function(d) { return -y900(d.Country) - y900.bandwidth() + 10 ; })
-      .text(function(d) { return d.Operator; })
-      .call(wrap, y900.bandwidth())
-
-     /* ToolTip for spectrum assignments - repeat for Label text */  
-    .on("mouseover", function(d) {
-      /* calculate total spectrum assigned */
-      g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_')).each(function(d) {
-        totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
-        sumSpec = sumSpec + d.freqEnd - d.freqStart;
-      });
-      g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-      .classed("selected", true)
-      infoBox.transition()
-        .duration(200)
-        .style("opacity", );
-      infoBox.html('<div class="tab-row"><div class="cell-right">Country:</div><div class="cell-left">' + d.Country + '</div></div><div class="tab-row"><div class="cell-right">Operator:</div><div class="cell-left">' + d.Operator + '</div></div><div class="tab-row"><div class="cell-right">Band:</div><div class="cell-left">' + d.Band + '</div></div><div class="tab-row"><div class="cell-right">Assignment:</div><div class="cell-left">' + totSpec.replace(/\s\+\s$/, '') + ' MHz</div></div><div class="tab-row"><div class="cell-right">Total:</div><div class="cell-left">' + f(sumSpec) + " MHz</div></div>")
-        .style("left", x900(d.freqStart) + 20 + "px")
-        .style("top", y900(d.Country) + 2.3*y900.bandwidth() + "px");
-       /* console.log("d.freqStart: " + d.freqStart + "  d.Country: " + d.Country + " y(d.country): " + y900(d.Country)); */
-      })
-    .on("mouseout", function(d) {
-      totSpec = "";
-      sumSpec = 0;
-       g.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-       .classed("selected", false)
-       infoBox.transition()
-         .duration(500)
-         .style("opacity", 0);
-       });  
 });
 
 
 
-
+/* Load 1800MHz data file */
 d3.csv("1800MHz.csv", function(d) {
   d.freqStart = +d.freqStart;
   d.freqEnd = +d.freqEnd;
@@ -245,8 +243,80 @@ d3.csv("1800MHz.csv", function(d) {
       .call(wrap, margin.left);
 
 
-  /*  Build mouseover for y axis legend in 1800 */
-  h.selectAll(".axis--y .tick text")
+  /* Iterate through data file */
+  h.selectAll(".bar")
+    .data(data)
+    .enter().append("g")
+    .attr("class", "bars")
+    .append("rect")
+      .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + " " + d.Country.replace(/\s+/g, '_'); })
+      .classed("bar", true)
+      .attr("y", function(d) { return y1800(d.Country);    })
+      .attr("x", function(d) { return x1800(d.freqStart); })
+      .attr("width", function(d) { return x1800(d.freqEnd) - x1800(d.freqStart); })
+      .attr("height", y1800.bandwidth());
+
+    /* Add guards bands */
+  h.selectAll("guard")
+    .data(data)
+    .enter().append("g")
+    .attr("class", "guardbands")
+    .append("rect")
+      .attr("class", "guardband")
+      .attr("y", function(d) { return y1800(d.Country); })
+      .attr("x", x1800(guardStart1800))
+      .attr("width", function(d) { return x1800(guardEnd1800) - x1800(guardStart1800); })
+      .attr("height", y1800.bandwidth());
+
+  /*  Add label to guardbands */
+  var bars = MHz1800.selectAll(".guardbands");
+  bars.append("text")
+    .attr("class", "label")
+    .attr('transform', 'rotate(-90)')
+    .attr("y", function(d) { return x1800(guardStart1800) + (x1800(guardEnd1800) - x1800(guardStart1800))/2 + 5; })
+    .attr("x", function(d) { return -y1800(d.Country) - y1800.bandwidth() + 10 ; })
+    .text("Guard Band")
+    .call(wrap, y1800.bandwidth());    
+
+    /*  Add label to each spectrum assignments */
+    var bars = MHz1800.selectAll(".bars");
+    bars.append("text")
+      .attr("class", "label")
+      .attr('transform', 'rotate(-90)')
+      .attr("y", function(d) { return x1800(d.freqStart) + (x1800(d.freqEnd) - x1800(d.freqStart))/2 + 5; })
+      .attr("x", function(d) { return -y1800(d.Country) - y1800.bandwidth() + 10 ; })
+      .text(function(d) { return d.Operator; })
+      .call(wrap, y1800.bandwidth());
+
+        /* ToolTip for spectrum assignments - repeat for Label text */  
+    bars.on("mouseover", function(d) {
+      /* calculate total spectrum assigned */
+      h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_')).each(function(d) {
+        totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
+        sumSpec = sumSpec + d.freqEnd - d.freqStart;
+      });
+      h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
+      .classed("selected", true)
+      infoBox.transition()
+        .duration(200)
+        .style("opacity", );
+      infoBox.html('<div class="tab-row"><div class="cell-right">Country:</div><div class="cell-left">' + d.Country + '</div></div><div class="tab-row"><div class="cell-right">Operator:</div><div class="cell-left">' + d.Operator + '</div></div><div class="tab-row"><div class="cell-right">Band:</div><div class="cell-left">' + d.Band + '</div></div><div class="tab-row"><div class="cell-right">Assignment:</div><div class="cell-left">' + totSpec.replace(/\s\+\s$/, '') + ' MHz</div></div><div class="tab-row"><div class="cell-right">Total:</div><div class="cell-left">' + f(sumSpec) + " MHz</div></div>")
+        .style("left", x1800(d.freqStart) + 20 + "px")
+        .style("top", y1800(d.Country) + 2*y1800.bandwidth() + 48 + "px");
+        console.log("d.freqStart: " + d.freqStart + "  d.Country: " + y1800(d.Country) + " y1800.bandwidth: " + y1800.bandwidth());
+      })
+    .on("mouseout", function(d) {
+      totSpec = "";
+      sumSpec = 0;
+       h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
+       .classed("selected", false)
+       infoBox.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+    /*  Build mouseover for y axis legend in 1800 */
+    h.selectAll(".axis--y .tick text")
     .on("mouseover", function () {
         totSpec1800 = 0;
         var myElement = d3.select(this);
@@ -278,84 +348,8 @@ d3.csv("1800MHz.csv", function(d) {
         countryBox.transition()
          .duration(500)
          .style("opacity", 0);
-    });      
+    });    
 
-  /* Iterate through data file */
-  h.selectAll(".bar")
-    .data(data)
-    .enter().append("g")
-    .attr("class", "bars")
-    .append("rect")
-      .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + " " + d.Country.replace(/\s+/g, '_'); })
-      .classed("bar", true)
-      .attr("y", function(d) { return y1800(d.Country);    })
-      .attr("x", function(d) { return x1800(d.freqStart); })
-      .attr("width", function(d) { return x1800(d.freqEnd) - x1800(d.freqStart); })
-      .attr("height", y1800.bandwidth())
-
-        /* ToolTip for spectrum assignments */  
-    .on("mouseover", function(d) {
-      /* calculate total spectrum assigned */
-      h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_')).each(function(d) {
-        totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
-        sumSpec = sumSpec + d.freqEnd - d.freqStart;
-      });
-      h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-      .classed("selected", true)
-      infoBox.transition()
-        .duration(200)
-        .style("opacity", );
-      infoBox.html('<div class="tab-row"><div class="cell-right">Country:</div><div class="cell-left">' + d.Country + '</div></div><div class="tab-row"><div class="cell-right">Operator:</div><div class="cell-left">' + d.Operator + '</div></div><div class="tab-row"><div class="cell-right">Band:</div><div class="cell-left">' + d.Band + '</div></div><div class="tab-row"><div class="cell-right">Assignment:</div><div class="cell-left">' + totSpec.replace(/\s\+\s$/, '') + ' MHz</div></div><div class="tab-row"><div class="cell-right">Total:</div><div class="cell-left">' + f(sumSpec) + " MHz</div></div>")
-        .style("left", x1800(d.freqStart) + 20 + "px")
-        .style("top", y1800(d.Country) + 2*y1800.bandwidth() + 48 + "px");
-        /* console.log("d.freqStart: " + d.freqStart + "  d.Country: " + y1800(d.Country) + " y1800.bandwidth: " + y1800.bandwidth());  */
-      })
-    .on("mouseout", function(d) {
-      totSpec = "";
-      sumSpec = 0;
-       h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-       .classed("selected", false)
-       infoBox.transition()
-         .duration(500)
-         .style("opacity", 0);
-       });
-
-    /*  Add label to each spectrum assignments */
-    var bars = MHz1800.selectAll(".bars");
-    bars.append("text")
-      .attr("class", "label")
-      .attr('transform', 'rotate(-90)')
-      .attr("y", function(d) { return x1800(d.freqStart) + (x1800(d.freqEnd) - x1800(d.freqStart))/2 + 5; })
-      .attr("x", function(d) { return -y1800(d.Country) - y1800.bandwidth() + 10 ; })
-      .text(function(d) { return d.Operator; })
-      .call(wrap, y1800.bandwidth())
-
-        /* ToolTip for spectrum assignments - repeat for Label text */  
-    .on("mouseover", function(d) {
-      /* calculate total spectrum assigned */
-      h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_')).each(function(d) {
-        totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
-        sumSpec = sumSpec + d.freqEnd - d.freqStart;
-      });
-      h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-      .classed("selected", true)
-      infoBox.transition()
-        .duration(200)
-        .style("opacity", );
-      infoBox.html('<div class="tab-row"><div class="cell-right">Country:</div><div class="cell-left">' + d.Country + '</div></div><div class="tab-row"><div class="cell-right">Operator:</div><div class="cell-left">' + d.Operator + '</div></div><div class="tab-row"><div class="cell-right">Band:</div><div class="cell-left">' + d.Band + '</div></div><div class="tab-row"><div class="cell-right">Assignment:</div><div class="cell-left">' + totSpec.replace(/\s\+\s$/, '') + ' MHz</div></div><div class="tab-row"><div class="cell-right">Total:</div><div class="cell-left">' + f(sumSpec) + " MHz</div></div>")
-        .style("left", x1800(d.freqStart) + 20 + "px")
-        .style("top", y1800(d.Country) + 2*y1800.bandwidth() + 48 + "px");
-        console.log("d.freqStart: " + d.freqStart + "  d.Country: " + y1800(d.Country) + " y1800.bandwidth: " + y1800.bandwidth());
-      })
-    .on("mouseout", function(d) {
-      totSpec = "";
-      sumSpec = 0;
-       h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g,'') + "." + d.Country.replace(/\s+/g, '_'))
-       .classed("selected", false)
-       infoBox.transition()
-         .duration(500)
-         .style("opacity", 0);
-       });  
 });
 
 /*  Wrap text function  */
