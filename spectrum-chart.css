@@ -1,13 +1,10 @@
-.bar {
-  fill: steelblue;
-  stroke: grey;
-  stroke-width: .5;
+.bars {
+    fill: steelblue;
+    stroke: grey;
+    stroke-width: .5;
 }
 
-.bar text {
-  fill: #fff;
-  font: 10px sans-serif;
-}
+
 
 /*
 .bar:hover {
@@ -19,35 +16,35 @@
 */
 
 .FreqLegend {
-  fill: #144667;
-  font-family: "Arial Black", Gadget, sans-serif;
-  font-size: 22px;
+    fill: #144667;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 22px;
 }
 
 
 .label {
-  fill: white;
-  font-family: "Arial Black", Gadget, sans-serif;
-  font-size: 16px;
+    fill: white;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 16px;
 }
 
 .axis--x path {
-  display: none;
+    display: none;
 }
 
 .axis--y {
-  font-size: 14px;
-  border: 10px;
+    font-size: 14px;
+    border: 10px;
 }
 
 .axis--y path {
-  display: none;
+    display: none;
 }
 
 .countryStyle {
-  fill: #144667;
-  font-family: "Arial Black", Gadget, sans-serif;
-  font-size: 14px;
+    fill: #144667;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 14px;
 }
 
 .axis--x .tick line {
@@ -55,113 +52,155 @@
     stroke: rgba(0, 0, 0, 0.5);
 }
 
+
 /*  Operator colour assignments based on corporate colours */
 
 .Orange {
-  fill: #f16e00;
+    fill: #f16e00;
 }
+
 .Safaricom {
-  fill: #61a60e;
+    fill: #61a60e;
 }
-.Yu(Safaricom) {
-  fill: #61a60e;
+
+.Yu {
+    fill: #61a60e;
 }
+
 .Airtel {
-  fill: #A7010A;
+    fill: #A7010A;
 }
+
 .CellC {
-  fill: #0b0b0b;
+    fill: #0b0b0b;
 }
+
 .MTN {
-  fill: #ffbe00;
+    fill: #ffbe00;
 }
+
 .Vodacom {
-  fill: #e60000
+    fill: #e60000
 }
+
 .Vodafone {
-  fill: #e60000;
+    fill: #e60000;
 }
+
 .Mascom {
-  fill: #fee100;
+    fill: #fee100;
 }
+
 .BeMobile {
-  fill: #65BD0F;
+    fill: #65BD0F;
 }
+
 .Onatel {
-  fill: #E5418A;
+    fill: #E5418A;
 }
+
 .Telecel {
-  fill: #527B97;
+    fill: #527B97;
 }
+
 .Etisalat {
-  fill: #719E19;
+    fill: #719E19;
 }
+
 .Tigo {
-  fill: #162458;
+    fill: #162458;
 }
+
 .Glo {
-  fill: #45B649;
+    fill: #45B649;
 }
+
 .MTC {
-  fill: #00AAF0;
+    fill: #00AAF0;
 }
+
 .Telecom_Namibia {
-  fill: #FD8326;
+    fill: #FD8326;
 }
+
+.Paratus {
+    fill: #273896;
+}
+
 .mcel {
-  fill: #FFCF1D;
+    fill: #FFCF1D;
 }
+
 .Movitel {
-  fill: #FE9413;
+    fill: #FE9413;
 }
+
 .ntel {
-  fill: #E6077C;
+    fill: #E6077C;
 }
+
 .Africell {
-  fill: #ff6220;
+    fill: #ff6220;
 }
+
 .UTL {
-  fill: #34479B;
+    fill: #34479B;
 }
+
 .Zantel {
-  fill: #8bc53f;
+    fill: #8bc53f;
 }
+
 .Tigo {
-  fill: #01214D;
+    fill: #01214D;
 }
+
 .Hits_Telecom {
-  fill: #4F9E2D;
+    fill: #4F9E2D;
 }
+
 .Halotel {
-  fill: #F47920;
+    fill: #F47920;
+}
+
+.neXttel {
+  fill: #E0001D;
+}
+
+.Camtel {
+  fill: #00AEEF;
+}
+
+.guardband {
+    fill: #aaaaaa;
 }
 
 .selected {
-  fill: #144667;
+    fill: #144667;
 }
 
 div.operatorTip {
-  position: absolute;
-  text-align: left;
-  width: 320px;
-  height: 150px;
-  padding: 5px;
-  font-family: arial;
-  font-size: 1em;
-  line-height: 1.5;
-  padding: 1.5em;
-  background: #144667;
-  border: 2px;
-  color: white;
-  border-radius: 3px;
-  pointer-events: none;
-  -webkit-transform: translate3d(0,-0.5em,0);
-  transform: translate3d(0,-0.5em,0);
-  -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
-  transition: opacity 0.1s, transform 0.1s;
+    position: absolute;
+    text-align: left;
+    width: 340px;
+    height: 170px;
+    padding: 5px;
+    font-family: arial;
+    font-size: 1em;
+    line-height: 1.5;
+    padding: 1.5em;
+    background: #144667;
+    border: 2px;
+    color: white;
+    border-radius: 3px;
+    pointer-events: none;
+    -webkit-transform: translate3d(0, -0.5em, 0);
+    transform: translate3d(0, -0.5em, 0);
+    -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    transition: opacity 0.1s, transform 0.1s;
 }
 
-div.operatorTip:hover:before{
+div.operatorTip:hover:before {
     border: solid;
     border-color: #333 transparent;
     border-width: 6px 6px 0 6px;
@@ -172,30 +211,30 @@ div.operatorTip:hover:before{
     z-index: 99;
 }
 
+
 /*  Country ToolTip  */
 
-
 div.countryTip {
-  position: fixed;
-  z-index: 99;
-  text-align: left;
-  padding: 5px;
-  font-family: arial;
-  font-size: 1em;
-  line-height: 1.5;
-  padding: 1.5em;
-  background: #144667;
-  border: 2px;
-  color: white;
-  border-radius: 3px;
-  pointer-events: none;
-  -webkit-transform: translate3d(0,-0.5em,0);
-  transform: translate3d(0,-0.5em,0);
-  -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
-  transition: opacity 0.1s, transform 0.1s;
+    position: fixed;
+    z-index: 99;
+    text-align: left;
+    padding: 5px;
+    font-family: arial;
+    font-size: 1em;
+    line-height: 1.5;
+    padding: 1.5em;
+    background: #144667;
+    border: 2px;
+    color: white;
+    border-radius: 3px;
+    pointer-events: none;
+    -webkit-transform: translate3d(0, -0.5em, 0);
+    transform: translate3d(0, -0.5em, 0);
+    -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    transition: opacity 0.1s, transform 0.1s;
 }
 
-div.countryTip:hover:before{
+div.countryTip:hover:before {
     border: solid;
     border-color: #333 transparent;
     border-width: 6px 6px 0 6px;
@@ -207,83 +246,93 @@ div.countryTip:hover:before{
 
 
 .div-table {
-float: left;
-padding: 10px;
-width: auto;
+    float: left;
+    padding: 10px;
+    width: auto;
 }
 
 .tab-row {
-float: left;
-width: 400px;
-  border-radius: 3px;
-
+    float: left;
+    width: 400px;
+    border-radius: 3px;
 }
 
 .cell-left {
-border: 1px solid;
-float: left;
-padding: 3px;
-width: 200px;
+    border: 1px solid;
+    float: left;
+    padding: 3px;
+    width: 200px;
 }
 
 .cell-right {
-border: 1px solid;
-float: left;
-text-align: right;
-padding: 3px;
-width: 100px;
+    border: 1px solid;
+    float: left;
+    text-align: right;
+    padding: 3px;
+    width: 100px;
 }
+
 
 /*  tabbed layout styling  */
 
 .wrapper {
-  width: 80%; 
-  margin: 0 auto;
-  font-family: sans-serif;
-  color: #555;
-  font-size: 14px;
-  line-height: 24px;
+    width: 80%;
+    margin: 0 auto;
+    font-family: sans-serif;
+    color: #555;
+    font-size: 14px;
+    line-height: 24px;
 }
+
 h1 {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
 }
-h1 + p {
+
+h1+p {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+h4 {
   text-align: center;
-  margin: 20px 0;
-  font-size: 16px;
 }
 
 .tabs ul {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .tabs li {
-  float: left;
-  width: 20%;
-  list-style: none;
+    float: left;
+    width: 20%;
+    list-style: none;
 }
+
 .tabs a {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #888;
-  padding: 0;
-  border-bottom: 2px solid #888;
-  background: #f7f7f7;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #888;
+    padding: 0;
+    border-bottom: 2px solid #888;
+    background: #f7f7f7;
 }
+
 .tabs a:hover,
 .tabs a.active {
-  background: #ddd;
+    background: #ddd;
 }
+
 .tabgroup div {
-  padding: 0px;
+    padding: 0px;
 }
+
 .clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }

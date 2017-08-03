@@ -20,7 +20,9 @@ displayAssignments(900,880,960,915,925);
 /* Display 1800MHz assignments */
 displayAssignments(1800,1710.2,1879.8,1784.8,1805.2);
 /* Display 2100MHz assignments */
-displayAssignments(2100,1920,2170,1980,2120)
+displayAssignments(2100,1920,2170,1980,2110);
+/* Display 2600MHz assignments */
+displayAssignments(2600,2500,2690,2570,2620);
 
 function displayAssignments(freqRange,bandStart,bandEnd,guardStart,guardEnd) {
     // displayAssignments imports a csv file of spectrum assignments 
@@ -59,6 +61,7 @@ function displayAssignments(freqRange,bandStart,bandEnd,guardStart,guardEnd) {
             return d3.ascending(a.Country, b.Country);
         });
 
+//        x.domain([d3.min(data, function(d) { return d.freqStart; }), d3.max(data, function(d) { return d.freqEnd; })]);
         x.domain([d3.min(data, function(d) { return d.freqStart; }), d3.max(data, function(d) { return d.freqEnd; })]);
         y.domain(data.map(function(d) { return d.Country; }));
 
@@ -125,19 +128,6 @@ function displayAssignments(freqRange,bandStart,bandEnd,guardStart,guardEnd) {
                     .style("opacity", 0);
             });
 
-        /* Iterate through data file */
-        h.selectAll(".bar")
-            .data(data)
-            .enter().append("g")
-            .attr("class", "bars")
-            .append("rect")
-            .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
-            .classed("bar", true)
-            .attr("y", function(d) { return y(d.Country); })
-            .attr("x", function(d) { return x(d.freqStart); })
-            .attr("width", function(d) { return x(d.freqEnd) - x(d.freqStart); })
-            .attr("height", y.bandwidth());
-
         /* Add rectangles for guards bands */
         h.selectAll("guard")
             .data(data)
@@ -160,6 +150,18 @@ function displayAssignments(freqRange,bandStart,bandEnd,guardStart,guardEnd) {
             .text("Guard Band")
             .call(wrap, y.bandwidth());
 
+        /* Iterate through data file */
+        h.selectAll(".bar")
+            .data(data)
+            .enter().append("g")
+            .attr("class", "bars")
+            .append("rect")
+            .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
+            .classed("bar", true)
+            .attr("y", function(d) { return y(d.Country); })
+            .attr("x", function(d) { return x(d.freqStart); })
+            .attr("width", function(d) { return x(d.freqEnd) - x(d.freqStart); })
+            .attr("height", y.bandwidth());
 
         /* Add operator label to each spectrum assignment */
         var bars = MHz.selectAll(".bars");
