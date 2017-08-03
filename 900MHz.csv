@@ -1,4 +1,16 @@
 Country,Operator,Band,freqStart,freqEnd
+Uganda,UTL,900,880,885
+Uganda,UTL,900,925,930
+Uganda,WARID,900,885,890
+Uganda,WARID,900,930,935
+Uganda,Airtel,900,890.2,898.0
+Uganda,Airtel,900,935.2,943.0
+Uganda,Africell,900,898.2,903.2
+Uganda,Africell,900,943.2,948.2
+Uganda,iTEL,900,903.2,906.4
+Uganda,iTEL,900,948.2,951.4
+Uganda,MTN,900,906.6,914.8
+Uganda,MTN,900,951.6,959.8
 Botswana,BeMobile,900,906.6,910.6
 Botswana,BeMobile,900,951.6,955.6
 Botswana,Government,900,911,914.8
@@ -37,8 +49,8 @@ Kenya,Orange,900,925,927.5
 Kenya,Orange,900,945,950
 Kenya,Safaricom,900,890,900
 Kenya,Safaricom,900,935,945
-Kenya,Yu(Safaricom),900,882.5,890
-Kenya,Yu(Safaricom),900,927.5,935
+Kenya,Yu,900,882.5,890
+Kenya,Yu,900,927.5,935
 Namibia,MTC,900,890,903
 Namibia,MTC,900,935,948
 Namibia,Telecom Namibia,900,905,915
@@ -53,15 +65,3 @@ South Africa,MTN,900,946.3,948.7
 South Africa,MTN,900,950.9,959.7
 South Africa,Vodacom,900,889.9,901.3
 South Africa,Vodacom,900,934.9,946.3
-Uganda,UTL,900,880,885
-Uganda,UTL,900,925,930
-Uganda,WARID,900,885,890
-Uganda,WARID,900,930,935
-Uganda,Airtel,900,890.2,898.0
-Uganda,Airtel,900,935.2,943.0
-Uganda,Africell,900,898.2,903.2
-Uganda,Africell,900,943.2,948.2
-Uganda,iTEL,900,903.2,906.4
-Uganda,iTEL,900,948.2,951.4
-Uganda,MTN,900,906.6,914.8
-Uganda,MTN,900,951.6,959.8
