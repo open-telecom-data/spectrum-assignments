@@ -1,1 +1,39 @@
 Country,Operator,Band,freqStart,freqEnd
+Botswana,Orange,2100,1935,1950
+Botswana,Orange,2100,1955,1965
+Botswana,Orange,2100,2125,2140
+Botswana,Orange,2100,2145,2155
+Ghana,MTN,2100,1970,1980
+Ghana,MTN,2100,2160,2170
+Ghana,Vodafone,2100,1920,1935
+Ghana,Vodafone,2100,2110,2125
+Ghana,Tigo,2100,1955,1970
+Ghana,Tigo,2100,2145,2160
+Ghana,Airtel,2100,1935,1945
+Ghana,Airtel,2100,2125,2135
+Ghana,Glo,2100,1945,1955
+Ghana,Glo,2100,2135,2145
+Namibia,MTC,2100,1920,1935
+Namibia,MTC,2100,2110,2125
+Namibia,Telecom Namibia,2100,1940,1960
+Namibia,Telecom Namibia,2100,2130,2150
+Namibia,Paratus,2100,1965,1970
+Namibia,Paratus,2100,1975,1980
+Namibia,Paratus,2100,2155,2160
+Namibia,Paratus,2100,2165,2170
+Nigeria,MTN,2100,1920,1930
+Nigeria,MTN,2100,2110,2120
+Nigeria,Glo,2100,1930,1940
+Nigeria,Glo,2100,2120,2130
+Nigeria,Etisalat,2100,1940,1950
+Nigeria,Etisalat,2100,2130,2140
+Nigeria,Airtel,2100,1950,1960
+Nigeria,Airtel,2100,2140,2150
+South Africa,Vodacom,2100,1920,1935
+South Africa,Vodacom,2100,2110,2125
+South Africa,MTN,2100,1950,1965
+South Africa,MTN,2100,2140,2155
+South Africa,CellC,2100,1935,1950
+South Africa,CellC,2100,2125,2140
+South Africa,Telkom,2100,1965,1980
+South Africa,Telkom,2100,2155,2170
