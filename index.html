@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
 <head>
-  <link rel="stylesheet" href="spectrum-chart.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prototyping a new comparative visualisation of spectrum assignments around the world</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    .bs-example {
+        margin: 20px;
+    }
+    </style>
+    <link rel="stylesheet" href="spectrum-chart.css" />
 </head>
+
 <body>
-  <div class="wrapper">
     <h1>Spectrum Assignments</h1>
-    <p>Prototyping a new comparative visualisation of spectrum assignments around the world</p>
-    <ul class="tabs clearfix" data-tabgroup="first-tab-group">
-      <li><a href="#tab1" class="active">900 MHz</a></li>
-      <li><a href="#tab2">1800 MHz</a></li>
-      <li><a href="#tab3">2100 MHz</a></li>
-    </ul>
-    <section id="first-tab-group" class="tabgroup">
-      <div id="tab1">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz900" width="1000" height="1600"></svg>
-      </div>
-      <div id="tab2">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz1800" width="1000" height="1200"></svg>
-      </div>
-      <div id="tab3">
-        <svg id="2100" width="1000" height="800"></svg>
-      </div>
-    </section>
-  </div>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script type="text/javascript" src="byCountry.js"></script>
-  <script type="text/javascript" src="tab.js"></script>
+    <h4>Prototyping a new comparative visualisation of spectrum assignments around the world</h4>
+    <div class="bs-example">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#M900">900 MHz</a></li>
+            <li><a data-toggle="tab" href="#M1800">1800 MHz</a></li>
+            <li><a data-toggle="tab" href="#M2100">2100 MHZ</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="M900" class="tab-pane fade in active">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz900" width="1200" height="1200"></svg>
+            </div>
+            <div id="M1800" class="tab-pane fade">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz1800" width="1200" height="1200"></svg>
+            </div>
+            <div id="M2100" class="tab-pane fade">
+                <h3>2100 MHz</h3>
+            </div>
+        </div>
+    </div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="byCountry.js"></script>
 </body>
+
 </html>
