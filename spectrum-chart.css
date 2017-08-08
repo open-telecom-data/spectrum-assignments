@@ -4,23 +4,11 @@
     stroke-width: .5;
 }
 
-
-
-/*
-.bar:hover {
-   fill: grey;
-}
-.label:hover {
-  fill: black;
-}
-*/
-
 .FreqLegend {
     fill: #144667;
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 22px;
 }
-
 
 .label {
     fill: white;
@@ -171,6 +159,14 @@
   fill: #00AEEF;
 }
 
+.Maroc_Telecom {
+    fill: #0066B3;
+}
+
+.Inwi {
+    fill: #AD2184;
+}
+
 .guardband {
     fill: #aaaaaa;
 }
@@ -182,13 +178,11 @@
 div.operatorTip {
     position: absolute;
     text-align: left;
-    width: 340px;
-    height: 170px;
-    padding: 5px;
+    width: 500px;
+    height: 220px;
     font-family: arial;
     font-size: 1em;
     line-height: 1.5;
-    padding: 1.5em;
     background: #144667;
     border: 2px;
     color: white;
@@ -218,13 +212,12 @@ div.countryTip {
     position: fixed;
     z-index: 99;
     text-align: left;
-    padding: 5px;
     font-family: arial;
     font-size: 1em;
     line-height: 1.5;
     padding: 1.5em;
     background: #144667;
-    border: 2px;
+    border: 0px;
     color: white;
     border-radius: 3px;
     pointer-events: none;
@@ -238,7 +231,7 @@ div.countryTip:hover:before {
     border: solid;
     border-color: #333 transparent;
     border-width: 6px 6px 0 6px;
-    bottom: 20px;
+    bottom: 0px;
     content: "";
     position: fixed;
     z-index: 99;
