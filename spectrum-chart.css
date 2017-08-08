@@ -189,8 +189,10 @@ div.operatorTip {
     border-radius: 3px;
     pointer-events: none;
     -webkit-transform: translate3d(0, -0.5em, 0);
+    -moz-transform: translate3d(0, -0.5em, 0);
     transform: translate3d(0, -0.5em, 0);
     -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
     transition: opacity 0.1s, transform 0.1s;
 }
 
@@ -222,8 +224,10 @@ div.countryTip {
     border-radius: 3px;
     pointer-events: none;
     -webkit-transform: translate3d(0, -0.5em, 0);
+    -moz-transform: translate3d(0, -0.5em, 0);
     transform: translate3d(0, -0.5em, 0);
     -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
     transition: opacity 0.1s, transform 0.1s;
 }
 
