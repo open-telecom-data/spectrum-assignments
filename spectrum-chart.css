@@ -243,45 +243,6 @@ div.countryTip:hover:before {
     z-index: 99;
 }
 
-/*
-.div-table {
-    float: left;
-    padding: 10px;
-    width: auto;
-}
-
-.tab-row {
-    float: left;
-    width: 400px;
-    border-radius: 3px;
-}
-
-.cell-left {
-    border: 1px solid;
-    float: left;
-    padding: 3px;
-    width: 200px;
-}
-
-.cell-right {
-    border: 1px solid;
-    float: left;
-    text-align: right;
-    padding: 3px;
-    width: 100px;
-}
-*/
-
-/*  tabbed layout styling  
-.wrapper {
-    width: 80%;
-    margin: 0 auto;
-    font-family: sans-serif;
-    color: #555;
-    font-size: 14px;
-    line-height: 24px;
-}
-
 h1 {
     font-size: 20px;
     font-weight: bold;
@@ -299,41 +260,3 @@ h4 {
   text-align: center;
 }
 
-/*
-.tabs ul {
-    list-style-type: none;
-}
-
-
-.tabs li {
-    float: left;
-    width: 20%;
-    list-style: none;
-}
-
-.tabs a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #888;
-    padding: 0;
-    border-bottom: 2px solid #888;
-    background: #f7f7f7;
-}
-
-.tabs a:hover,
-.tabs a.active {
-    background: #ddd;
-}
-
-.tabgroup div {
-    padding: 0px;
-}
-*/
-
-.clearfix:after {
-    content: "";
-    display: table;
-    clear: both;
-}
