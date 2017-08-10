@@ -111,10 +111,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                 totSpec = 0;
                 var myElement = d3.select(this);
                 var countryName = myElement.text();
-                /* determine y coordinates of row selected */
-                var yText = getTranslation(d3.select(this.parentNode).attr("transform"));
-                var midLine = +yText[1];
-                var topOfBox = midLine + y.bandwidth() / 2 + margin.top + window.pageYOffset;
                 /*  determine absolute coordinates for left edge of SVG */
                 var matrix = this.getScreenCTM()
                     .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
@@ -125,20 +121,16 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                 });
                 var availPercent = totSpec / availSpec;
 
-                /* var circle = h.append("circle")
-                          .attr("cx",  matrix.e )
-                          .attr("cy", midLine )
-                          .attr("r", y.bandwidth()/2)
-                          .attr("fill", "#FF0000");  */
                 countryBox.transition()
                     .duration(200)
                     .style("opacity", .9);
+                var yText = getTranslation(d3.select(this.parentNode).attr("transform"));
                 countryBox.html(countryName + '</br>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available. <br><b>Band occupancy ' + p(availPercent) + '</b>')
                     .style("left", (window.pageXOffset + matrix.e) + "px")
-                    .style("top", topOfBox + "px")
+                    .style("top", (yText[1] - y.bandwidth()/2 - window.pageYOffset) + "px")
                     .style("height", y.bandwidth() + "px")
                     .style("width", width + "px");
-                console.log("topOfBox: " + topOfBox);
+                console.log("yText[1]: "  + yText[1] + " halfBand: " + halfBand + " margin.top: " + margin.top + " window.pageYOffset: " + window.pageYOffset );
 
             })
             .on("mouseout", function() {
@@ -200,6 +192,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
                     sumSpec = sumSpec + d.freqEnd - d.freqStart;
                     midRect = x(d.freqStart + (d.freqEnd - d.freqStart) / 2);
+                    /*  outline spectrum blocks  */
                     h.append("rect")
                         .style("stroke", "black")
                         .style("stroke-width", "4")
@@ -211,6 +204,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                         .attr("x", x(d.freqStart))
                         .attr("width", x(d.freqEnd) - x(d.freqStart))
                         .attr("height", y.bandwidth());
+                    /* add short vertical lines under each block */    
                     h.append("line")
                         .style("stroke", "black")
                         .style("stroke-width", "4")
@@ -239,21 +233,23 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     .style("stroke-linecap", "round")
                     .style("stroke-linejoin", "round")
                     .attr("class", "infoLine")
-                    .attr("x1", x(freqMid))
-                    .attr("y1", y(d.Country) + y.bandwidth() + 12)
-                    .attr("x2", x(freqMid))
-                    .attr("y2", y(d.Country) + y.bandwidth() + 19);
-
+                    .attr("x1", x(freqLeft))
+                    .attr("y1", y(d.Country) + y.bandwidth() + 10)
+                    .attr("x2", x(freqRight))
+                    .attr("y2", y(d.Country) + y.bandwidth() + 10);
+                /* add short vert line to connect to infoBox */
                 h.append("line")
                     .style("stroke", "black")
                     .style("stroke-width", "4")
                     .style("stroke-linecap", "round")
                     .style("stroke-linejoin", "round")
                     .attr("class", "infoLine")
-                    .attr("x1", x(freqLeft))
-                    .attr("y1", y(d.Country) + y.bandwidth() + 10)
-                    .attr("x2", x(freqRight))
-                    .attr("y2", y(d.Country) + y.bandwidth() + 10);
+                    .attr("x1", x(freqMid))
+                    .attr("y1", y(d.Country) + y.bandwidth() + 12)
+                    .attr("x2", x(freqMid))
+                    .attr("y2", y(d.Country) + y.bandwidth() + 19);
+                /* add horizontal line connecting vert lines under blocks */
+
 
                 infoBox.transition()
                     .duration(200)
@@ -281,23 +277,23 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
 }
 
 
-function getTranslation(transform) {
-    /* Create a dummy g for calculation purposes only. This will never
-       be appended to the DOM and will be discarded once this function 
-       returns.  */
-    var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        function getTranslation(transform) {
+            /* Create a dummy g for calculation purposes only. This will never
+               be appended to the DOM and will be discarded once this function 
+               returns.  */
+            var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-    /* Set the transform attribute to the provided string value. */
-    g.setAttributeNS(null, "transform", transform);
+            /* Set the transform attribute to the provided string value. */
+            g.setAttributeNS(null, "transform", transform);
 
-    /* consolidate the SVGTransformList containing all transformations
-       to a single SVGTransform of type SVG_TRANSFORM_MATRIX and get
-       its SVGMatrix.  */
-    var matrix = g.transform.baseVal.consolidate().matrix;
+            /* consolidate the SVGTransformList containing all transformations
+               to a single SVGTransform of type SVG_TRANSFORM_MATRIX and get
+               its SVGMatrix.  */
+            var matrix = g.transform.baseVal.consolidate().matrix;
 
-    /* As per definition values e and f are the ones for the translation. */
-    return [matrix.e, matrix.f];
-}
+            /* As per definition values e and f are the ones for the translation. */
+            return [matrix.e, matrix.f];
+        }
 
 function wrap(text, width) {
     /* wrap text function, taken from
