@@ -172,14 +172,16 @@
 }
 
 .selected {
-    fill: #144667;
+    stroke: none;
+    stroke-width: 0;
+    fill: none;
 }
 
 div.operatorTip {
     position: absolute;
     text-align: left;
     width: 500px;
-    height: 220px;
+    height: 200px;
     font-family: arial;
     font-size: 1em;
     line-height: 1.5;
@@ -241,7 +243,7 @@ div.countryTip:hover:before {
     z-index: 99;
 }
 
-
+/*
 .div-table {
     float: left;
     padding: 10px;
@@ -268,10 +270,9 @@ div.countryTip:hover:before {
     padding: 3px;
     width: 100px;
 }
+*/
 
-
-/*  tabbed layout styling  */
-
+/*  tabbed layout styling  
 .wrapper {
     width: 80%;
     margin: 0 auto;
@@ -298,9 +299,11 @@ h4 {
   text-align: center;
 }
 
+/*
 .tabs ul {
     list-style-type: none;
 }
+
 
 .tabs li {
     float: left;
@@ -327,6 +330,7 @@ h4 {
 .tabgroup div {
     padding: 0px;
 }
+*/
 
 .clearfix:after {
     content: "";

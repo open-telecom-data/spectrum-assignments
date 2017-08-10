@@ -50,9 +50,9 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var guardBand = "";
-    if (freqRange == "2600") {
+    if (freqRange === "2600") {
         guardBand = "TDD";
-    } else if (freqRange == "2100") {
+    } else if (freqRange === "2100") {
         guardBand = "Something Else";
     } else {
         guardBand = "Guard Band";
@@ -113,8 +113,8 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                 var countryName = myElement.text();
                 /* determine y coordinates of row selected */
                 var yText = getTranslation(d3.select(this.parentNode).attr("transform"));
-                var midLine = yText[1];
-                var topOfBox = yText[1] + y.bandwidth() + window.pageYOffset;
+                var midLine = +yText[1];
+                var topOfBox = midLine + y.bandwidth() / 2 + margin.top + window.pageYOffset;
                 /*  determine absolute coordinates for left edge of SVG */
                 var matrix = this.getScreenCTM()
                     .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
@@ -124,7 +124,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     sumSpec = sumSpec + d.freqEnd - d.freqStart;
                 });
                 var availPercent = totSpec / availSpec;
-                
+
                 /* var circle = h.append("circle")
                           .attr("cx",  matrix.e )
                           .attr("cy", midLine )
@@ -135,10 +135,10 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     .style("opacity", .9);
                 countryBox.html(countryName + '</br>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available. <br><b>Band occupancy ' + p(availPercent) + '</b>')
                     .style("left", (window.pageXOffset + matrix.e) + "px")
-                    .style("top", topOfBox  + "px")
+                    .style("top", topOfBox + "px")
                     .style("height", y.bandwidth() + "px")
                     .style("width", width + "px");
-                    console.log("topOfBox: " + topOfBox);
+                console.log("topOfBox: " + topOfBox);
 
             })
             .on("mouseout", function() {
@@ -199,49 +199,66 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                 var infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
                     totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
                     sumSpec = sumSpec + d.freqEnd - d.freqStart;
-                    midRect = x(d.freqStart + (d.freqEnd - d.freqStart)/2);
+                    midRect = x(d.freqStart + (d.freqEnd - d.freqStart) / 2);
+                    h.append("rect")
+                        .style("stroke", "black")
+                        .style("stroke-width", "4")
+                        .style("fill", "none")
+                        .style("stroke-linecap", "round")
+                        .style("stroke-linejoin", "round")
+                        .attr("class", "infoLine")
+                        .attr("y", y(d.Country))
+                        .attr("x", x(d.freqStart))
+                        .attr("width", x(d.freqEnd) - x(d.freqStart))
+                        .attr("height", y.bandwidth());
                     h.append("line")
-                        .style("stroke", "red")
-                        .style("stroke-width", "5")
-                        .attr( "class", "infoLine") 
-                        .attr( "x1" , midRect)
-                        .attr( "y1" , y(d.Country) + y.bandwidth())
-                        .attr( "x2" , midRect)
-                        .attr( "y2" , y(d.Country) + y.bandwidth() + 13 );
+                        .style("stroke", "black")
+                        .style("stroke-width", "4")
+                        .style("stroke-linecap", "round")
+                        .style("stroke-linejoin", "round")
+                        .attr("class", "infoLine")
+                        .attr("x1", midRect)
+                        .attr("y1", y(d.Country) + y.bandwidth())
+                        .attr("x2", midRect)
+                        .attr("y2", y(d.Country) + y.bandwidth() + 10);
                     if (freqLeft > d.freqStart || freqLeft === 0) freqLeft = d.freqStart;
-                    if (freqRight < d.freqEnd)  freqRight = d.freqEnd;
+                    if (freqRight < d.freqEnd) freqRight = d.freqEnd;
                     // console.log("i:" + i + " d.freqStart: " + d.freqStart + " d.freqEnd: " + d.freqEnd);
                     // console.log("freqLeft: " + freqLeft + " freqRight: " + freqRight);
                 });
                 // console.debug(infoB);
-                infoB.classed("selected", true);
-                freqMid = f(freqLeft + (freqRight - freqLeft)/2);
+                // infoB.classed("selected", true);
+                freqMid = f(freqLeft + (freqRight - freqLeft) / 2);
                 // console.log("freqLeft: " + freqLeft +" freqRight: " + freqRight + " freqMid: " + freqMid);
 
-                freqLeft = freqLeft + (d.freqEnd - d.freqStart)/2;
-                freqRight = freqRight - (d.freqEnd - d.freqStart)/2;
+                freqLeft = freqLeft + (d.freqEnd - d.freqStart) / 2;
+                freqRight = freqRight - (d.freqEnd - d.freqStart) / 2;
                 h.append("line")
-                        .style("stroke", "red")
-                        .style("stroke-width", "5")
-                        .attr( "class", "infoLine") 
-                        .attr( "x1" , x(freqMid))
-                        .attr( "y1" , y(d.Country) + y.bandwidth() + 13)
-                        .attr( "x2" , x(freqMid))
-                        .attr( "y2" , y(d.Country) + y.bandwidth() + 20 );
+                    .style("stroke", "black")
+                    .style("stroke-width", "4")
+                    .style("stroke-linecap", "round")
+                    .style("stroke-linejoin", "round")
+                    .attr("class", "infoLine")
+                    .attr("x1", x(freqMid))
+                    .attr("y1", y(d.Country) + y.bandwidth() + 12)
+                    .attr("x2", x(freqMid))
+                    .attr("y2", y(d.Country) + y.bandwidth() + 19);
 
                 h.append("line")
-                        .style("stroke", "red")
-                        .style("stroke-width", "5")
-                        .attr( "class", "infoLine") 
-                        .attr( "x1" , x(freqLeft))
-                        .attr( "y1" , y(d.Country) + y.bandwidth() + 10)
-                        .attr( "x2" , x(freqRight))
-                        .attr( "y2" , y(d.Country) + y.bandwidth() + 10 );
+                    .style("stroke", "black")
+                    .style("stroke-width", "4")
+                    .style("stroke-linecap", "round")
+                    .style("stroke-linejoin", "round")
+                    .attr("class", "infoLine")
+                    .attr("x1", x(freqLeft))
+                    .attr("y1", y(d.Country) + y.bandwidth() + 10)
+                    .attr("x2", x(freqRight))
+                    .attr("y2", y(d.Country) + y.bandwidth() + 10);
 
                 infoBox.transition()
                     .duration(200)
                     .style("opacity", 1);
-                infoBox.html('<table class="table"><tr><td>Country</td><td>' + d.Country + '</td></tr><tr><td>Operator:</td><td>' + d.Operator + '</td></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></table>")
+                infoBox.html('<table class="table table-sm selected"><tbody><tr><td>Country</td><td>' + d.Country + '</td></tr><tr><td>Operator:</td><td>' + d.Operator + '</td></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
                     .style("left", x(freqMid) - margin.left + 21 + "px")
                     .style("top", y(d.Country) + y.bandwidth() + topOffset + margin.top + 25 + "px");
                 // console.log("d.Country: " + y(d.Country) + " y.bandwidth: " + y.bandwidth() + " topOffset: " + topOffset);
@@ -253,6 +270,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                 freqRight = 0;
                 freqRange = 0;
                 h.selectAll("line.infoLine").remove();
+                h.selectAll("rect.infoLine").remove();
                 h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
                     .classed("selected", false)
                 infoBox.transition()
