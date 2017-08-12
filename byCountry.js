@@ -26,13 +26,11 @@ displayAssignments(2100, 1920, 2170, 1980, 2110);
 /* Display 2600MHz assignments */
 displayAssignments(2600, 2500, 2690, 2570, 2620);
 
-function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd) {
+function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     // displayAssignments imports a csv file of spectrum assignments 
     // for a given frequency range and displays them as a chart
 
-    var specFile = freqRange + "MHz.csv",
-        specID = "#MHz" + freqRange;
-    /* console.log("file: " + specFile);    */
+    var specID = "#MHz" + band;
 
     var MHz = d3.select(specID),
         margin = { top: 60, right: 50, bottom: 30, left: 120 },
@@ -53,31 +51,36 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var guardBand = "";
-    if (freqRange === "2600") {
+    if (band == "2600") {
         guardBand = "TDD";
-    } else if (freqRange === "2100") {
+    } else if (band == "2100") {
         guardBand = "Something Else";
     } else {
         guardBand = "Guard Band";
     }
 
     /* Load data from 1800 MHz file */
-    d3.csv(specFile, function(d) {
+    d3.csv("freqAssignments.csv", function(d) {
         d.freqStart = +d.freqStart;
         d.freqEnd = +d.freqEnd;
         return d;
     }, function(error, data) {
         if (error) throw error;
 
+        /* filter data to relevant selected frequency */
+        data = data.filter(function(d) { return d.Band == band });
+
         /* Sort data by Country */
         data = data.sort(function(a, b) {
             return d3.ascending(a.Country, b.Country);
         });
 
-        //        x.domain([d3.min(data, function(d) { return d.freqStart; }), d3.max(data, function(d) { return d.freqEnd; })]);
-        x.domain([d3.min(data, function(d) { return d.freqStart; }), d3.max(data, function(d) { return d.freqEnd; })]);
-        y.domain(data.map(function(d) { return d.Country; }));
-
+/*
+var buckets = [...new Set(data.map(d => d.Country))];
+console.log(buckets);
+*/
+        x.domain([bandStart-1,bandEnd]);
+        y.domain(data.map(function(d) { return d.Country;} ));
 
         /* Set lower X-axis and legend */
         h.append("g")
@@ -97,7 +100,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
             .classed("FreqLegend", true)
             .attr("x", 20)
             .attr("y", -30)
-            .text(freqRange + " MHz Band");
+            .text(band+ " MHz Band");
 
         /* Set Y-axis in 1800*/
         h.append("g")
@@ -106,8 +109,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
             .selectAll(".tick text")
             .classed("countryStyle", true)
             .call(wrap, margin.left);
-
-
 
         /*  Build mouseover infobox for each country in y axis legend in 1800 */
         h.selectAll(".axis--y .tick text")
@@ -130,7 +131,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     .style("opacity", .9);
                 var yText = getTranslation(d3.select(this.parentNode).attr("transform"));
                 var iso = "za";
-                countryBox.append(getFlag(iso));
                 countryBox.html(countryName + '</br>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available. <br><b>Band occupancy ' + p(availPercent) + '</b>')
                     .style("left", (window.pageXOffset + matrix.e) + "px")
                     .style("top", (yText[1] - y.bandwidth() / 2 - window.pageYOffset) + "px")
@@ -146,7 +146,8 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
         /* Add rectangles for guards bands */
         h.selectAll("guard")
             .data(data)
-            .enter().append("g")
+            .enter()
+            .append("g")
             .attr("class", "guardbands")
             .append("rect")
             .attr("class", "guardband")
@@ -168,7 +169,8 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
         /* Iterate through data file */
         h.selectAll(".bar")
             .data(data)
-            .enter().append("g")
+            .enter()
+            .append("g")
             .attr("class", "bars")
             .append("rect")
             .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
@@ -180,7 +182,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
 
         /* Add operator label to each spectrum assignment */
         var bars = MHz.selectAll(".bars");
-
         bars.append("text")
             .attr("class", "label")
             .attr('transform', 'rotate(-90)')
@@ -191,7 +192,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
 
         /* MHz ToolTip for each operator spectrum assignment */
         bars.on("mouseover", function(d) {
-                /* calculate total spectrum assigned */
+                /* ca`lculate total spectrum assigned */
                 var infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
                     totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
                     sumSpec = sumSpec + d.freqEnd - d.freqStart;
@@ -253,8 +254,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     .attr("x2", x(freqMid))
                     .attr("y2", y(d.Country) + y.bandwidth() + 19);
                 /* add horizontal line connecting vert lines under blocks */
-
-
                 infoBox.transition()
                     .duration(200)
                     .style("opacity", 1);
@@ -268,7 +267,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                 sumSpec = 0;
                 freqLeft = 0;
                 freqRight = 0;
-                freqRange = 0;
                 h.selectAll("line.infoLine").remove();
                 h.selectAll("rect.infoLine").remove();
                 h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
@@ -279,18 +277,6 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
             });
     });
 }
-
-function getFlag(iso) {
-
-    flagFile = iso + ".svg"
-    console.log("flagFile: " + flagFile);
-    var flags = d3.xml(flagFile).mimeType("image/svg+xml").get(function(error, flag) {
-        if (error) throw error;
-        document.body.appendChild(flag.documentElement);
-    });
-    console.debug(flags);
-}
-
 
 
 function getTranslation(transform) {
