@@ -14,6 +14,9 @@ var totSpec = "";
 var sumSpec = 0;
 var topOffset = d3.select(".tab-content").node().getBoundingClientRect()["top"];
 
+
+
+
 /* Display 900MHz assignments */
 displayAssignments(900, 880, 960, 915, 925);
 /* Display 1800MHz assignments */
@@ -105,6 +108,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
             .call(wrap, margin.left);
 
 
+
         /*  Build mouseover infobox for each country in y axis legend in 1800 */
         h.selectAll(".axis--y .tick text")
             .on("mouseover", function() {
@@ -125,13 +129,13 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                     .duration(200)
                     .style("opacity", .9);
                 var yText = getTranslation(d3.select(this.parentNode).attr("transform"));
+                var iso = "za";
+                countryBox.append(getFlag(iso));
                 countryBox.html(countryName + '</br>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available. <br><b>Band occupancy ' + p(availPercent) + '</b>')
                     .style("left", (window.pageXOffset + matrix.e) + "px")
-                    .style("top", (yText[1] - y.bandwidth()/2 - window.pageYOffset) + "px")
+                    .style("top", (yText[1] - y.bandwidth() / 2 - window.pageYOffset) + "px")
                     .style("height", y.bandwidth() + "px")
                     .style("width", width + "px");
-                console.log("yText[1]: "  + yText[1] + " halfBand: " + halfBand + " margin.top: " + margin.top + " window.pageYOffset: " + window.pageYOffset );
-
             })
             .on("mouseout", function() {
                 countryBox.transition()
@@ -204,7 +208,7 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
                         .attr("x", x(d.freqStart))
                         .attr("width", x(d.freqEnd) - x(d.freqStart))
                         .attr("height", y.bandwidth());
-                    /* add short vertical lines under each block */    
+                    /* add short vertical lines under each block */
                     h.append("line")
                         .style("stroke", "black")
                         .style("stroke-width", "4")
@@ -276,24 +280,36 @@ function displayAssignments(freqRange, bandStart, bandEnd, guardStart, guardEnd)
     });
 }
 
+function getFlag(iso) {
 
-        function getTranslation(transform) {
-            /* Create a dummy g for calculation purposes only. This will never
-               be appended to the DOM and will be discarded once this function 
-               returns.  */
-            var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    flagFile = iso + ".svg"
+    console.log("flagFile: " + flagFile);
+    var flags = d3.xml(flagFile).mimeType("image/svg+xml").get(function(error, flag) {
+        if (error) throw error;
+        document.body.appendChild(flag.documentElement);
+    });
+    console.debug(flags);
+}
 
-            /* Set the transform attribute to the provided string value. */
-            g.setAttributeNS(null, "transform", transform);
 
-            /* consolidate the SVGTransformList containing all transformations
-               to a single SVGTransform of type SVG_TRANSFORM_MATRIX and get
-               its SVGMatrix.  */
-            var matrix = g.transform.baseVal.consolidate().matrix;
 
-            /* As per definition values e and f are the ones for the translation. */
-            return [matrix.e, matrix.f];
-        }
+function getTranslation(transform) {
+    /* Create a dummy g for calculation purposes only. This will never
+       be appended to the DOM and will be discarded once this function 
+       returns.  */
+    var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+    /* Set the transform attribute to the provided string value. */
+    g.setAttributeNS(null, "transform", transform);
+
+    /* consolidate the SVGTransformList containing all transformations
+       to a single SVGTransform of type SVG_TRANSFORM_MATRIX and get
+       its SVGMatrix.  */
+    var matrix = g.transform.baseVal.consolidate().matrix;
+
+    /* As per definition values e and f are the ones for the translation. */
+    return [matrix.e, matrix.f];
+}
 
 function wrap(text, width) {
     /* wrap text function, taken from

@@ -212,26 +212,26 @@ div.operatorTip:hover:before {
 
 /*  Country ToolTip  */
 
-div.countryTip {
-    position: fixed;
-    z-index: 99;
-    text-align: left;
-    font-family: arial;
-    font-size: 1em;
-    line-height: 1.5;
-    padding: 1.5em;
-    background: #144667;
-    border: 0px;
-    color: white;
-    border-radius: 3px;
-    pointer-events: none;
-    -webkit-transform: translate3d(0, -0.5em, 0);
-    -moz-transform: translate3d(0, -0.5em, 0);
-    transform: translate3d(0, -0.5em, 0);
-    -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
-    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
-    transition: opacity 0.1s, transform 0.1s;
-}
+    div.countryTip {
+        position: fixed;
+        z-index: 99;
+        text-align: left;
+        font-family: arial;
+        font-size: 1em;
+        line-height: 1.5;
+        padding: 1.5em;
+        background: #144667;
+        border: 0px;
+        color: white;
+        border-radius: 3px;
+        pointer-events: none;
+        -webkit-transform: translate3d(0, -0.5em, 0);
+        -moz-transform: translate3d(0, -0.5em, 0);
+        transform: translate3d(0, -0.5em, 0);
+        -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+        -moz-transition: opacity 0.1s, -moz-transform 0.1s;
+        transition: opacity 0.1s, transform 0.1s;
+    }
 
 div.countryTip:hover:before {
     border: solid;
