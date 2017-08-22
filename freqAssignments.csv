@@ -81,10 +81,10 @@ Ghana,gh,Vodafone,2100,FDD,1920,1935
 Ghana,gh,Vodafone,2100,FDD,2110,2125
 Kenya,ke,Airtel,900,FDD,905,915
 Kenya,ke,Airtel,900,FDD,950,960
-Kenya,ke,Orange,900,FDD,880,882.5
-Kenya,ke,Orange,900,FDD,900,905
-Kenya,ke,Orange,900,FDD,925,927.5
-Kenya,ke,Orange,900,FDD,945,950
+Kenya,ke,Telkom Kenya,900,FDD,880,882.5
+Kenya,ke,Telkom Kenya,900,FDD,900,905
+Kenya,ke,Telkom Kenya,900,FDD,925,927.5
+Kenya,ke,Telkom Kenya,900,FDD,945,950
 Kenya,ke,Safaricom,900,FDD,890,900
 Kenya,ke,Safaricom,900,FDD,935,945
 Kenya,ke,Yu,900,FDD,882.5,890
@@ -141,24 +141,24 @@ Namibia,na,Paratus,2600,FDD,2505,2525
 Namibia,na,Paratus,2600,FDD,2625,2645
 Namibia,na,Telecom Namibia,2600,FDD,2540,2570
 Namibia,na,Telecom Namibia,2600,FDD,2660,2690
-Nigeria,na,Airtel,1800,FDD,1850,1865
-Nigeria,na,Airtel,1800,FDD,1755,1770
-Nigeria,na,Etisalat,1800,FDD,1865,1880
-Nigeria,na,Etisalat,1800,FDD,1770,1785
-Nigeria,na,Glo,1800,FDD,1820,1835
-Nigeria,na,Glo,1800,FDD,1725,1740
-Nigeria,na,MTN,1800,FDD,1835,1850
-Nigeria,na,MTN,1800,FDD,1740,1755
-Nigeria,na,ntel,1800,FDD,1805,1820
-Nigeria,na,ntel,1800,FDD,1710,1725
-Nigeria,na,Airtel,2100,FDD,1950,1960
-Nigeria,na,Airtel,2100,FDD,2140,2150
-Nigeria,na,Etisalat,2100,FDD,1940,1950
-Nigeria,na,Etisalat,2100,FDD,2130,2140
-Nigeria,na,Glo,2100,FDD,1930,1940
-Nigeria,na,Glo,2100,FDD,2120,2130
-Nigeria,na,MTN,2100,FDD,1920,1930
-Nigeria,na,MTN,2100,FDD,2110,2120
+Nigeria,ng,Airtel,1800,FDD,1850,1865
+Nigeria,ng,Airtel,1800,FDD,1755,1770
+Nigeria,ng,Etisalat,1800,FDD,1865,1880
+Nigeria,ng,Etisalat,1800,FDD,1770,1785
+Nigeria,ng,Glo,1800,FDD,1820,1835
+Nigeria,ng,Glo,1800,FDD,1725,1740
+Nigeria,ng,MTN,1800,FDD,1835,1850
+Nigeria,ng,MTN,1800,FDD,1740,1755
+Nigeria,ng,ntel,1800,FDD,1805,1820
+Nigeria,ng,ntel,1800,FDD,1710,1725
+Nigeria,ng,Airtel,2100,FDD,1950,1960
+Nigeria,ng,Airtel,2100,FDD,2140,2150
+Nigeria,ng,Etisalat,2100,FDD,1940,1950
+Nigeria,ng,Etisalat,2100,FDD,2130,2140
+Nigeria,ng,Glo,2100,FDD,1930,1940
+Nigeria,ng,Glo,2100,FDD,2120,2130
+Nigeria,ng,MTN,2100,FDD,1920,1930
+Nigeria,ng,MTN,2100,FDD,2110,2120
 South Africa,za,CellC,900,FDD,880.1,889.9
 South Africa,za,CellC,900,FDD,903.7,905.9
 South Africa,za,CellC,900,FDD,925.1,934.9

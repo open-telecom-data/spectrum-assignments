@@ -6,21 +6,21 @@ var countryBox = d3.select("body").append("div")
     .attr("class", "countryTip")
     .style("opacity", 0);
 
+var infoBox2 = d3.select('.operatorTip').node();
+var infoBoxWidth =infoBox2.getBoundingClientRect().width;
+
 var r = d3.format(".0f");
 var f = d3.format(".1f");
 var p = d3.format('.0%');
 
 var totSpec = "";
 var sumSpec = 0;
-var topOffset = d3.select(".tab-content").node().getBoundingClientRect()["top"];
-
-
-
 
 /* Display 900MHz assignments */
+/*      band, bandStart, bandEnd, guardStart, guardEnd  */
 displayAssignments(900, 880, 960, 915, 925);
 /* Display 1800MHz assignments */
-displayAssignments(1800, 1710.2, 1879.8, 1784.8, 1805.2);
+displayAssignments(1800, 1710, 1880, 1784.8, 1805.2);
 /* Display 2100MHz assignments */
 displayAssignments(2100, 1920, 2170, 1980, 2110);
 /* Display 2600MHz assignments */
@@ -30,7 +30,9 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     // displayAssignments imports a csv file of spectrum assignments 
     // for a given frequency range and displays them as a chart
 
-    var specID = "#MHz" + band;
+    var specID = "#MHz" + band,
+        divID = "M" + band;
+    var svgContainerDiv = document.getElementById(divID);
 
     var MHz = d3.select(specID),
         margin = { top: 60, right: 50, bottom: 30, left: 120 },
@@ -42,10 +44,11 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
         midRect = 0,
         freqLeft = 0,
         freqRight = 0,
-        freqMid = 0;
+        freqMid = 0,
+        opLogo = "";
 
     var x = d3.scaleLinear().rangeRound([0, width]),
-        y = d3.scaleBand().rangeRound([0, height]).padding(0.1);
+        y = d3.scaleBand().rangeRound([0, height]).padding(0.2);
 
     var h = MHz.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -54,7 +57,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     if (band == "2600") {
         guardBand = "TDD";
     } else if (band == "2100") {
-        guardBand = "Something Else";
+        guardBand = "Guard Band?";
     } else {
         guardBand = "Guard Band";
     }
@@ -79,7 +82,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 var buckets = [...new Set(data.map(d => d.Country))];
 console.log(buckets);
 */
-        x.domain([bandStart-1,bandEnd]);
+        x.domain([bandStart,bandEnd]);
         y.domain(data.map(function(d) { return d.Country;} ));
 
         /* Set lower X-axis and legend */
@@ -105,12 +108,11 @@ console.log(buckets);
         /* Set Y-axis in 1800*/
         h.append("g")
             .attr("class", "axis axis--y")
-            .call(d3.axisLeft(y).tickSize(5))
+            .call(d3.axisLeft(y))
             .selectAll(".tick text")
             .classed("countryStyle", true)
-            .call(wrap, margin.left);
 
-        /*  Build mouseover infobox for each country in y axis legend in 1800 */
+        /*  Build mouseover infobox for each country in y axis legend */
         h.selectAll(".axis--y .tick text")
             .on("mouseover", function() {
                 totSpec = 0;
@@ -129,11 +131,16 @@ console.log(buckets);
                 countryBox.transition()
                     .duration(200)
                     .style("opacity", .9);
+                var pnode = d3.select(this.parentNode).attr("transform");
+                /* console.debug(pnode);
+                console.log("y.bandwidth(): " + y.bandwidth()/2);
+                console.log("svgContainerDiv: " + svgContainerDiv.offsetTop);
+                console.log("window.pageXOffset: " + window.pageXOffset); */
                 var yText = getTranslation(d3.select(this.parentNode).attr("transform"));
                 var iso = "za";
                 countryBox.html(countryName + '</br>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available. <br><b>Band occupancy ' + p(availPercent) + '</b>')
                     .style("left", (window.pageXOffset + matrix.e) + "px")
-                    .style("top", (yText[1] - y.bandwidth() / 2 - window.pageYOffset) + "px")
+                    .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
                     .style("height", y.bandwidth() + "px")
                     .style("width", width + "px");
             })
@@ -257,10 +264,11 @@ console.log(buckets);
                 infoBox.transition()
                     .duration(200)
                     .style("opacity", 1);
-                infoBox.html('<table class="table table-sm selected"><tbody><tr><td>Country</td><td>' + d.Country + '</td></tr><tr><td>Operator:</td><td>' + d.Operator + '</td></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
-                    .style("left", x(freqMid) - margin.left + 21 + "px")
-                    .style("top", y(d.Country) + y.bandwidth() + topOffset + margin.top + 25 + "px");
-                // console.log("d.Country: " + y(d.Country) + " y.bandwidth: " + y.bandwidth() + " topOffset: " + topOffset);
+                opLogo = '<img src="operator-logo/' + d.ISO + '-' + d.Operator.replace(/\s+/g, '_').toLowerCase() + '.png">';    
+                infoBox.html('<table class="operatorTip selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
+                    .style("left", x(freqMid)  + "px")
+                    .style("top", y(d.Country) + y.bandwidth() + margin.top + svgContainerDiv.offsetTop + 25 + "px");
+                 /* console.log("x(freqMid): " + x(freqMid) +  " infoBoxWidth: " + infoBoxWidth); */
             })
             .on("mouseout", function(d) {
                 totSpec = "";

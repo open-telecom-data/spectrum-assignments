@@ -20,24 +20,24 @@
     display: none;
 }
 
-.axis--y {
-    font-size: 14px;
-    border: 10px;
-}
-
 .axis--y path {
     display: none;
+}
+
+.axis--x .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+.axis--y .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.5);
 }
 
 .countryStyle {
     fill: #144667;
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 14px;
-}
-
-.axis--x .tick line {
-    stroke-width: 1;
-    stroke: rgba(0, 0, 0, 0.5);
 }
 
 
@@ -155,6 +155,10 @@
   fill: #E0001D;
 }
 
+.Telkom_Kenya {
+    fill: #00AAC6;
+}
+
 .Camtel {
   fill: #00AEEF;
 }
@@ -180,14 +184,18 @@
 div.operatorTip {
     position: absolute;
     text-align: left;
-    width: 500px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     font-family: arial;
     font-size: 1em;
     line-height: 1.5;
     background: #144667;
+    padding: 5px;
     border: 2px;
     color: white;
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
     border-radius: 3px;
     pointer-events: none;
     -webkit-transform: translate3d(0, -0.5em, 0);
@@ -212,26 +220,25 @@ div.operatorTip:hover:before {
 
 /*  Country ToolTip  */
 
-    div.countryTip {
-        position: fixed;
-        z-index: 99;
-        text-align: left;
-        font-family: arial;
-        font-size: 1em;
-        line-height: 1.5;
-        padding: 1.5em;
-        background: #144667;
-        border: 0px;
-        color: white;
-        border-radius: 3px;
-        pointer-events: none;
-        -webkit-transform: translate3d(0, -0.5em, 0);
-        -moz-transform: translate3d(0, -0.5em, 0);
-        transform: translate3d(0, -0.5em, 0);
-        -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
-        -moz-transition: opacity 0.1s, -moz-transform 0.1s;
-        transition: opacity 0.1s, transform 0.1s;
-    }
+div.countryTip {
+    position: fixed;
+    z-index: 99;
+    text-align: left;
+    font-family: arial;
+    font-size: 1em;
+    line-height: 1.5;
+    padding: 1.5em;
+    background: #144667;
+    color: white;
+    border-radius: 3px;
+    pointer-events: none;
+    -webkit-transform: translate3d(0, -0.5em, 0);
+    -moz-transform: translate3d(0, -0.5em, 0);
+    transform: translate3d(0, -0.5em, 0);
+    -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
+    transition: opacity 0.1s, transform 0.1s;
+}
 
 div.countryTip:hover:before {
     border: solid;
@@ -258,5 +265,20 @@ h1+p {
 
 h4 {
   text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+    margin: auto;
+}
+th {
+    border-top: 0;
+    padding: 4px 8px;
+}
+td {
+    border-bottom: 1px solid #ddd;
+    padding: 4px 8px;
 }
 
