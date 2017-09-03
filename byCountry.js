@@ -179,6 +179,8 @@ console.log(buckets);
             .enter()
             .append("g")
             .attr("class", "bars")
+            .attr("data-toggle","modal")
+            .attr("data-target", "#myModal")
             .append("rect")
             .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
             .classed("bar", true)
