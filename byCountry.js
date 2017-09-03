@@ -1,10 +1,6 @@
-var infoBox = d3.select("body").append("div")
-    .attr("class", "operatorTip")
-    .style("opacity", 0);
+var infoBox = d3.select('.operatorTip');
 
-var countryBox = d3.select("body").append("div")
-    .attr("class", "countryTip")
-    .style("opacity", 0);
+var countryBox = d3.select('.countryTip');
 
 var infoBox2 = d3.select('.operatorTip').node();
 var infoBoxWidth =infoBox2.getBoundingClientRect().width;
