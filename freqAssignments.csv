@@ -49,6 +49,20 @@ Egypt,eg,Orange,900,FDD,890,902.5
 Egypt,eg,Orange,900,FDD,935,947.5
 Egypt,eg,Vodafone,900,FDD,880,890
 Egypt,eg,Vodafone,900,FDD,925,935
+Egypt,eg,Etisalat,1800,FDD,1710,1730
+Egypt,eg,Etisalat,1800,FDD,1805,1825
+Egypt,eg,Telecom Egypt,1800,FDD,1741,1746
+Egypt,eg,Telecom Egypt,1800,FDD,1836,1841
+Egypt,eg,Orange,1800,FDD,1746,1761
+Egypt,eg,Orange,1800,FDD,1841,1856
+Egypt,eg,Vodafone,1800,FDD,1761,1771
+Egypt,eg,Vodafone,1800,FDD,1856,1866
+Egypt,eg,Etisalat,2100,FDD,1945,1955
+Egypt,eg,Etisalat,2100,FDD,2135,2145
+Egypt,eg,Orange,2100,FDD,1930,1945
+Egypt,eg,Orange,2100,FDD,2120,2135
+Egypt,eg,Vodafone,2100,FDD,1960,1980
+Egypt,eg,Vodafone,2100,FDD,2150,2170
 Ghana,gh,Airtel,900,FDD,885,890
 Ghana,gh,Airtel,900,FDD,930,935
 Ghana,gh,Glo,900,FDD,880,885
