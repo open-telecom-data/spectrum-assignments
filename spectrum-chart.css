@@ -200,9 +200,11 @@ div.operatorTip {
     pointer-events: none;
     -webkit-transform: translate3d(0, -0.5em, 0);
     -moz-transform: translate3d(0, -0.5em, 0);
+    -o-transform: translate3d(0, -0.5em, 0);
     transform: translate3d(0, -0.5em, 0);
     -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
     -moz-transition: opacity 0.1s, -moz-transform 0.1s;
+    -o-transition: opacity 0.1s, -o-transform 0.1s;
     transition: opacity 0.1s, transform 0.1s;
 }
 
@@ -234,8 +236,11 @@ div.countryTip {
     pointer-events: none;
     -webkit-transform: translate3d(0, -0.5em, 0);
     -moz-transform: translate3d(0, -0.5em, 0);
+    -o-transform: translate3d(0, -0.5em, 0);
     transform: translate3d(0, -0.5em, 0);
     -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
+    -o-transition: opacity 0.1s, -o-transform 0.1s;
     -moz-transition: opacity 0.1s, -moz-transform 0.1s;
     transition: opacity 0.1s, transform 0.1s;
 }
@@ -244,7 +249,7 @@ div.countryTip:hover:before {
     border: solid;
     border-color: #333 transparent;
     border-width: 6px 6px 0 6px;
-    bottom: 0px;
+    bottom: 0;
     content: "";
     position: fixed;
     z-index: 99;
@@ -267,17 +272,32 @@ h4 {
   text-align: center;
 }
 
-table {
+.countryTip table {
     border-collapse: collapse;
     border-spacing: 0;
     border: 0;
     margin: auto;
 }
-th {
+.countryTip th {
     border-top: 0;
     padding: 4px 8px;
 }
-td {
+.countryTip td {
+    border-bottom: 0;
+    padding: 4px 8px;
+}
+
+.operatorTip table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+    margin: auto;
+}
+.operatorTip th {
+    border-top: 0;
+    padding: 4px 8px;
+}
+.operatorTip td {
     border-bottom: 1px solid #ddd;
     padding: 4px 8px;
 }
