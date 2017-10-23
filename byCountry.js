@@ -61,7 +61,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
     /* Load data from freqAssignments.csv file */
     d3.csv('freqAssignments.csv', function(error, freqData) {
-    	/* Load data from operators.csv file */
+        /* Load data from operators.csv file */
         d3.csv('operators.csv', function(error, opData) {
 
             freqData.forEach(function(d) {
@@ -72,24 +72,27 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
             opData.forEach(function(d) {
                 d.Operator_ID = +d.Operator_ID;
-            });            
+            });
 
             /* perform outside join of freqData and opData */
-        	freqData.forEach(function(freq) {
-   				var result = opData.filter(function(d) {
-        			return d.Operator_ID == freq.OP_ID;
-    			});
-    			// console.log(result);
-    			delete freq.OP_ID;
-    			freq.URL = (result[0] !== undefined) ? result[0].URL : null;
-    			console.log(freq.URL);
-			});
+            var freqDataJoin = join(opData, freqData, "OP_ID", "Operator_ID", function(freq, op) {
+                return {
+                    Country: freq.Country,
+                    Operator: freq.Operator,
+                    ISO: freq.ISO,
+                    Band: freq.Band,
+                    Type: freq.Type,
+                    freqStart: freq.freqStart,
+                    freqEnd:  freq.freqEnd,
+                    URL: (op !== undefined) ? op.URL : null
+                };
+            });
 
             /* filter data to relevant selected frequency */
-            freqData = freqData.filter(function(d) { return d.Band == band });
+            freqDataBand = freqDataJoin.filter(function(d) { return d.Band == band });
 
             /* Sort data by Country */
-            freqData = freqData.sort(function(a, b) {
+            freqDataBand = freqDataBand.sort(function(a, b) {
                 return d3.ascending(a.Country, b.Country);
             });
 
@@ -98,7 +101,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
             console.log(buckets);
             */
             x.domain([bandStart, bandEnd]);
-            y.domain(freqData.map(function(d) { return d.Country; }));
+            y.domain(freqDataBand.map(function(d) { return d.Country; }));
 
             /* Set lower X-axis and legend */
             h.append("g")
@@ -169,7 +172,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
             /* Add rectangles for guard bands */
             h.selectAll("guard")
-                .data(freqData)
+                .data(freqDataBand)
                 .enter()
                 .append("g")
                 .attr("class", "guardbands")
@@ -192,7 +195,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
             /* Iterate through csv file */
             h.selectAll(".bar")
-                .data(freqData)
+                .data(freqDataBand)
                 .enter()
                 .append("g")
                 .attr("class", "bars")
@@ -306,8 +309,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                     d.freqStart = +d.freqStart;
                     d.freqEnd = +d.freqEnd;
                     return d;
-                }, function(error, freqData) {
-                    freqData = freqData.filter(function(d) { return d.ISO == e.ISO });
+                }, function(error, freqDataBand) {
+                    freqDataBand = freqDataBand.filter(function(d) { return d.ISO == e.ISO });
                     d3.selectAll('.opLogo').html('<img src="operator-logo/' + e.ISO + '-' + e.Operator.replace(/\s+/g, '_').toLowerCase() + '.png"> ');
                     let modalTitle = d3.selectAll("h2.modal-title");
                     modalTitle.html(e.Operator + '<br\>' + e.Country);
@@ -319,6 +322,23 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
     });
 }
+
+function join(lookupTable, mainTable, lookupKey, mainKey, select) {
+    var l = lookupTable.length,
+        m = mainTable.length,
+        lookupIndex = [],
+        output = [];
+    for (var i = 0; i < l; i++) { // loop through l items
+        var row = lookupTable[i];
+        lookupIndex[row[lookupKey]] = row; // create an index for lookup table
+    }
+    for (var j = 0; j < m; j++) { // loop through m items
+        var y = mainTable[j];
+        var x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
+        output.push(select(y, x)); // select only the columns you need
+    }
+    return output;
+};
 
 
 function getTranslation(transform) {
