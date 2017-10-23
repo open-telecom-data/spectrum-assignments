@@ -59,19 +59,19 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
         guardBand = "Guard Band";
     }
 
-    /* Load data from 1800 MHz file */
-    d3.csv("freqAssignments.csv", function(d) {
-        d.freqStart = +d.freqStart;
-        d.freqEnd = +d.freqEnd;
-        return d;
-    }, function(error, data) {
-        if (error) throw error;
+    /* Load data from freqAssignments.csv file */
+    d3.csv('freqAssignments.csv', function(error, freqData) {  
+  		
+  		freqData.forEach(function(d) {   
+    		d.freqStart = +d.freqStart;
+        	d.freqEnd = +d.freqEnd;           
+  		});    
 
         /* filter data to relevant selected frequency */
-        data = data.filter(function(d) { return d.Band == band });
+        freqData = freqData.filter(function(d) { return d.Band == band });
 
         /* Sort data by Country */
-        data = data.sort(function(a, b) {
+        freqData = freqData.sort(function(a, b) {
             return d3.ascending(a.Country, b.Country);
         });
 
@@ -80,7 +80,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
         console.log(buckets);
         */
         x.domain([bandStart, bandEnd]);
-        y.domain(data.map(function(d) { return d.Country; }));
+        y.domain(freqData.map(function(d) { return d.Country; }));
 
         /* Set lower X-axis and legend */
         h.append("g")
@@ -102,7 +102,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
             .attr("y", -30)
             .text(band + " MHz Band");
 
-        /* Set Y-axis in 1800*/
+        /* Set Y-axis */
         h.append("g")
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(y))
@@ -151,7 +151,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
         /* Add rectangles for guard bands */
         h.selectAll("guard")
-            .data(data)
+            .data(freqData)
             .enter()
             .append("g")
             .attr("class", "guardbands")
@@ -174,7 +174,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
         /* Iterate through csv file */
         h.selectAll(".bar")
-            .data(data)
+            .data(freqData)
             .enter()
             .append("g")
             .attr("class", "bars")
@@ -200,98 +200,102 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
         /* MHz ToolTip for each operator spectrum assignment */
         bars.on("mouseover", function(d) {
-            /* calculate total spectrum assigned */
-            let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
-                totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
-                sumSpec = sumSpec + d.freqEnd - d.freqStart;
-                midRect = x(d.freqStart + (d.freqEnd - d.freqStart) / 2);
-                /*  outline spectrum blocks  */
-	            h.append("rect")
-	                .style("stroke", "black")
-	                .style("stroke-width", "4")
-	                .style("fill", "none")
-	                .style("stroke-linecap", "round")
-	                .style("stroke-linejoin", "round")
-	                .attr("class", "infoLine opData")
-	                .datum(d)
-	                .attr("y", y(d.Country))
-	                .attr("x", x(d.freqStart))
-	                .attr("width", x(d.freqEnd) - x(d.freqStart))
-	                .attr("height", y.bandwidth());
-	            /* add short vertical lines under each block */
-	            h.append("line")
-	                .style("stroke", "black")
-	                .style("stroke-width", "4")
-	                .style("stroke-linecap", "round")
-	                .style("stroke-linejoin", "round")
-	                .attr("class", "infoLine")
-	                .attr("x1", midRect)
-	                .attr("y1", y(d.Country) + y.bandwidth())
-	                .attr("x2", midRect)
-	                .attr("y2", y(d.Country) + y.bandwidth() + 10);
-	            if (freqLeftMid > midRect || freqLeftMid === 0) freqLeftMid = midRect;
-	            if (freqRightMid < midRect || freqRightMid === 0) freqRightMid = midRect;
-	            freqMid = freqLeftMid + (freqRightMid - freqLeftMid) / 2;
-	            // console.log("freqLeftMid: " + freqLeftMid + " freqRightMid: " + freqRightMid);
-	        });
+                /* calculate total spectrum assigned */
+                let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
+                    totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
+                    sumSpec = sumSpec + d.freqEnd - d.freqStart;
+                    midRect = x(d.freqStart + (d.freqEnd - d.freqStart) / 2);
+                    /*  outline spectrum blocks  */
+                    h.append("rect")
+                        .style("stroke", "black")
+                        .style("stroke-width", "4")
+                        .style("fill", "none")
+                        .style("stroke-linecap", "round")
+                        .style("stroke-linejoin", "round")
+                        .attr("class", "infoLine opData")
+                        .datum(d)
+                        .attr("y", y(d.Country))
+                        .attr("x", x(d.freqStart))
+                        .attr("width", x(d.freqEnd) - x(d.freqStart))
+                        .attr("height", y.bandwidth());
+                    /* add short vertical lines under each block */
+                    h.append("line")
+                        .style("stroke", "black")
+                        .style("stroke-width", "4")
+                        .style("stroke-linecap", "round")
+                        .style("stroke-linejoin", "round")
+                        .attr("class", "infoLine")
+                        .attr("x1", midRect)
+                        .attr("y1", y(d.Country) + y.bandwidth())
+                        .attr("x2", midRect)
+                        .attr("y2", y(d.Country) + y.bandwidth() + 10);
+                    if (freqLeftMid > midRect || freqLeftMid === 0) freqLeftMid = midRect;
+                    if (freqRightMid < midRect || freqRightMid === 0) freqRightMid = midRect;
+                    freqMid = freqLeftMid + (freqRightMid - freqLeftMid) / 2;
+                    // console.log("freqLeftMid: " + freqLeftMid + " freqRightMid: " + freqRightMid);
+                });
 
-	        // draw a horizontal line connecting the two spectrum blocks
-	        h.append("line")
-	            .style("stroke", "black")
-	            .style("stroke-width", "4")
-	            .style("stroke-linecap", "round")
-	            .style("stroke-linejoin", "round")
-	            .attr("class", "infoLine")
-	            .attr("x1", freqLeftMid)
-	            .attr("y1", y(d.Country) + y.bandwidth() + 10)
-	            .attr("x2", freqRightMid)
-	            .attr("y2", y(d.Country) + y.bandwidth() + 10);
-	        /* add short vert line to connect to infoBox */
-	        h.append("line")
-	            .style("stroke", "black")
-	            .style("stroke-width", "4")
-	            .style("stroke-linecap", "round")
-	            .style("stroke-linejoin", "round")
-	            .attr("class", "infoLine")
-	            .attr("x1", freqMid)
-	            .attr("y1", y(d.Country) + y.bandwidth() + 12)
-	            .attr("x2", freqMid)
-	            .attr("y2", y(d.Country) + y.bandwidth() + 19);
-	        /* add horizontal line connecting vert lines under blocks */
-	        infoBox.transition()
-	            .duration(200)
-	            .style("opacity", 1);
-	        opLogo = '<img src="operator-logo/' + d.ISO + '-' + d.Operator.replace(/\s+/g, '_').toLowerCase() + '.png">';
-    	    infoBox.html('<table class="operatorTip selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
-            .style("left", freqMid + "px")
-            .style("top", y(d.Country) + y.bandwidth() + margin.top + svgContainerDiv.offsetTop + 25 + "px");
-        })
-        .on("mouseout", function(d) {
-            totSpec = "";
-            sumSpec = 0;
-            freqLeftMid = 0;
-            freqRightMid = 0;
-            freqMid = 0;
-            h.selectAll("line.infoLine").remove();
-            h.selectAll("rect.infoLine").remove();
-            h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
-                .classed("selected", false)
-            infoBox.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+                // draw a horizontal line connecting the two spectrum blocks
+                h.append("line")
+                    .style("stroke", "black")
+                    .style("stroke-width", "4")
+                    .style("stroke-linecap", "round")
+                    .style("stroke-linejoin", "round")
+                    .attr("class", "infoLine")
+                    .attr("x1", freqLeftMid)
+                    .attr("y1", y(d.Country) + y.bandwidth() + 10)
+                    .attr("x2", freqRightMid)
+                    .attr("y2", y(d.Country) + y.bandwidth() + 10);
+                /* add short vert line to connect to infoBox */
+                h.append("line")
+                    .style("stroke", "black")
+                    .style("stroke-width", "4")
+                    .style("stroke-linecap", "round")
+                    .style("stroke-linejoin", "round")
+                    .attr("class", "infoLine")
+                    .attr("x1", freqMid)
+                    .attr("y1", y(d.Country) + y.bandwidth() + 12)
+                    .attr("x2", freqMid)
+                    .attr("y2", y(d.Country) + y.bandwidth() + 19);
+                /* add horizontal line connecting vert lines under blocks */
+                infoBox.transition()
+                    .duration(200)
+                    .style("opacity", 1);
+                opLogo = '<img src="operator-logo/' + d.ISO + '-' + d.Operator.replace(/\s+/g, '_').toLowerCase() + '.png">';
+                infoBox.html('<table class="operatorTip selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
+                    .style("left", freqMid + "px")
+                    .style("top", y(d.Country) + y.bandwidth() + margin.top + svgContainerDiv.offsetTop + 25 + "px");
+            })
+            .on("mouseout", function(d) {
+                totSpec = "";
+                sumSpec = 0;
+                freqLeftMid = 0;
+                freqRightMid = 0;
+                freqMid = 0;
+                h.selectAll("line.infoLine").remove();
+                h.selectAll("rect.infoLine").remove();
+                h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
+                    .classed("selected", false)
+                infoBox.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
         // open modal dialogue on click
         $('#myModal').on('show.bs.modal', function() {
-        	let e = d3.select(".opData").data().pop();
-        	d3.csv("freqAssignments.csv", function(d) {
-        		let opAssign = d.filter(function(d) { return d.ISO == e.ISO  && d.Operator == e.Operator });
-	        	opLogo = '<img src="operator-logo/' + e.ISO + '-' + e.Operator.replace(/\s+/g, '_').toLowerCase() + '.png"> ';
-	            let modalTitle = d3.selectAll("h2.modal-title");
-	            modalTitle.html(opLogo + e.Operator);
-	            let modalBody = d3.selectAll(".modal-body");
-	            modalBody.html("Country: " + e.Country + "<br>" + "Operator: " + e.Operator);
-			});
+            let e = d3.select(".opData").data().pop();
+            d3.csv("freqAssignments.csv", function(d) {
+                d.freqStart = +d.freqStart;
+                d.freqEnd = +d.freqEnd;
+                return d;
+            }, function(error, freqData) {
+                freqData = freqData.filter(function(d) { return d.ISO == e.ISO });
+                d3.selectAll('.opLogo').html('<img src="operator-logo/' + e.ISO + '-' + e.Operator.replace(/\s+/g, '_').toLowerCase() + '.png"> ');
+                let modalTitle = d3.selectAll("h2.modal-title");
+                modalTitle.html(e.Operator + '<br\>' + e.Country);
+                let modalBody = d3.selectAll(".modal-body");
+                modalBody.html("Country: " + e.Country + "<br>" + "Operator: " + e.Operator);
+            });
         })
 
     });

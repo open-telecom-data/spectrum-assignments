@@ -303,3 +303,23 @@ h4 {
     padding: 4px 8px;
 }
 
+/* modal dialog styles */
+
+.opLogo {
+    float: left;
+}
+
+.opTitle {
+    display: inline;
+}
+
+.modal-title {
+    display: inline;
+}
+
+.modal-header {
+   text-align: center;
+}
+
+
+/* div { outline: 1px dashed blue } span { outline: 1px dashed green } */
