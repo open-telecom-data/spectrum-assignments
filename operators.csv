@@ -1,58 +1,58 @@
-Operator_ID,ISO,Operator,URL
-1,bf,Onatel,http://www.onatel.bf/
-2,bf,Orange,http://www.orange.bf/
-3,bf,Telecel,http://www.telecelfaso.bf/
-4,bw,BeMobile,http://www.btclmobile.co.bw/
-5,bw,Mascom,https://www.mascom.bw/
-6,bw,Orange,http://www.orange.co.bw
-7,cm,Camtel,http://www.camtel.cm/
-8,cm,MTN,https://www.mtncameroon.net/
-9,cm,NeXttel,http://www.nexttel.cm/
-10,cm,Orange,http://www.orange.cm
-11,eg,Etisalat,http://www.etisalat.eg/
-12,eg,Orange,https://www.orange.eg/
-13,eg,Vodafone,http://www.vodafone.com.eg
-14,eg,Telecom Egypt,http://te.eg/
-15,gh,Airtel,http://www.africa.airtel.com/wps/wcm/connect/africarevamp/Ghana/
-16,gh,Glo,http://www.gloworld.com/gh/
-17,gh,MTN,https://www.mtn.com.gh/
-18,gh,Tigo,https://www.tigo.com.gh/
-19,gh,Vodafone,http://www.vodafone.com.gh/
-20,mz,mCel,https://www.mcel.co.mz/
-21,mz,Movitel,http://movitel.co.mz/
-22,mz,Vodacom,http://www.vm.co.mz/
-23,ng,Glo,http://www.gloworld.com/ng/
-24,ke,Safaricom,https://www.safaricom.co.ke/
-25,ke,Telkom Kenya,http://www.telkom.co.ke/
-26,ke,Airtel,http://africa.airtel.com/wps/wcm/connect/africarevamp/Kenya/
-27,na,MTC,http://www.mtc.com.na/
-28,na,Telecom Namibia,http://www.telecom.na/
-29,za,Vodacom,http://www.vodacom.co.za/
-30,za,CellC,https://www.cellc.co.za/
-31,za,MTN,http://www.mtn.co.za/
-32,ug,Africell,http://africell.ug/
-33,ug,MTN,https://www.mtn.co.ug/
-34,ug,Vodafone,https://vodafone.co.ug/
-35,ug,UTL,http://www.utl.co.ug
-36,ug,Airtel,http://www.africa.airtel.com/uganda/
-37,ng,nTel,http://www.ntel.com.ng/
-38,ng,MTN,http://www.mtnonline.com/
-39,ng,Glo,http://www.gloworld.com/ng/
-40,ng,Airtel,http://www.africa.airtel.com/nigeria/
-41,ng,Etisalat,http://9mobile.com.ng/
-42,na,Paratus,http://www.paratustelco.com/na/
-43,tz,Zantel,http://www.zantel.com/
-44,tz,Tigo,https://www.tigo.co.tz/
-45,tz,Vodacom,https://vodacom.co.tz/
-46,tz,Bol,?
-47,tz,Airtel,http://africa.airtel.com/wps/wcm/connect/africarevamp/Tanzania/
-48,tz,Halotel,http://halotel.co.tz/
-49,tz,Hits Telecom,http://www.hitstelecom.net/
-50,ma,Orange,http://www.orange.ma/
-51,ma,Maroc Telecom,http://www.iam.ma/
-52,ma,Inwi,https://www.inwi.ma/
-53,bw,Government,
-54,ke,Yu,
-55,ng,9Mobile,https://9mobile.com.ng/
-56,za,Telkom,http://www.telkom.co.za/
-57,ug,iTel,https://www.itel-mobile.com
+"ID","ISO","Operator","URL","Previously","Wiki_URL"
+1,"bf","Onatel","http://www.onatel.bf/",,
+2,"bf","Orange","http://www.orange.bf/",,
+3,"bf","Telecel","http://www.telecelfaso.bf/",,
+4,"bw","BeMobile","http://www.btclmobile.co.bw/",,
+5,"bw","Mascom","https://www.mascom.bw/",,
+6,"bw","Orange","http://www.orange.co.bw","Vista Cellular",
+7,"cm","Camtel","http://www.camtel.cm/",,
+8,"cm","MTN","https://www.mtncameroon.net/",,
+9,"cm","NeXttel","http://www.nexttel.cm/",,
+10,"cm","Orange","http://www.orange.cm",,
+11,"eg","Etisalat","http://www.etisalat.eg/",,
+12,"eg","Orange","https://www.orange.eg/",,
+13,"eg","Vodafone","http://www.vodafone.com.eg",,
+14,"eg","Telecom Egypt","http://te.eg/",,
+15,"gh","Airtel","http://www.africa.airtel.com/wps/wcm/connect/africarevamp/Ghana/",,
+16,"gh","Glo","http://www.gloworld.com/gh/",,
+17,"gh","MTN","https://www.mtn.com.gh/",,
+18,"gh","Tigo","https://www.tigo.com.gh/",,
+19,"gh","Vodafone","http://www.vodafone.com.gh/",,
+20,"mz","mCel","https://www.mcel.co.mz/",,
+21,"mz","Movitel","http://movitel.co.mz/",,
+22,"mz","Vodacom","http://www.vm.co.mz/",,
+23,"ng","Glo","http://www.gloworld.com/ng/",,
+24,"ke","Safaricom","https://www.safaricom.co.ke/",,
+25,"ke","Telkom Kenya","http://www.telkom.co.ke/",,
+26,"ke","Airtel","http://africa.airtel.com/wps/wcm/connect/africarevamp/Kenya/",,
+27,"na","MTC","http://www.mtc.com.na/",,
+28,"na","Telecom Namibia","http://www.telecom.na/",,
+29,"za","Vodacom","http://www.vodacom.co.za/",,
+30,"za","CellC","https://www.cellc.co.za/",,
+31,"za","MTN","http://www.mtn.co.za/",,
+32,"ug","Africell","http://africell.ug/",,
+33,"ug","MTN","https://www.mtn.co.ug/",,
+34,"ug","Vodafone","https://vodafone.co.ug/",,
+35,"ug","UTL","http://www.utl.co.ug",,
+36,"ug","Airtel","http://www.africa.airtel.com/uganda/",,
+37,"ng","nTel","http://www.ntel.com.ng/",,
+38,"ng","MTN","http://www.mtnonline.com/",,
+39,"ng","Glo","http://www.gloworld.com/ng/",,
+40,"ng","Airtel","http://www.africa.airtel.com/nigeria/",,
+41,"ng","Etisalat","http://9mobile.com.ng/",,
+42,"na","Paratus","http://www.paratustelco.com/na/",,
+43,"tz","Zantel","http://www.zantel.com/",,
+44,"tz","Tigo","https://www.tigo.co.tz/",,
+45,"tz","Vodacom","https://vodacom.co.tz/",,
+46,"tz","Bol","?",,
+47,"tz","Airtel","http://africa.airtel.com/wps/wcm/connect/africarevamp/Tanzania/",,
+48,"tz","Halotel","http://halotel.co.tz/",,
+49,"tz","Hits Telecom","http://www.hitstelecom.net/",,
+50,"ma","Orange","http://www.orange.ma/",,
+51,"ma","Maroc Telecom","http://www.iam.ma/",,
+52,"ma","Inwi","https://www.inwi.ma/",,
+53,"bw","Government",,,
+54,"ke","Yu",,,
+55,"ng","9Mobile","https://9mobile.com.ng/","Etisalat",
+56,"za","Telkom","http://www.telkom.co.za/","Orange","https://en.wikipedia.org/wiki/Telkom_Kenya"
+57,"ug","iTel","https://www.itel-mobile.com",,
