@@ -60,269 +60,348 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     }
 
     /* Load data from freqAssignments.csv file */
-    d3.csv('freqAssignments.csv', function(error, freqData) {
-        /* Load data from operators.csv file */
-        d3.csv('operators.csv', function(error, opData) {
+    d3.csv('freqAssignment.csv', function(error, freqData) {
+        /* Load data from spectrumLicense.csv file */
+        d3.csv('spectrumLicense.csv', function(error, licData) {
+            /* Load data from operators.csv file */
+            d3.csv('operators.csv', function(error, opData) {
+                /* Load data from operators.csv file */
+                d3.csv('owners.csv', function(error, ownData) {
+                    /* Load data from operators.csv file */
+                    d3.csv('shareholdings.csv', function(error, shareData) {
 
-            freqData.forEach(function(d) {
-                d.freqStart = +d.freqStart;
-                d.freqEnd = +d.freqEnd;
-                d.OP_ID = +d.OP_ID;
-            });
+                        freqData.forEach(function(d) {
+                            d.ID = +d.ID;
+                            d.license_ID = +d.license_ID;
+                            d.freqStart = +d.freqStart;
+                            d.freqEnd = +d.freqEnd;
+                        });
 
-            opData.forEach(function(d) {
-                d.Operator_ID = +d.Operator_ID;
-            });
+                        licData.forEach(function(d) {
+                            d.ID = +d.ID;
+                            d.OP_OD = +d.OP_ID;
+                        });
 
-            /* perform outside join of freqData and opData */
-            var freqDataJoin = join(opData, freqData, "OP_ID", "Operator_ID", function(freq, op) {
-                return {
-                    Country: freq.Country,
-                    Operator: freq.Operator,
-                    ISO: freq.ISO,
-                    Band: freq.Band,
-                    Type: freq.Type,
-                    freqStart: freq.freqStart,
-                    freqEnd:  freq.freqEnd,
-                    URL: (op !== undefined) ? op.URL : null
-                };
-            });
+                        opData.forEach(function(d) {
+                            d.ID = +d.ID;
+                        });
 
-            /* filter data to relevant selected frequency */
-            freqDataBand = freqDataJoin.filter(function(d) { return d.Band == band });
+                        ownData.forEach(function(d) {
+                            d.ID = +d.ID;
+                        });
 
-            /* Sort data by Country */
-            freqDataBand = freqDataBand.sort(function(a, b) {
-                return d3.ascending(a.Country, b.Country);
-            });
+                        shareData.forEach(function(d) {
+                            d.ID = +d.ID;
+                            d.Owner_ID = +d.Owner_ID;
+                            d.Investment_ID = +d.Investment_ID;
+                            d.SharePercent = +d.SharePercent;
+                        });
+/*
+console.log("freqData");                        
+console.log(freqData);
+console.log("licData");                        
+console.log(licData);  */
+                        /* perform outside join of spectrum license table (licData) with individual frequency assignment elements
+                           of spectrum license in frequeny assignment table (freqData) */
+                        var licenseJoin = join(licData, freqData, "ID", "license_ID", function(freq, lic) {
+                            return {
+                            	freqStart: freq.freqStart,
+                                freqEnd: freq.freqEnd,
+                                freqSize: freq.freqEnd - freq.freqStart,
+                            	Country: (lic !== undefined) ? lic.Country : null,
+                                Operator: (lic !== undefined) ? lic.Operator : null,
+                                ISO: (lic !== undefined) ? lic.ISO : null,
+                                OP_ID: (lic !== undefined) ? lic.OP_ID : null,
+                                license_ID: (lic !== undefined) ? lic.ID : null,
+                                Band: (lic !== undefined) ? lic.Band : null,
+                                Type: (lic !== undefined) ? lic.Type : null
 
-            /*
-            let buckets = [...new Set(data.map(d => d.Country))];
-            console.log(buckets);
-            */
-            x.domain([bandStart, bandEnd]);
-            y.domain(freqDataBand.map(function(d) { return d.Country; }));
+                        	};
+                        });
+console.log("licenseJoin");                        
+console.log(licenseJoin);
+                        /* perform outside join of freqData and opData, bringing in URL, Previously and Wiki url fields*/
+                        var operatorJoin = join(opData, licenseJoin, "ID", "OP_ID", function(licJ, op) {
+                            return {
+                                Country: licJ.Country,
+                                Operator: licJ.Operator,
+                                ISO: licJ.ISO,
+                                OP_ID: licJ.OP_ID,
+                                Band: licJ.Band,
+                                Type: licJ.Type,
+                                license_ID: licJ.license_ID,
+                                freqStart: licJ.freqStart,
+                                freqEnd: licJ.freqEnd,
+                                freqSize: licJ.freqSize,
+                                URL: (op !== undefined) ? op.URL : null,
+                                Previously: (op !== undefined) ? op.Previously : null,
+                                Wiki: (op !== undefined) ? op.Wiki_URL : null
+                            };
+                        });
+                        /* perform outside join on ownData and shareData linking investor names to their investments and shareholdings */
+                        var ownership = join(ownData, shareData, "ID", "Owner_ID", function(share, own) {
+                            return {
+                                Percent: share.SharePercent,
+                                Operator_ID: share.Investment_ID,
+                                Owner_ID: share.Owner_ID,
+                                OwnerName: (own !== undefined) ? own.Name : null,
+                                OwnerURL: (own !== undefined) ? own.URL : null,
+                            };
+                        });
 
-            /* Set lower X-axis and legend */
-            h.append("g")
-                .attr("class", "axis axis--x")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x).ticks(20).tickSize(-height))
-                .append("text")
-                .attr("x", 20)
-                .attr("y", 30)
-                .text("Frequency (MHz)");
+                        /* filter data to relevant selected frequency */
+                        freqDataBand = operatorJoin.filter(function(d) { return d.Band == band });
 
-            /* Set X-axis at top and add title/legend */
-            h.append("g")
-                .attr("class", "axis axis--x")
-                .call(d3.axisTop(x).ticks(20).tickSize(-height))
-                .append("text")
-                .classed("FreqLegend", true)
-                .attr("x", 20)
-                .attr("y", -30)
-                .text(band + " MHz Band");
+                        /* Sort data by Country */
+                        freqDataBand = freqDataBand.sort(function(a, b) {
+                            return d3.ascending(a.Country, b.Country);
+                        });
 
-            /* Set Y-axis */
-            h.append("g")
-                .attr("class", "axis axis--y")
-                .call(d3.axisLeft(y))
-                .selectAll(".tick text")
-                .classed("countryStyle", true)
+                        /*
+                        let buckets = [...new Set(data.map(d => d.Country))];
+                        console.log(buckets);
+                        */
+                        x.domain([bandStart, bandEnd]);
+                        y.domain(freqDataBand.map(function(d) { return d.Country; }));
 
-            /*  Build mouseover infobox for each country in y axis legend */
-            h.selectAll(".axis--y .tick text")
-                .on("mouseover", function() {
-                    totSpec = 0;
-                    let myElement = d3.select(this);
-                    let countryName = myElement.text();
-                    /*  determine absolute coordinates for left edge of SVG */
-                    let matrix = this.getScreenCTM()
-                        .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
-                    h.selectAll("." + countryName.replace(/\s+/g, '_')).each(function(d) {
-                        totSpec += d.freqEnd;
-                        totSpec -= d.freqStart;
-                        sumSpec = sumSpec + d.freqEnd - d.freqStart;
-                        cntryISO = d.ISO;
-                    });
-                    let availPercent = totSpec / availSpec;
+                        /* Set lower X-axis and legend */
+                        h.append("g")
+                            .attr("class", "axis axis--x")
+                            .attr("transform", "translate(0," + height + ")")
+                            .call(d3.axisBottom(x).ticks(20).tickSize(-height))
+                            .append("text")
+                            .attr("x", 20)
+                            .attr("y", 30)
+                            .text("Frequency (MHz)");
 
-                    countryBox.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    let pnode = d3.select(this.parentNode).attr("transform");
-                    /* console.debug(pnode);
-                    console.log("y.bandwidth(): " + y.bandwidth()/2);
-                    console.log("svgContainerDiv: " + svgContainerDiv.offsetTop);
-                    console.log("window.pageXOffset: " + window.pageXOffset); */
-                    let yText = getTranslation(d3.select(this.parentNode).attr("transform"));
-                    countryBox.html('<table selected"><tbody><tr><td rowspan="3"><img src="flag/' + cntryISO + '.png"></td><td>' + countryName + '</td></tr><tr><td>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available.</td></tr><tr><td><b>Band occupancy ' + p(availPercent) + '</td></tr></tbody></table>')
-                        /* countryBox.html('<table selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>") */
+                        /* Set X-axis at top and add title/legend */
+                        h.append("g")
+                            .attr("class", "axis axis--x")
+                            .call(d3.axisTop(x).ticks(20).tickSize(-height))
+                            .append("text")
+                            .classed("FreqLegend", true)
+                            .attr("x", 20)
+                            .attr("y", -30)
+                            .text(band + " MHz Band");
 
-                        .style("left", (window.pageXOffset + matrix.e) + "px")
-                        .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
-                        .style("height", y.bandwidth() + "px")
-                        .style("width", width + "px");
-                })
-                .on("mouseout", function() {
-                    countryBox.transition()
-                        .duration(500)
-                        .style("opacity", 0);
-                });
+                        /* Set Y-axis */
+                        h.append("g")
+                            .attr("class", "axis axis--y")
+                            .call(d3.axisLeft(y))
+                            .selectAll(".tick text")
+                            .classed("countryStyle", true)
 
-            /* Add rectangles for guard bands */
-            h.selectAll("guard")
-                .data(freqDataBand)
-                .enter()
-                .append("g")
-                .attr("class", "guardbands")
-                .append("rect")
-                .attr("class", "guardband")
-                .attr("y", function(d) { return y(d.Country); })
-                .attr("x", x(guardStart))
-                .attr("width", function(d) { return x(guardEnd) - x(guardStart); })
-                .attr("height", y.bandwidth());
+                        /*  Build mouseover infobox for each country in y axis legend */
+                        h.selectAll(".axis--y .tick text")
+                            .on("mouseover", function() {
+                                totSpec = 0;
+                                let myElement = d3.select(this);
+                                let countryName = myElement.text();
+                                /*  determine absolute coordinates for left edge of SVG */
+                                let matrix = this.getScreenCTM()
+                                    .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
+                                h.selectAll("." + countryName.replace(/\s+/g, '_')).each(function(d) {
+                                    totSpec += d.freqEnd;
+                                    totSpec -= d.freqStart;
+                                    sumSpec = sumSpec + d.freqEnd - d.freqStart;
+                                    cntryISO = d.ISO;
+                                });
+                                let availPercent = totSpec / availSpec;
 
-            /* Add label to guardbands */
-            h.selectAll(".guardbands")
-                .append("text")
-                .attr("class", "label")
-                .attr('transform', 'rotate(-90)')
-                .attr("y", function(d) { return x(guardStart) + (x(guardEnd) - x(guardStart)) / 2 + 5; })
-                .attr("x", function(d) { return -y(d.Country) - y.bandwidth() + 10; })
-                .text(guardBand)
-                .call(wrap, y.bandwidth() - 10);
+                                countryBox.transition()
+                                    .duration(200)
+                                    .style("opacity", .9);
+                                let pnode = d3.select(this.parentNode).attr("transform");
+                                /* console.debug(pnode);
+                                console.log("y.bandwidth(): " + y.bandwidth()/2);
+                                console.log("svgContainerDiv: " + svgContainerDiv.offsetTop);
+                                console.log("window.pageXOffset: " + window.pageXOffset); */
+                                let yText = getTranslation(d3.select(this.parentNode).attr("transform"));
+                                countryBox.html('<table selected"><tbody><tr><td rowspan="3"><img src="flag/' + cntryISO + '.png"></td><td>' + countryName + '</td></tr><tr><td>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available.</td></tr><tr><td><b>Band occupancy ' + p(availPercent) + '</td></tr></tbody></table>')
+                                    /* countryBox.html('<table selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>") */
 
-            /* Iterate through csv file */
-            h.selectAll(".bar")
-                .data(freqDataBand)
-                .enter()
-                .append("g")
-                .attr("class", "bars")
-                .attr("data-toggle", "modal")
-                .attr("data-target", "#myModal")
-                .append("rect")
-                .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
-                .classed("bar", true)
-                .attr("y", function(d) { return y(d.Country); })
-                .attr("x", function(d) { return x(d.freqStart); })
-                .attr("width", function(d) { return x(d.freqEnd) - x(d.freqStart); })
-                .attr("height", y.bandwidth());
+                                    .style("left", (window.pageXOffset + matrix.e) + "px")
+                                    .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
+                                    .style("height", y.bandwidth() + "px")
+                                    .style("width", width + "px");
+                            })
+                            .on("mouseout", function() {
+                                countryBox.transition()
+                                    .duration(500)
+                                    .style("opacity", 0);
+                            });
 
-            /* Add operator label to each spectrum assignment */
-            let bars = MHz.selectAll(".bars");
-            bars.append("text")
-                .attr("class", "label")
-                .attr('transform', 'rotate(-90)')
-                .attr("y", function(d) { return x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2 + 5; })
-                .attr("x", function(d) { return -y(d.Country) - y.bandwidth() + 10; })
-                .text(function(d) { return d.Operator; })
-                .call(wrap, y.bandwidth());
-
-            /* MHz ToolTip for each operator spectrum assignment */
-            bars.on("mouseover", function(d) {
-                    /* calculate total spectrum assigned */
-                    let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
-                        totSpec = f(d.freqEnd - d.freqStart) + " + " + totSpec;
-                        sumSpec = sumSpec + d.freqEnd - d.freqStart;
-                        midRect = x(d.freqStart + (d.freqEnd - d.freqStart) / 2);
-                        /*  outline spectrum blocks  */
-                        h.append("rect")
-                            .style("stroke", "black")
-                            .style("stroke-width", "4")
-                            .style("fill", "none")
-                            .style("stroke-linecap", "round")
-                            .style("stroke-linejoin", "round")
-                            .attr("class", "infoLine opData")
-                            .datum(d)
-                            .attr("y", y(d.Country))
-                            .attr("x", x(d.freqStart))
-                            .attr("width", x(d.freqEnd) - x(d.freqStart))
+                        /* Add rectangles for guard bands */
+                        h.selectAll("guard")
+                            .data(freqDataBand)
+                            .enter()
+                            .append("g")
+                            .attr("class", "guardbands")
+                            .append("rect")
+                            .attr("class", "guardband")
+                            .attr("y", function(d) { return y(d.Country); })
+                            .attr("x", x(guardStart))
+                            .attr("width", function(d) { return x(guardEnd) - x(guardStart); })
                             .attr("height", y.bandwidth());
-                        /* add short vertical lines under each block */
-                        h.append("line")
-                            .style("stroke", "black")
-                            .style("stroke-width", "4")
-                            .style("stroke-linecap", "round")
-                            .style("stroke-linejoin", "round")
-                            .attr("class", "infoLine")
-                            .attr("x1", midRect)
-                            .attr("y1", y(d.Country) + y.bandwidth())
-                            .attr("x2", midRect)
-                            .attr("y2", y(d.Country) + y.bandwidth() + 10);
-                        if (freqLeftMid > midRect || freqLeftMid === 0) freqLeftMid = midRect;
-                        if (freqRightMid < midRect || freqRightMid === 0) freqRightMid = midRect;
-                        freqMid = freqLeftMid + (freqRightMid - freqLeftMid) / 2;
-                        // console.log("freqLeftMid: " + freqLeftMid + " freqRightMid: " + freqRightMid);
+
+                        /* Add label to guardbands */
+                        h.selectAll(".guardbands")
+                            .append("text")
+                            .attr("class", "label")
+                            .attr('transform', 'rotate(-90)')
+                            .attr("y", function(d) { return x(guardStart) + (x(guardEnd) - x(guardStart)) / 2 + 5; })
+                            .attr("x", function(d) { return -y(d.Country) - y.bandwidth() + 10; })
+                            .text(guardBand)
+                            .call(wrap, y.bandwidth() - 10);
+
+                        /* Iterate through csv file */
+                        h.selectAll(".bar")
+                            .data(freqDataBand)
+                            .enter()
+                            .append("g")
+                            .attr("class", "bars")
+                            .attr("data-toggle", "modal")
+                            .attr("data-target", "#myModal")
+                            .append("rect")
+                            .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
+                            .classed("bar", true)
+                            .attr("y", function(d) { return y(d.Country); })
+                            .attr("x", function(d) { return x(d.freqStart); })
+                            .attr("width", function(d) { return x(d.freqEnd) - x(d.freqStart); })
+                            .attr("height", y.bandwidth());
+
+                        /* Add operator label to each spectrum assignment */
+                        let bars = MHz.selectAll(".bars");
+                        bars.append("text")
+                            .attr("class", "label")
+                            .attr('transform', 'rotate(-90)')
+                            .attr("y", function(d) { return x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2 + 5; })
+                            .attr("x", function(d) { return -y(d.Country) - y.bandwidth() + 10; })
+                            .text(function(d) { return d.Operator; })
+                            .call(wrap, y.bandwidth());
+
+                        /* MHz ToolTip for each operator spectrum assignment */
+                        bars.on("mouseover", function(d) {
+                                /* calculate total spectrum assigned */
+                                let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
+                                    totSpec = f(d.freqSize) + " + " + totSpec;
+                                    sumSpec = sumSpec + d.freqSize;
+                                    midRect = x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2;
+                                    // console.log("d.freqStart: " + d.freqStart + " d.freqEnd: " + d.freqEnd);
+                                    /*  outline spectrum blocks  */
+                                    h.append("rect")
+                                        .style("stroke", "black")
+                                        .style("stroke-width", "4")
+                                        .style("fill", "none")
+                                        .style("stroke-linecap", "round")
+                                        .style("stroke-linejoin", "round")
+                                        .attr("class", "infoLine opData")
+                                        .datum(d)
+                                        .attr("y", y(d.Country))
+                                        .attr("x", x(d.freqStart))
+                                        .attr("width", x(d.freqEnd) - x(d.freqStart))
+                                        .attr("height", y.bandwidth());
+                                    /* add short vertical lines under each block */
+                                    h.append("line")
+                                        .style("stroke", "black")
+                                        .style("stroke-width", "4")
+                                        .style("stroke-linecap", "round")
+                                        .style("stroke-linejoin", "round")
+                                        .attr("class", "infoLine")
+                                        .attr("x1", midRect)
+                                        .attr("y1", y(d.Country) + y.bandwidth())
+                                        .attr("x2", midRect)
+                                        .attr("y2", y(d.Country) + y.bandwidth() + 10);
+                                        // console.log("midRect: " + midRect);
+                                    if (freqLeftMid > midRect || freqLeftMid === 0) freqLeftMid = midRect;
+                                    if (freqRightMid < midRect || freqRightMid === 0) freqRightMid = midRect;
+                                    freqMid = freqLeftMid + (freqRightMid - freqLeftMid) / 2;
+                                     //console.log("midRect: " + midRect + " freqRightMid: " + freqRightMid);
+                                });
+
+                                // draw a horizontal line connecting the two spectrum blocks
+                                h.append("line")
+                                    .style("stroke", "black")
+                                    .style("stroke-width", "4")
+                                    .style("stroke-linecap", "round")
+                                    .style("stroke-linejoin", "round")
+                                    .attr("class", "infoLine")
+                                    .attr("x1", freqLeftMid)
+                                    .attr("y1", y(d.Country) + y.bandwidth() + 10)
+                                    .attr("x2", freqRightMid)
+                                    .attr("y2", y(d.Country) + y.bandwidth() + 10);
+                                /* add short vert line to connect to infoBox */
+                                h.append("line")
+                                    .style("stroke", "black")
+                                    .style("stroke-width", "4")
+                                    .style("stroke-linecap", "round")
+                                    .style("stroke-linejoin", "round")
+                                    .attr("class", "infoLine")
+                                    .attr("x1", freqMid)
+                                    .attr("y1", y(d.Country) + y.bandwidth() + 12)
+                                    .attr("x2", freqMid)
+                                    .attr("y2", y(d.Country) + y.bandwidth() + 19);
+                                /* add horizontal line connecting vert lines under blocks */
+                                infoBox.transition()
+                                    .duration(200)
+                                    .style("opacity", 1);
+                                opLogo = '<img src="operator-logo/' + d.ISO + '-' + d.Operator.replace(/\s+/g, '_').toLowerCase() + '.png">';
+                                infoBox.html('<table class="operatorTip selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
+                                    .style("left", freqMid + "px")
+                                    .style("top", y(d.Country) + y.bandwidth() + margin.top + svgContainerDiv.offsetTop + 25 + "px");
+                            })
+                            .on("mouseout", function(d) {
+                                totSpec = "";
+                                sumSpec = 0;
+                                freqLeftMid = 0;
+                                freqRightMid = 0;
+                                freqMid = 0;
+                                h.selectAll("line.infoLine").remove();
+                                h.selectAll("rect.infoLine").remove();
+                                h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
+                                    .classed("selected", false)
+                                infoBox.transition()
+                                    .duration(500)
+                                    .style("opacity", 0);
+                            });
+
+                        // open modal dialogue on click
+                        $('#myModal').on('show.bs.modal', function() {
+                            let e = d3.select(".opData").data().pop();
+                            let freqDataOperator = freqDataBand.filter(function(d) { return e.OP_ID == d.OP_ID });
+                            console.log("e.OP_ID: " + e.OP_ID);
+                            let sharesHeld = ownership.filter(function(d) { return e.OP_ID == d.Operator_ID });
+                            console.log(sharesHeld);
+                            let opLicenses = d3.nest()
+                                .key(function(d) { return d.Band; })
+                                .entries(freqDataOperator);
+                            // console.log(opLicenses);
+                            d3.selectAll('.opLogo').html('<img src="operator-logo/' + e.ISO + '-' + e.Operator.replace(/\s+/g, '_').toLowerCase() + '.png"> ');
+                            let modalTitle = d3.selectAll("h2.modal-title");
+                            modalTitle.html(e.Operator + '<br\>(' + e.Country + ')');
+                            let modalBody = d3.selectAll(".modal-body");
+                            modalBody.html('Country: ' + e.Country + '<br>Operator: ' + e.Operator + '<br>URL: <a href="' + e.URL + '">' + e.URL + '</a><br>Previously: ' + e.Previously + '<br>Wikipedia: <a href="' + e.Wiki + '">' + e.Wiki + '</a>');
+                            modalBody.append('div').html("<b>Bands in which operator has a spectrum license</b>")
+                            opLicenses.forEach(function(d) {
+                                modalBody.append('div')
+                                    .text(d.key + " MHz");
+                            });
+                            modalBody.append('div').html("<b>Ownership structure</b>")
+                            sharesHeld.forEach(function(d) {
+                                modalBody.append('div')
+                                    .html('<a href="' + d.OwnerURL + '">' + d.OwnerName + "</a>: " + d.Percent + '%');
+                            });
+                        })
                     });
-
-                    // draw a horizontal line connecting the two spectrum blocks
-                    h.append("line")
-                        .style("stroke", "black")
-                        .style("stroke-width", "4")
-                        .style("stroke-linecap", "round")
-                        .style("stroke-linejoin", "round")
-                        .attr("class", "infoLine")
-                        .attr("x1", freqLeftMid)
-                        .attr("y1", y(d.Country) + y.bandwidth() + 10)
-                        .attr("x2", freqRightMid)
-                        .attr("y2", y(d.Country) + y.bandwidth() + 10);
-                    /* add short vert line to connect to infoBox */
-                    h.append("line")
-                        .style("stroke", "black")
-                        .style("stroke-width", "4")
-                        .style("stroke-linecap", "round")
-                        .style("stroke-linejoin", "round")
-                        .attr("class", "infoLine")
-                        .attr("x1", freqMid)
-                        .attr("y1", y(d.Country) + y.bandwidth() + 12)
-                        .attr("x2", freqMid)
-                        .attr("y2", y(d.Country) + y.bandwidth() + 19);
-                    /* add horizontal line connecting vert lines under blocks */
-                    infoBox.transition()
-                        .duration(200)
-                        .style("opacity", 1);
-                    opLogo = '<img src="operator-logo/' + d.ISO + '-' + d.Operator.replace(/\s+/g, '_').toLowerCase() + '.png">';
-                    infoBox.html('<table class="operatorTip selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>")
-                        .style("left", freqMid + "px")
-                        .style("top", y(d.Country) + y.bandwidth() + margin.top + svgContainerDiv.offsetTop + 25 + "px");
-                })
-                .on("mouseout", function(d) {
-                    totSpec = "";
-                    sumSpec = 0;
-                    freqLeftMid = 0;
-                    freqRightMid = 0;
-                    freqMid = 0;
-                    h.selectAll("line.infoLine").remove();
-                    h.selectAll("rect.infoLine").remove();
-                    h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
-                        .classed("selected", false)
-                    infoBox.transition()
-                        .duration(500)
-                        .style("opacity", 0);
                 });
-
-            // open modal dialogue on click
-            $('#myModal').on('show.bs.modal', function() {
-                let e = d3.select(".opData").data().pop();
-                d3.csv("freqAssignments.csv", function(d) {
-                    d.freqStart = +d.freqStart;
-                    d.freqEnd = +d.freqEnd;
-                    return d;
-                }, function(error, freqDataBand) {
-                    freqDataBand = freqDataBand.filter(function(d) { return d.ISO == e.ISO });
-                    d3.selectAll('.opLogo').html('<img src="operator-logo/' + e.ISO + '-' + e.Operator.replace(/\s+/g, '_').toLowerCase() + '.png"> ');
-                    let modalTitle = d3.selectAll("h2.modal-title");
-                    modalTitle.html(e.Operator + '<br\>' + e.Country);
-                    let modalBody = d3.selectAll(".modal-body");
-                    modalBody.html("Country: " + e.Country + "<br>" + "Operator: " + e.Operator + "<br>URL: " + e.URL);
-                });
-            })
+            });
         });
 
     });
 }
 
+/* 	Perform an outer join on two arrays.
+	Source"  http://learnjsdata.com/combine_data.html */
 function join(lookupTable, mainTable, lookupKey, mainKey, select) {
     var l = lookupTable.length,
         m = mainTable.length,
@@ -340,6 +419,43 @@ function join(lookupTable, mainTable, lookupKey, mainKey, select) {
     return output;
 };
 
+/*  Create an html table from an array.
+	Source:  http://www.d3noob.org/2013/02/add-html-table-to-your-d3js-graph.html
+	format: tabulate(data, ["field1", "field3"]); */
+function tabulate(data, columns) {
+    var table = d3.select("body").append("table")
+        .attr("style", "margin-left: 250px"),
+        thead = table.append("thead"),
+        tbody = table.append("tbody");
+
+    // append the header row
+    thead.append("tr")
+        .selectAll("th")
+        .data(columns)
+        .enter()
+        .append("th")
+        .text(function(column) { return column; });
+
+    // create a row for each object in the data
+    var rows = tbody.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr");
+
+    // create a cell in each row for each column
+    var cells = rows.selectAll("td")
+        .data(function(row) {
+            return columns.map(function(column) {
+                return { column: column, value: row[column] };
+            });
+        })
+        .enter()
+        .append("td")
+        .attr("style", "font-family: Courier")
+        .html(function(d) { return d.value; });
+
+    return table;
+}
 
 function getTranslation(transform) {
     /* Create a dummy g for calculation purposes only. This will never
@@ -359,10 +475,9 @@ function getTranslation(transform) {
     return [matrix.e, matrix.f];
 }
 
+/* Text wrapping function */
+/* Source: https://gist.github.com/ericsoco/647db6ebadd4f4756cae */
 function wrap(text, width) {
-    /* wrap text function, taken from
-       https://gist.github.com/ericsoco/647db6ebadd4f4756cae */
-
     text.each(function() {
         let breakChars = ['/', '&', '-'],
             text = d3.select(this),
