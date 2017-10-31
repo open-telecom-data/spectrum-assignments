@@ -79,7 +79,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
 
                         licData.forEach(function(d) {
                             d.ID = +d.ID;
-                            d.OP_OD = +d.OP_ID;
+                            d.Operator_ID = +d.Operator_ID;
                         });
 
                         opData.forEach(function(d) {
@@ -93,14 +93,10 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                         shareData.forEach(function(d) {
                             d.ID = +d.ID;
                             d.Owner_ID = +d.Owner_ID;
-                            d.Investment_ID = +d.Investment_ID;
+                            d.Operator_ID = +d.Operator_ID;
                             d.SharePercent = +d.SharePercent;
                         });
-/*
-console.log("freqData");                        
-console.log(freqData);
-console.log("licData");                        
-console.log(licData);  */
+
                         /* perform outside join of spectrum license table (licData) with individual frequency assignment elements
                            of spectrum license in frequeny assignment table (freqData) */
                         var licenseJoin = join(licData, freqData, "ID", "license_ID", function(freq, lic) {
@@ -111,22 +107,21 @@ console.log(licData);  */
                             	Country: (lic !== undefined) ? lic.Country : null,
                                 Operator: (lic !== undefined) ? lic.Operator : null,
                                 ISO: (lic !== undefined) ? lic.ISO : null,
-                                OP_ID: (lic !== undefined) ? lic.OP_ID : null,
+                                Operator_ID: (lic !== undefined) ? lic.Operator_ID : null,
                                 license_ID: (lic !== undefined) ? lic.ID : null,
                                 Band: (lic !== undefined) ? lic.Band : null,
                                 Type: (lic !== undefined) ? lic.Type : null
 
                         	};
                         });
-console.log("licenseJoin");                        
-console.log(licenseJoin);
+
                         /* perform outside join of freqData and opData, bringing in URL, Previously and Wiki url fields*/
-                        var operatorJoin = join(opData, licenseJoin, "ID", "OP_ID", function(licJ, op) {
+                        var operatorJoin = join(opData, licenseJoin, "ID", "Operator_ID", function(licJ, op) {
                             return {
                                 Country: licJ.Country,
                                 Operator: licJ.Operator,
                                 ISO: licJ.ISO,
-                                OP_ID: licJ.OP_ID,
+                                Operator_ID: licJ.Operator_ID,
                                 Band: licJ.Band,
                                 Type: licJ.Type,
                                 license_ID: licJ.license_ID,
@@ -142,7 +137,7 @@ console.log(licenseJoin);
                         var ownership = join(ownData, shareData, "ID", "Owner_ID", function(share, own) {
                             return {
                                 Percent: share.SharePercent,
-                                Operator_ID: share.Investment_ID,
+                                Operator_ID: share.Operator_ID,
                                 Owner_ID: share.Owner_ID,
                                 OwnerName: (own !== undefined) ? own.Name : null,
                                 OwnerURL: (own !== undefined) ? own.URL : null,
@@ -157,10 +152,7 @@ console.log(licenseJoin);
                             return d3.ascending(a.Country, b.Country);
                         });
 
-                        /*
-                        let buckets = [...new Set(data.map(d => d.Country))];
-                        console.log(buckets);
-                        */
+
                         x.domain([bandStart, bandEnd]);
                         y.domain(freqDataBand.map(function(d) { return d.Country; }));
 
@@ -287,7 +279,7 @@ console.log(licenseJoin);
                                     totSpec = f(d.freqSize) + " + " + totSpec;
                                     sumSpec = sumSpec + d.freqSize;
                                     midRect = x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2;
-                                    // console.log("d.freqStart: " + d.freqStart + " d.freqEnd: " + d.freqEnd);
+
                                     /*  outline spectrum blocks  */
                                     h.append("rect")
                                         .style("stroke", "black")
@@ -312,11 +304,9 @@ console.log(licenseJoin);
                                         .attr("y1", y(d.Country) + y.bandwidth())
                                         .attr("x2", midRect)
                                         .attr("y2", y(d.Country) + y.bandwidth() + 10);
-                                        // console.log("midRect: " + midRect);
                                     if (freqLeftMid > midRect || freqLeftMid === 0) freqLeftMid = midRect;
                                     if (freqRightMid < midRect || freqRightMid === 0) freqRightMid = midRect;
                                     freqMid = freqLeftMid + (freqRightMid - freqLeftMid) / 2;
-                                     //console.log("midRect: " + midRect + " freqRightMid: " + freqRightMid);
                                 });
 
                                 // draw a horizontal line connecting the two spectrum blocks
@@ -368,14 +358,12 @@ console.log(licenseJoin);
                         // open modal dialogue on click
                         $('#myModal').on('show.bs.modal', function() {
                             let e = d3.select(".opData").data().pop();
-                            let freqDataOperator = freqDataBand.filter(function(d) { return e.OP_ID == d.OP_ID });
-                            console.log("e.OP_ID: " + e.OP_ID);
-                            let sharesHeld = ownership.filter(function(d) { return e.OP_ID == d.Operator_ID });
-                            console.log(sharesHeld);
+                            let freqDataOperator = freqDataBand.filter(function(d) { return e.Operator_ID == d.Operator_ID });
+                            let sharesHeld = ownership.filter(function(d) { return e.Operator_ID == d.Operator_ID });
+                            let freqsHeld = operatorJoin.filter(function(d) { return e.Operator_ID == d.Operator_ID });
                             let opLicenses = d3.nest()
                                 .key(function(d) { return d.Band; })
-                                .entries(freqDataOperator);
-                            // console.log(opLicenses);
+                                .entries(freqsHeld);
                             d3.selectAll('.opLogo').html('<img src="operator-logo/' + e.ISO + '-' + e.Operator.replace(/\s+/g, '_').toLowerCase() + '.png"> ');
                             let modalTitle = d3.selectAll("h2.modal-title");
                             modalTitle.html(e.Operator + '<br\>(' + e.Country + ')');
