@@ -1,4 +1,4 @@
-"ID","Country","ISO","Operator","OP_ID","Band","Type","freqStart1","freqEnd1","freqStart2","freqEnd2"
+"ID","Country","ISO","Operator","Operator_ID","Band","Type","freqStart1","freqEnd1","freqStart2","freqEnd2"
 1,"Botswana","bw","BeMobile",4,900,"FDD",906.6,910.6,951.6,955.6
 2,"Botswana","bw","Government",53,900,"FDD",911,914.8,956,959.8
 3,"Botswana","bw","Mascom",5,900,"FDD",890.2,898.2,935,943
