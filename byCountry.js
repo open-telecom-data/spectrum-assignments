@@ -64,11 +64,11 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
         /* Load data from spectrumLicense.csv file */
         d3.csv('spectrumLicense.csv', function(error, licData) {
             /* Load data from operators.csv file */
-            d3.csv('operators.csv', function(error, opData) {
+            d3.csv('operator.csv', function(error, opData) {
                 /* Load data from operators.csv file */
-                d3.csv('owners.csv', function(error, ownData) {
+                d3.csv('owner.csv', function(error, ownData) {
                     /* Load data from operators.csv file */
-                    d3.csv('shareholdings.csv', function(error, shareData) {
+                    d3.csv('shareholding.csv', function(error, shareData) {
 
                         freqData.forEach(function(d) {
                             d.ID = +d.ID;
