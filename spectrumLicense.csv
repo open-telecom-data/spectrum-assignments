@@ -1,108 +1,114 @@
-"ID","Country","ISO","Operator","Operator_ID","Band","Type","freqStart1","freqEnd1","freqStart2","freqEnd2"
-1,"Botswana","bw","BeMobile",4,900,"FDD",906.6,910.6,951.6,955.6
-2,"Botswana","bw","Government",53,900,"FDD",911,914.8,956,959.8
-3,"Botswana","bw","Mascom",5,900,"FDD",890.2,898.2,935,943
-4,"Botswana","bw","Orange",6,900,"FDD",898.4,906.2,943.4,951.2
-5,"Botswana","bw","BeMobile",4,1800,"FDD",1730.6,1738.6,1825.6,1833.6
-6,"Botswana","bw","Mascom",5,1800,"FDD",1710.2,1719.8,1805.2,1814.8
-7,"Botswana","bw","Orange",6,1800,"FDD",1720.6,1730.6,1815.6,1825.6
-8,"Botswana","bw","Orange",6,2100,"FDD",1935,1950,1955,1965
-9,"Burkina Faso","bf","Onatel",1,900,"FDD",890.2,898.3,935.2,943.3
-10,"Burkina Faso","bf","Orange",2,900,"FDD",898.3,906.6,943.3,951.6
-11,"Burkina Faso","bf","Telecel",3,900,"FDD",906.6,914.8,951.6,959.8
-12,"Burkina Faso","bf","Onatel",1,1800,"FDD",1710.2,1727.8,1805.2,1823.7
-13,"Burkina Faso","bf","Orange",2,1800,"FDD",1727.8,1747.3,1823.7,1842.3
-14,"Burkina Faso","bf","Telecel",3,1800,"FDD",1747.3,1765.8,1842.3,1860.8
-15,"Cameroon","cm","Camtel",7,900,"FDD",880,890.1,925,935.1
-16,"Cameroon","cm","MTN",8,900,"FDD",890.1,898.5,935.1,943.5
-17,"Cameroon","cm","neXttel",9,900,"FDD",898.5,906.8,943.5,951.8
-18,"Cameroon","cm","Orange",10,900,"FDD",906.8,915,951.8,960
-19,"Cameroon","cm","MTN",8,1800,"FDD",1760.1,1768,1855.1,1863
-20,"Cameroon","cm","neXttel",9,1800,"FDD",1735,1760.1,1830,1855.1
-21,"Cameroon","cm","Orange",10,1800,"FDD",1710.2,1722,1805.2,1817
-22,"Egypt","eg","Etisalat",11,900,"FDD",902.5,915,947.5,960
-23,"Egypt","eg","Orange",12,900,"FDD",890,902.5,935,947.5
-24,"Egypt","eg","Vodafone",13,900,"FDD",880,890,925,935
-25,"Egypt","eg","Etisalat",11,1800,"FDD",1710,1730,1805,1825
-26,"Egypt","eg","Orange",12,1800,"FDD",1746,1761,1841,1856
-27,"Egypt","eg","Telecom Egypt",14,1800,"FDD",1741,1746,1836,1841
-28,"Egypt","eg","Vodafone",13,1800,"FDD",1761,1771,1856,1866
-29,"Egypt","eg","Etisalat",11,2100,"FDD",1945,1955,2135,2145
-30,"Egypt","eg","Orange",12,2100,"FDD",1930,1945,2120,2135
-31,"Egypt","eg","Vodafone",13,2100,"FDD",1960,1980,2150,2170
-32,"Ghana","gh","Airtel",15,900,"FDD",885,890,930,935
-33,"Ghana","gh","Glo",16,900,"FDD",880,885,925,930
-34,"Ghana","gh","MTN",17,900,"FDD",907,915,952,960
-35,"Ghana","gh","Tigo",18,900,"FDD",890,898,935,943
-36,"Ghana","gh","Vodafone",19,900,"FDD",898,907,943,952
-37,"Ghana","gh","Airtel",15,1800,"FDD",1710,1725,1805,1820
-38,"Ghana","gh","Glo",16,1800,"FDD",1755,1770,1850,1865
-39,"Ghana","gh","MTN",17,1800,"FDD",1725,1735,1820,1830
-40,"Ghana","gh","Tigo",18,1800,"FDD",1745,1755,1840,1850
-41,"Ghana","gh","Vodafone",19,1800,"FDD",1735,1745,1830,1840
-42,"Ghana","gh","Airtel",15,2100,"FDD",1935,1945,2125,2135
-43,"Ghana","gh","Glo",16,2100,"FDD",1945,1955,2135,2145
-44,"Ghana","gh","MTN",17,2100,"FDD",1970,1980,2160,2170
-45,"Ghana","gh","Tigo",18,2100,"FDD",1955,1970,2145,2160
-46,"Ghana","gh","Vodafone",19,2100,"FDD",1920,1935,2110,2125
-47,"Kenya","ke","Airtel",26,900,"FDD",905,915,950,960
-48,"Kenya","ke","Safaricom",24,900,"FDD",890,900,935,945
-49,"Kenya","ke","Telkom Kenya",25,900,"FDD",880,882.5,900,905
-50,"Kenya","ke","Yu",54,900,"FDD",882.5,890,927.5,935
-51,"Morocco","ma","Inwi",52,2600,"FDD",2500,2520,2620,2640
-52,"Morocco","ma","Maroc Telecom",51,2600,"FDD",2520,2540,2640,2660
-53,"Morocco","ma","Orange",50,2600,"FDD",2540,2560,2660,2680
-54,"Mozambique","mz","Mcel",20,900,"FDD",907,915,952,960
-55,"Mozambique","mz","Movitel",21,900,"FDD",898.6,906.6,943.6,951.6
-56,"Mozambique","mz","Vodacom",22,900,"FDD",890,898,935,943
-57,"Mozambique","mz","mcel",20,1800,"FDD",1710,1718,1710,1718
-58,"Mozambique","mz","Movitel",21,1800,"FDD",1718.2,1726.2,1718.2,1726.2
-59,"Mozambique","mz","Vodacom",22,1800,"FDD",1726.4,1734.4,1726.4,1734.4
-60,"Mozambique","mz","Mcel",20,2100,"FDD",1965,1980,2155,2170
-61,"Mozambique","mz","Movitel",21,2100,"FDD",1935,1950,2125,2140
-62,"Mozambique","mz","Vodacom",22,2100,"FDD",1920,1935,2110,2125
-63,"Namibia","na","MTC",27,900,"FDD",890,903,935,948
-64,"Namibia","na","Telecom Namibia",28,900,"FDD",905,915,950,960
-65,"Namibia","na","MTC",27,1800,"FDD",1710,1745.2,1805,1840.2
-66,"Namibia","na","Paratus",42,1800,"FDD",1765,1785,1860,1880
-67,"Namibia","na","Telecom Namibia",28,1800,"FDD",1745.2,1765,1840.2,1860
-68,"Namibia","na","MTC",27,2100,"FDD",1920,1935,2110,2125
-69,"Namibia","na","Paratus",42,2100,"FDD",1965,1970,1975,1980
-70,"Namibia","na","Telecom Namibia",28,2100,"FDD",1940,1960,2130,2150
-71,"Namibia","na","Paratus",42,2600,"FDD",2505,2525,2625,2645
-72,"Namibia","na","Telecom Namibia",28,2600,"FDD",2540,2570,2660,2690
-73,"Nigeria","ng","9Mobile",55,1800,"FDD",1770,1785,1865,1880
-74,"Nigeria","ng","Airtel",40,1800,"FDD",1755,1770,1850,1865
-75,"Nigeria","ng","Glo",23,1800,"FDD",1725,1740,1820,1835
-76,"Nigeria","ng","MTN",38,1800,"FDD",1740,1755,1835,1850
-77,"Nigeria","ng","ntel",37,1800,"FDD",1710,1725,1805,1820
-78,"Nigeria","ng","9Mobile",55,2100,"FDD",1940,1950,2130,2140
-79,"Nigeria","ng","Airtel",40,2100,"FDD",1950,1960,2140,2150
-80,"Nigeria","ng","Glo",23,2100,"FDD",1930,1940,2120,2130
-81,"Nigeria","ng","MTN",38,2100,"FDD",1920,1930,2110,2120
-82,"South Africa","za","CellC",30,900,"FDD",880.1,889.9,903.7,905.9
-83,"South Africa","za","MTN",31,900,"FDD",901.3,903.7,905.9,914.7
-84,"South Africa","za","Vodacom",29,900,"FDD",889.9,901.3,934.9,946.3
-85,"South Africa","za","CellC",30,2100,"FDD",1935,1950,2125,2140
-86,"South Africa","za","MTN",31,2100,"FDD",1950,1965,2140,2155
-87,"South Africa","za","Telkom",56,2100,"FDD",1965,1980,2155,2170
-88,"South Africa","za","Vodacom",29,2100,"FDD",1920,1935,2110,2125
-89,"Tanzania","tz","Airtel",47,1800,"FDD",1750,1760,1845,1855
-90,"Tanzania","tz","BOL",46,1800,"FDD",1745,1750,1780,1785
-91,"Tanzania","tz","BOL",46,1800,"FDD",1780,1785,1840,1845
-92,"Tanzania","tz","BOL",46,1800,"FDD",1840,1845,1875,1880
-93,"Tanzania","tz","Halotel",48,1800,"FDD",1770,1780,1865,1875
-94,"Tanzania","tz","Hits Telecom",49,1800,"FDD",1760,1770,1855,1865
-95,"Tanzania","tz","Tigo",44,1800,"FDD",1720,1732.5,1815,1827.5
-96,"Tanzania","tz","Vodacom",45,1800,"FDD",1732.5,1745,1827.5,1840
-97,"Tanzania","tz","Zantel",43,1800,"FDD",1710,1720,1805,1815
-98,"Uganda","ug","Africell",32,900,"FDD",898.2,903.2,943.2,948.2
-99,"Uganda","ug","Airtel",36,900,"FDD",885,890,890.2,898
-100,"Uganda","ug","iTEL",57,900,"FDD",903.2,906.4,948.2,951.4
-101,"Uganda","ug","MTN",33,900,"FDD",906.6,914.8,951.6,959.8
-102,"Uganda","ug","UTL",35,900,"FDD",880,885,925,930
-103,"Uganda","ug","Africell",32,1800,"FDD",1741,1751,1836,1846
-104,"Uganda","ug","Airtel",36,1800,"FDD",1773.2,1785,1868.2,1880
-105,"Uganda","ug","MTN",33,1800,"FDD",1761.2,1773,1856.2,1868
-106,"Uganda","ug","UTL",35,1800,"FDD",1716.2,1726.2,1811.2,1821.2
-107,"Uganda","ug","WARID","#N/A",1800,"FDD",1731,1741,1826,1836
+"ID","Country","ISO","Operator","Operator_ID","Band","Type"
+1,"Botswana","bw","BeMobile",4,900,"FDD"
+2,"Botswana","bw","Government",53,900,"FDD"
+3,"Botswana","bw","Mascom",5,900,"FDD"
+4,"Botswana","bw","Orange",6,900,"FDD"
+5,"Botswana","bw","BeMobile",4,1800,"FDD"
+6,"Botswana","bw","Mascom",5,1800,"FDD"
+7,"Botswana","bw","Orange",6,1800,"FDD"
+8,"Botswana","bw","Orange",6,2100,"FDD"
+9,"Burkina Faso","bf","Onatel",1,900,"FDD"
+10,"Burkina Faso","bf","Orange",2,900,"FDD"
+11,"Burkina Faso","bf","Telecel",3,900,"FDD"
+12,"Burkina Faso","bf","Onatel",1,1800,"FDD"
+13,"Burkina Faso","bf","Orange",2,1800,"FDD"
+14,"Burkina Faso","bf","Telecel",3,1800,"FDD"
+15,"Cameroon","cm","Camtel",7,900,"FDD"
+16,"Cameroon","cm","MTN",8,900,"FDD"
+17,"Cameroon","cm","neXttel",9,900,"FDD"
+18,"Cameroon","cm","Orange",10,900,"FDD"
+19,"Cameroon","cm","MTN",8,1800,"FDD"
+20,"Cameroon","cm","neXttel",9,1800,"FDD"
+21,"Cameroon","cm","Orange",10,1800,"FDD"
+22,"Egypt","eg","Etisalat",11,900,"FDD"
+23,"Egypt","eg","Orange",12,900,"FDD"
+24,"Egypt","eg","Vodafone",13,900,"FDD"
+25,"Egypt","eg","Etisalat",11,1800,"FDD"
+26,"Egypt","eg","Orange",12,1800,"FDD"
+27,"Egypt","eg","Telecom Egypt",14,1800,"FDD"
+28,"Egypt","eg","Vodafone",13,1800,"FDD"
+29,"Egypt","eg","Etisalat",11,2100,"FDD"
+30,"Egypt","eg","Orange",12,2100,"FDD"
+31,"Egypt","eg","Vodafone",13,2100,"FDD"
+32,"Ghana","gh","Airtel",15,900,"FDD"
+33,"Ghana","gh","Glo",16,900,"FDD"
+34,"Ghana","gh","MTN",17,900,"FDD"
+35,"Ghana","gh","Tigo",18,900,"FDD"
+36,"Ghana","gh","Vodafone",19,900,"FDD"
+37,"Ghana","gh","Airtel",15,1800,"FDD"
+38,"Ghana","gh","Glo",16,1800,"FDD"
+39,"Ghana","gh","MTN",17,1800,"FDD"
+40,"Ghana","gh","Tigo",18,1800,"FDD"
+41,"Ghana","gh","Vodafone",19,1800,"FDD"
+42,"Ghana","gh","Airtel",15,2100,"FDD"
+43,"Ghana","gh","Glo",16,2100,"FDD"
+44,"Ghana","gh","MTN",17,2100,"FDD"
+45,"Ghana","gh","Tigo",18,2100,"FDD"
+46,"Ghana","gh","Vodafone",19,2100,"FDD"
+47,"Kenya","ke","Airtel",26,900,"FDD"
+48,"Kenya","ke","Safaricom",24,900,"FDD"
+49,"Kenya","ke","Telkom Kenya",25,900,"FDD"
+50,"Kenya","ke","Yu",54,900,"FDD"
+51,"Morocco","ma","Inwi",52,2600,"FDD"
+52,"Morocco","ma","Maroc Telecom",51,2600,"FDD"
+53,"Morocco","ma","Orange",50,2600,"FDD"
+54,"Mozambique","mz","Mcel",20,900,"FDD"
+55,"Mozambique","mz","Movitel",21,900,"FDD"
+56,"Mozambique","mz","Vodacom",22,900,"FDD"
+57,"Mozambique","mz","mcel",20,1800,"FDD"
+58,"Mozambique","mz","Movitel",21,1800,"FDD"
+59,"Mozambique","mz","Vodacom",22,1800,"FDD"
+60,"Mozambique","mz","Mcel",20,2100,"FDD"
+61,"Mozambique","mz","Movitel",21,2100,"FDD"
+62,"Mozambique","mz","Vodacom",22,2100,"FDD"
+63,"Namibia","na","MTC",27,900,"FDD"
+64,"Namibia","na","Telecom Namibia",28,900,"FDD"
+65,"Namibia","na","MTC",27,1800,"FDD"
+66,"Namibia","na","Paratus",42,1800,"FDD"
+67,"Namibia","na","Telecom Namibia",28,1800,"FDD"
+68,"Namibia","na","MTC",27,2100,"FDD"
+69,"Namibia","na","Paratus",42,2100,"FDD"
+70,"Namibia","na","Telecom Namibia",28,2100,"FDD"
+71,"Namibia","na","Paratus",42,2600,"FDD"
+72,"Namibia","na","Telecom Namibia",28,2600,"FDD"
+73,"Nigeria","ng","9Mobile",55,1800,"FDD"
+74,"Nigeria","ng","Airtel",40,1800,"FDD"
+75,"Nigeria","ng","Glo",23,1800,"FDD"
+76,"Nigeria","ng","MTN",38,1800,"FDD"
+77,"Nigeria","ng","ntel",37,1800,"FDD"
+78,"Nigeria","ng","9Mobile",55,2100,"FDD"
+79,"Nigeria","ng","Airtel",40,2100,"FDD"
+80,"Nigeria","ng","Glo",23,2100,"FDD"
+81,"Nigeria","ng","MTN",38,2100,"FDD"
+82,"South Africa","za","CellC",30,900,"FDD"
+83,"South Africa","za","MTN",31,900,"FDD"
+84,"South Africa","za","Vodacom",29,900,"FDD"
+85,"South Africa","za","CellC",30,2100,"FDD"
+86,"South Africa","za","MTN",31,2100,"FDD"
+87,"South Africa","za","Telkom",56,2100,"FDD"
+88,"South Africa","za","Vodacom",29,2100,"FDD"
+89,"Tanzania","tz","Airtel",47,1800,"FDD"
+90,"Tanzania","tz","BOL",46,1800,"FDD"
+91,"Tanzania","tz","BOL",46,1800,"FDD"
+92,"Tanzania","tz","BOL",46,1800,"FDD"
+93,"Tanzania","tz","Halotel",48,1800,"FDD"
+94,"Tanzania","tz","Hits Telecom",49,1800,"FDD"
+95,"Tanzania","tz","Tigo",44,1800,"FDD"
+96,"Tanzania","tz","Vodacom",45,1800,"FDD"
+97,"Tanzania","tz","Zantel",43,1800,"FDD"
+98,"Uganda","ug","Africell",32,900,"FDD"
+99,"Uganda","ug","Airtel",36,900,"FDD"
+100,"Uganda","ug","iTEL",57,900,"FDD"
+101,"Uganda","ug","MTN",33,900,"FDD"
+102,"Uganda","ug","UTL",35,900,"FDD"
+103,"Uganda","ug","Africell",32,1800,"FDD"
+104,"Uganda","ug","Airtel",36,1800,"FDD"
+105,"Uganda","ug","MTN",33,1800,"FDD"
+106,"Uganda","ug","UTL",35,1800,"FDD"
+107,"Uganda","ug","WARID","#N/A",1800,"FDD"
+108,"Liberia","lr","Lonestar Cell MTN",58,900,"FDD"
+109,"Liberia","lr","Lonestar Cell MTN",58,1800,"FDD"
+110,"Liberia","lr","Lonestar Cell MTN",58,2100,"FDD"
+111,"Liberia","lr","Orange",59,900,"FDD"
+112,"Liberia","lr","Orange",59,1800,"FDD"
+113,"Liberia","lr","Orange",59,2100,"FDD"

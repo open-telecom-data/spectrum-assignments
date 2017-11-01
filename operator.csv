@@ -27,7 +27,7 @@
 26,"ke","Airtel","http://africa.airtel.com/wps/wcm/connect/africarevamp/Kenya/",,
 27,"na","MTC","http://www.mtc.com.na/",,"https://en.wikipedia.org/wiki/MTC_Namibia"
 28,"na","Telecom Namibia","http://www.telecom.na/",,"https://en.wikipedia.org/wiki/Telecom_Namibia"
-29,"za","Vodacom","http://www.vodacom.co.za/","Ghana Telecom,"https://en.wikipedia.org/wiki/Vodacom"
+29,"za","Vodacom","http://www.vodacom.co.za/","Ghana Telecom,""https://en.wikipedia.org/wiki/Vodacom",
 30,"za","CellC","https://www.cellc.co.za/",,"https://en.wikipedia.org/wiki/Cell_C"
 31,"za","MTN","http://www.mtn.co.za/",,"https://en.wikipedia.org/wiki/MTN_Group"
 32,"ug","Africell","http://africell.ug/","Orange","https://en.wikipedia.org/wiki/Africell"
@@ -56,3 +56,6 @@
 55,"ng","9Mobile","https://9mobile.com.ng/","Etisalat",
 56,"za","Telkom","http://www.telkom.co.za/",,"https://en.wikipedia.org/wiki/Telkom_(South_Africa)"
 57,"ug","iTel","https://www.itel-mobile.com",,
+58,"lb","Lonestar Cell MTN","http://www.lonestarcell.com",,"https://en.wikipedia.org/wiki/Lonestar_Cell"
+59,"lb","Orange","http://www.orange.com.lr/","Cellcom","https://en.wikipedia.org/wiki/Orange_S.A."
+60,"lb","Libtelco","http://www.libtelco.com.lr/",,"https://en.wikipedia.org/wiki/Liberia_Telecommunications_Corporation"
