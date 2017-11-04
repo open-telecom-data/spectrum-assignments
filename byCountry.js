@@ -60,15 +60,15 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     }
 
     /* Load data from freqAssignments.csv file */
-    d3.csv('freqAssignment.csv', function(error, freqData) {
+    d3.csv('csv/freqAssignment.csv', function(error, freqData) {
         /* Load data from spectrumLicense.csv file */
-        d3.csv('spectrumLicense.csv', function(error, licData) {
+        d3.csv('csv/spectrumLicense.csv', function(error, licData) {
             /* Load data from operators.csv file */
-            d3.csv('operator.csv', function(error, opData) {
+            d3.csv('csv/operator.csv', function(error, opData) {
                 /* Load data from operators.csv file */
-                d3.csv('owner.csv', function(error, ownData) {
+                d3.csv('csv/owner.csv', function(error, ownData) {
                     /* Load data from operators.csv file */
-                    d3.csv('shareholding.csv', function(error, shareData) {
+                    d3.csv('csv/shareholding.csv', function(error, shareData) {
 
                         freqData.forEach(function(d) {
                             d.ID = +d.ID;
