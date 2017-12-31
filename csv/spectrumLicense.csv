@@ -133,3 +133,12 @@ ID,Country,ISO,Operator,Operator_ID,Band,Type
 132,Morocco,ma,Inwi,52,2100,FDD
 133,Morocco,ma,Maroc Telecom,51,2100,FDD
 134,Morocco,ma,Orange,50,2100,FDD
+135,Tunisia,tn,Tunisie Telecom,64,900,FDD
+136,Tunisia,tn,Ooredoo,65,900,FDD
+137,Tunisia,tn,Orange,66,900,FDD
+138,Tunisia,tn,Tunisie Telecom,64,1800,FDD
+139,Tunisia,tn,Ooredoo,65,1800,FDD
+140,Tunisia,tn,Orange,66,1800,FDD
+141,Tunisia,tn,Tunisie Telecom,64,2100,FDD
+142,Tunisia,tn,Ooredoo,65,2100,FDD
+143,Tunisia,tn,Orange,66,2100,FDD

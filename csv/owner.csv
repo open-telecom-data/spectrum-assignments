@@ -1,12 +1,16 @@
 ID,Name,URL,Wiki_URL,ISO
-1,"Helios Investment Partners","https://www.heliosinvestment.com/","https://en.wikipedia.org/wiki/Helios_Investment_Partners","uk"
-2,"Government of Kenya","https://www.president.go.ke","https://en.wikipedia.org/wiki/Kenya","ke"
-3,"Government of Namibia","http://www.gov.na/","https://de.wikipedia.org/wiki/Namibia_Post_and_Telecommunications_Holdings","na"
-4,"Vodafone Group PLC","http://www.vodafone.com","https://en.wikipedia.org/wiki/Vodafone","uk "
-5,"Government of South Africa","https://www.gov.za/","https://en.wikipedia.org/wiki/Government_of_South_Africa","za"
-6,"Government of Cameroon","http://www.spm.gov.cm/","https://en.wikipedia.org/wiki/Government_of_Cameroon","cm"
-7,"MTN Group","http://www.mtn-investor.com","https://en.wikipedia.org/wiki/MTN_Group","za"
-8,"Orange S.A.","https://www.orange.com","https://en.wikipedia.org/wiki/Orange_S.A.","fr"
-9,"Etisalat","http://www.etisalat.com/","https://en.wikipedia.org/wiki/Etisalat","ae"
-10,"Bharti Airtel","http://www.airtel.in/","https://en.wikipedia.org/wiki/Bharti_Airtel","in"
-11,"Millicom International Cellular SA","http://www.millicom.com/","https://en.wikipedia.org/wiki/Millicom","lu"
+1,Helios Investment Partners,https://www.heliosinvestment.com/,https://en.wikipedia.org/wiki/Helios_Investment_Partners,uk
+2,Government of Kenya,https://www.president.go.ke,https://en.wikipedia.org/wiki/Kenya,ke
+3,Government of Namibia,http://www.gov.na/,https://de.wikipedia.org/wiki/Namibia_Post_and_Telecommunications_Holdings,na
+4,Vodafone Group PLC,http://www.vodafone.com,https://en.wikipedia.org/wiki/Vodafone,uk 
+5,Government of South Africa,https://www.gov.za/,https://en.wikipedia.org/wiki/Government_of_South_Africa,za
+6,Government of Cameroon,http://www.spm.gov.cm/,https://en.wikipedia.org/wiki/Government_of_Cameroon,cm
+7,MTN Group,http://www.mtn-investor.com,https://en.wikipedia.org/wiki/MTN_Group,za
+8,Orange S.A.,https://www.orange.com,https://en.wikipedia.org/wiki/Orange_S.A.,fr
+9,Etisalat,http://www.etisalat.com/,https://en.wikipedia.org/wiki/Etisalat,ae
+10,Bharti Airtel,http://www.airtel.in/,https://en.wikipedia.org/wiki/Bharti_Airtel,in
+11,Millicom International Cellular SA,http://www.millicom.com/,https://en.wikipedia.org/wiki/Millicom,lu
+12,Government of Tunisia,http://www.pm.gov.tn/,https://en.wikipedia.org/wiki/Politics_of_Tunisia,tn
+13,Emirates International Telecommunications ,http://www.eitl.ae/,,ae
+14,Ooredoo,http://ooredoo.com/en/,https://fr.wikipedia.org/wiki/Ooredoo,qa
+15,Investec,http://www.alkaramaholding.com/karama/pagee124.html?code=49,,tn
