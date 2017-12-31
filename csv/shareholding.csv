@@ -1,4 +1,4 @@
-"ID","Owner_ID","Operator_ID","SharePercent"
+ID,Owner_ID,Operator_ID,SharePercent
 1,1,25,60
 2,2,25,40
 3,3,28,100
