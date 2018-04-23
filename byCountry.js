@@ -101,10 +101,10 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                            of spectrum license in frequeny assignment table (freqData) */
                         var licenseJoin = join(licData, freqData, "ID", "license_ID", function(freq, lic) {
                             return {
-                            	freqStart: freq.freqStart,
+                                freqStart: freq.freqStart,
                                 freqEnd: freq.freqEnd,
                                 freqSize: freq.freqEnd - freq.freqStart,
-                            	Country: (lic !== undefined) ? lic.Country : null,
+                                Country: (lic !== undefined) ? lic.Country : null,
                                 Operator: (lic !== undefined) ? lic.Operator : null,
                                 ISO: (lic !== undefined) ? lic.ISO : null,
                                 Operator_ID: (lic !== undefined) ? lic.Operator_ID : null,
@@ -112,7 +112,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 Band: (lic !== undefined) ? lic.Band : null,
                                 Type: (lic !== undefined) ? lic.Type : null
 
-                        	};
+                            };
                         });
 
                         /* perform outside join of freqData and opData, bringing in URL, Previously and Wiki url fields*/
@@ -192,7 +192,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 /*  determine absolute coordinates for left edge of SVG */
                                 let matrix = this.getScreenCTM()
                                     .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
-                                h.selectAll("." + countryName.replace(/\s+/g, '_')).each(function(d) {
+                                h.selectAll("." + countryName.replace(/\s+/g, '_').replace(/'/g, "")).each(function(d) {
                                     totSpec += d.freqEnd;
                                     totSpec -= d.freqStart;
                                     sumSpec = sumSpec + d.freqEnd - d.freqStart;
@@ -255,7 +255,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                             .attr("data-toggle", "modal")
                             .attr("data-target", "#myModal")
                             .append("rect")
-                            .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_'); })
+                            .attr("class", function(d) { return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_').replace(/'/g, ""); })
                             .classed("bar", true)
                             .attr("y", function(d) { return y(d.Country); })
                             .attr("x", function(d) { return x(d.freqStart); })
@@ -275,7 +275,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                         /* MHz ToolTip for each operator spectrum assignment */
                         bars.on("mouseover", function(d) {
                                 /* calculate total spectrum assigned */
-                                let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_')).each(function(d, i) {
+                                let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_').replace(/'/g, "")).each(function(d, i) {
                                     totSpec = f(d.freqSize) + " + " + totSpec;
                                     sumSpec = sumSpec + d.freqSize;
                                     midRect = x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2;
@@ -348,7 +348,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 freqMid = 0;
                                 h.selectAll("line.infoLine").remove();
                                 h.selectAll("rect.infoLine").remove();
-                                h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_'))
+                                h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_').replace(/'/g, ""))
                                     .classed("selected", false)
                                 infoBox.transition()
                                     .duration(500)
@@ -388,8 +388,25 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     });
 }
 
-/* 	Perform an outer join on two arrays.
-	Source"  http://learnjsdata.com/combine_data.html */
+function cleanText() {
+    var translate_re = /[öäüÖÄÜ]/g;
+    var translate = {
+        "ä": "a",
+        "ö": "o",
+        "ü": "u",
+        "Ä": "A",
+        "Ö": "O",
+        "Ü": "U" // probably more to come
+    };
+    return function(s) {
+        return (s.replace(translate_re, function(match) {
+            return translate[match];
+        }));
+    }
+};
+
+/*  Perform an outer join on two arrays.
+    Source"  http://learnjsdata.com/combine_data.html */
 function join(lookupTable, mainTable, lookupKey, mainKey, select) {
     var l = lookupTable.length,
         m = mainTable.length,
@@ -408,8 +425,8 @@ function join(lookupTable, mainTable, lookupKey, mainKey, select) {
 };
 
 /*  Create an html table from an array.
-	Source:  http://www.d3noob.org/2013/02/add-html-table-to-your-d3js-graph.html
-	format: tabulate(data, ["field1", "field3"]); */
+    Source:  http://www.d3noob.org/2013/02/add-html-table-to-your-d3js-graph.html
+    format: tabulate(data, ["field1", "field3"]); */
 function tabulate(data, columns) {
     var table = d3.select("body").append("table")
         .attr("style", "margin-left: 250px"),

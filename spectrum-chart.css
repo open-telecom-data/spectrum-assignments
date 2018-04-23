@@ -67,6 +67,10 @@
     fill: #ffbe00;
 }
 
+.Lonestar_Cell_MTN {
+    fill: #ffbe00;
+}
+
 .Vodacom {
     fill: #e60000
 }
@@ -169,6 +173,18 @@
 
 .Inwi {
     fill: #AD2184;
+}
+
+.Moov {
+    fill:  #C1D72E;
+}
+
+.Tunisie_Telecom {
+    fill:  #F54689;
+}
+
+.Ooredoo {
+    fill: #EE1C25;
 }
 
 .guardband {
