@@ -142,3 +142,11 @@ ID,Country,ISO,Operator,Operator_ID,Band,Type
 141,Tunisia,tn,Tunisie Telecom,64,2100,FDD
 142,Tunisia,tn,Ooredoo,65,2100,FDD
 143,Tunisia,tn,Orange,66,2100,FDD
+144,Lesotho,ls,Vodacom,67,900,FDD
+145,Lesotho,ls,Econet Telecom Lesotho,68,900,FDD
+146,Lesotho,ls,Vodacom,67,1800,FDD
+145,Lesotho,ls,Econet Telecom Lesotho,68,1800,FDD
+146,Lesotho,ls,Vodacom,67,2100,FDD
+147,Lesotho,ls,Econet Telecom Lesotho,68,2100,FDD
+148,Lesotho,ls,Vodacom,67,2600,FDD
+149,Lesotho,ls,Econet Telecom Lesotho,68,2600,FDD
