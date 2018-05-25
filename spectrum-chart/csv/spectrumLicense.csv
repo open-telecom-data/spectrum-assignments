@@ -148,5 +148,3 @@ ID,Country,ISO,Operator,Operator_ID,Band,Type
 147,Lesotho,ls,Econet Lesotho,68,1800,FDD
 148,Lesotho,ls,Vodacom,67,2100,FDD
 149,Lesotho,ls,Econet Lesotho,68,2100,FDD
-150,Lesotho,ls,Vodacom,67,2600,FDD
-149,Lesotho,ls,Econet Lesotho,68,2600,FDD
