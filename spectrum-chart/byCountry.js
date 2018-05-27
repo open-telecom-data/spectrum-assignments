@@ -299,7 +299,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                         .style("fill", "white")
                                         .attr("class", "infoLine")
                                         .style("opacity", .5)
-                                        .attr("y", y(d.Country) + 5 )
+                                        .attr("y", y(d.Country) + 3 )
                                         .attr("x", x(d.freqStart) + 1)
                                         .attr("width", x(d.freqEnd) - x(d.freqStart) - 2)
                                         .attr("height", 36);
