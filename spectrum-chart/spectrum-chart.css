@@ -259,7 +259,6 @@ div.countryTip {
     padding: 1.5em;
     background: #144667;
     color: white;
-    border-radius: 3px;
     pointer-events: none;
     -webkit-transform: translate3d(0, -0.5em, 0);
     -ms-transform: translate3d(0, -0.5em, 0);

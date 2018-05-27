@@ -213,7 +213,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     /* countryBox.html('<table selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>") */
 
                                     .style("left", (window.pageXOffset + matrix.e) + "px")
-                                    .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
+                                    // .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
+                                    .style('top', matrix.f - y.bandwidth() / 2 + 7 + 'px')
                                     .style("height", y.bandwidth() + "px")
                                     .style("width", width + "px");
                             })
