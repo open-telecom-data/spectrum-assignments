@@ -283,7 +283,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     /*  outline spectrum blocks  */
                                     h.append("rect")
                                         .style("stroke", "black")
-                                        .style("stroke-width", "4")
+                                        .style("stroke-width", "2")
                                         .style("fill", "none")
                                         .style("stroke-linecap", "round")
                                         .style("stroke-linejoin", "round")
@@ -293,10 +293,33 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                         .attr("x", x(d.freqStart))
                                         .attr("width", x(d.freqEnd) - x(d.freqStart))
                                         .attr("height", y.bandwidth());
+                                    /*  background for frequency text   */
+                                    h.append("rect")
+                                        .style("fill", "white")
+                                        .attr("class", "infoLine")
+                                        .style("opacity", .5)
+                                        .attr("y", y(d.Country) + 5 )
+                                        .attr("x", x(d.freqStart) + 1)
+                                        .attr("width", x(d.freqEnd) - x(d.freqStart) - 2)
+                                        .attr("height", 36);
+                                    /* add spectrum start freq */
+                                    h.append("text")
+                                        .attr("class", "specInfo")
+                                        .attr('transform', 'rotate(-90)')
+                                        .attr("x", -y(d.Country) - 35)
+                                        .attr("y", x(d.freqStart) +10)
+                                        .text(d.freqStart);                                        
+                                    /* add spectrum stop freq */
+                                    h.append("text")
+                                        .attr("class", "specInfo")
+                                        .attr('transform', 'rotate(-90)')
+                                        .attr("x", -y(d.Country) - 35)
+                                        .attr("y", x(d.freqEnd) -5)
+                                        .text(d.freqEnd);                                        
                                     /* add short vertical lines under each block */
                                     h.append("line")
                                         .style("stroke", "black")
-                                        .style("stroke-width", "4")
+                                        .style("stroke-width", "2")
                                         .style("stroke-linecap", "round")
                                         .style("stroke-linejoin", "round")
                                         .attr("class", "infoLine")
@@ -312,7 +335,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 // draw a horizontal line connecting the two spectrum blocks
                                 h.append("line")
                                     .style("stroke", "black")
-                                    .style("stroke-width", "4")
+                                    .style("stroke-width", "2")
                                     .style("stroke-linecap", "round")
                                     .style("stroke-linejoin", "round")
                                     .attr("class", "infoLine")
@@ -323,7 +346,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 /* add short vert line to connect to infoBox */
                                 h.append("line")
                                     .style("stroke", "black")
-                                    .style("stroke-width", "4")
+                                    .style("stroke-width", "2")
                                     .style("stroke-linecap", "round")
                                     .style("stroke-linejoin", "round")
                                     .attr("class", "infoLine")
@@ -335,6 +358,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 infoBox.transition()
                                     .duration(200)
                                     .style("opacity", 1);
+                                /* note that there is a naming convention for the operator logos that must be followed */
                                 opLogo = '<img src="operator-logo/' + d.ISO + '-' + d.Operator.replace(/\s+/g, '_').toLowerCase() + '.png">';
                                 infoBox.html('<table class="operatorTip selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment (MHz):</td><td>' + totSpec.replace(/\s\+\s$/, '') + '</td></tr><tr><td>Total (MHz):</td><td>' + f(sumSpec) + "</td><tr></tbody></table>")
                                     .style("left", freqMid + "px")
@@ -348,6 +372,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 freqMid = 0;
                                 h.selectAll("line.infoLine").remove();
                                 h.selectAll("rect.infoLine").remove();
+                                h.selectAll("text.specInfo").remove();
                                 h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_').replace(/'/g, ""))
                                     .classed("selected", false)
                                 infoBox.transition()
