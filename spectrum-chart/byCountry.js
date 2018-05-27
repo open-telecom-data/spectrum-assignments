@@ -210,7 +210,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 console.log("window.pageXOffset: " + window.pageXOffset); */
                                 let yText = getTranslation(d3.select(this.parentNode).attr("transform"));
                                 countryBox.html('<table selected"><tbody><tr><td rowspan="3"><img src="flag/' + cntryISO + '.png"></td><td>' + countryName + '</td></tr><tr><td>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available.</td></tr><tr><td><b>Band occupancy ' + p(availPercent) + '</td></tr></tbody></table>')
-                                    /* countryBox.html('<table selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>") */
+                                    /* countryBox.html('<table selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment (MHz):</td><td>' + totSpec.replace(/\s\+\s$/, '') + '</td></tr><tr><td>Total (MHz):</td><td>' + f(sumSpec) + "</td><tr></tbody></table>") */
 
                                     .style("left", (window.pageXOffset + matrix.e) + "px")
                                     .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
