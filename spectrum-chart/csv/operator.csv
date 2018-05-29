@@ -1,71 +1,71 @@
-ID,ISO,Operator,URL,Previously,Wiki_URL,
-1,bf,Onatel,http://www.onatel.bf/,,,
-2,bf,Orange,http://www.orange.bf/,,,
-3,bf,Telecel,http://www.telecelfaso.bf/,,,
-4,bw,BeMobile,http://www.btclmobile.co.bw/,,,
-5,bw,Mascom,https://www.mascom.bw/,,https://en.wikipedia.org/wiki/MASCOM,
-6,bw,Orange,http://www.orange.co.bw,Vista Cellular,,
-7,cm,Camtel,http://www.camtel.cm/,,https://en.wikipedia.org/wiki/Camtel,
-8,cm,MTN,https://www.mtncameroon.net/,,,
-9,cm,NeXttel,http://www.nexttel.cm/,,,
-10,cm,Orange,http://www.orange.cm,,,
-11,eg,Etisalat,http://www.etisalat.eg/,,https://en.wikipedia.org/wiki/Etisalat_Egypt,
-12,eg,Orange,https://www.orange.eg/,,https://en.wikipedia.org/wiki/Orange_Egypt,
-13,eg,Vodafone,http://www.vodafone.com.eg,,https://en.wikipedia.org/wiki/Vodafone_Egypt,
-14,eg,Telecom Egypt,http://te.eg/,,https://en.wikipedia.org/wiki/Telecom_Egypt,
-15,gh,Airtel,http://www.africa.airtel.com/wps/wcm/connect/africarevamp/Ghana/,,,
-16,gh,Glo,http://www.gloworld.com/gh/,,,
-17,gh,MTN,https://www.mtn.com.gh/,,,
-18,gh,Tigo,https://www.tigo.com.gh/,,,
-19,gh,Vodafone,http://www.vodafone.com.gh/,Ghana Telecom,https://en.wikipedia.org/wiki/Vodafone_Ghana,
-20,mz,mCel,https://www.mcel.co.mz/,,,
-21,mz,Movitel,http://movitel.co.mz/,,"https://en.wikipedia.org/wiki/Movitel,_SA",
-22,mz,Vodacom,http://www.vm.co.mz/,,,
-23,ng,Glo,http://www.gloworld.com/ng/,,,
-24,ke,Safaricom,https://www.safaricom.co.ke/,,https://en.wikipedia.org/wiki/Safaricom,
-25,ke,Telkom Kenya,http://www.telkom.co.ke/,Orange,https://en.wikipedia.org/wiki/Telkom_Kenya,
-26,ke,Airtel,http://africa.airtel.com/wps/wcm/connect/africarevamp/Kenya/,,,
-27,na,MTC,http://www.mtc.com.na/,,https://en.wikipedia.org/wiki/MTC_Namibia,
-28,na,Telecom Namibia,http://www.telecom.na/,,https://en.wikipedia.org/wiki/Telecom_Namibia,
-29,za,Vodacom,http://www.vodacom.co.za/,,https://en.wikipedia.org/wiki/Vodacom,
-30,za,CellC,https://www.cellc.co.za/,,https://en.wikipedia.org/wiki/Cell_C,
-31,za,MTN,http://www.mtn.co.za/,,https://en.wikipedia.org/wiki/MTN_Group,
-32,ug,Africell,http://africell.ug/,Orange,https://en.wikipedia.org/wiki/Africell,
-33,ug,MTN,https://www.mtn.co.ug/,,https://en.wikipedia.org/wiki/MTN_Uganda,
-34,ug,Vodafone,https://vodafone.co.ug/,,,
-35,ug,UTL,http://www.utl.co.ug,,https://en.wikipedia.org/wiki/Uganda_Telecom,
-36,ug,Airtel,http://www.africa.airtel.com/uganda/,Zain / Celtel,https://en.wikipedia.org/wiki/Airtel_Uganda,
-37,ng,nTel,http://www.ntel.com.ng/,,,
-38,ng,MTN,http://www.mtnonline.com/,,https://en.wikipedia.org/wiki/MTN_Group,
-39,ng,Glo,http://www.gloworld.com/ng/,,https://en.wikipedia.org/wiki/Globacom,
-40,ng,Airtel,http://www.africa.airtel.com/nigeria/,,https://en.wikipedia.org/wiki/Airtel_Africa,
-41,ng,Etisalat,http://9mobile.com.ng/,,https://en.wikipedia.org/wiki/Etisalat#Etisalat_Nigeria,
-42,na,Paratus,http://www.paratustelco.com/na/,,,
-43,tz,Zantel,http://www.zantel.com/,,,
-44,tz,Tigo,https://www.tigo.co.tz/,Mobitel,https://en.wikipedia.org/wiki/MIC_Tanzania_Limited,
-45,tz,Vodacom,https://vodacom.co.tz/,,https://en.wikipedia.org/wiki/Vodacom_Tanzania,
-46,tz,Bol,?,,,
-47,tz,Airtel,http://africa.airtel.com/wps/wcm/connect/africarevamp/Tanzania/,Celtel,https://en.wikipedia.org/wiki/Airtel_Tanzania,
-48,tz,Halotel,http://halotel.co.tz/,,https://en.wikipedia.org/wiki/Viettel_Tanzania,
-49,tz,Hits Telecom,http://www.hitstelecom.net/,,,
-50,ma,Orange,http://www.orange.ma/,,https://en.wikipedia.org/wiki/Orange_S.A.,
-51,ma,Maroc Telecom,http://www.iam.ma/,,https://en.wikipedia.org/wiki/Maroc_Telecom,
-52,ma,Inwi,https://www.inwi.ma/,Maroc Connect,https://en.wikipedia.org/wiki/Inwi,
-53,bw,Government,,,,
-54,ke,Yu,,,,
-55,ng,9Mobile,https://9mobile.com.ng/,Etisalat,,
-56,za,Telkom,http://www.telkom.co.za/,,https://en.wikipedia.org/wiki/Telkom_(South_Africa),
-57,ug,iTel,https://www.itel-mobile.com,,,
-58,lb,Lonestar Cell MTN,http://www.lonestarcell.com,,https://en.wikipedia.org/wiki/Lonestar_Cell,
-59,lb,Orange,http://www.orange.com.lr/,Cellcom,https://en.wikipedia.org/wiki/Orange_S.A.,
-60,lb,Libtelco,http://www.libtelco.com.lr/,,https://en.wikipedia.org/wiki/Liberia_Telecommunications_Corporation,
-61,ci,MTN,http://www.mtn.ci/,,https://fr.wikipedia.org/wiki/MTN_C%C3%B4te_d%27Ivoire,
-62,ci,Orange,https://www.orange.ci/,,https://fr.wikipedia.org/wiki/Orange_C%C3%B4te_d%27Ivoire,
-63,ci,Moov,http://www.moov.com/,,https://fr.wikipedia.org/wiki/Moov_C%C3%B4te_d%27Ivoire,
-64,tn,Tunisie Telecom,https://www.tunisietelecom.tn/,,https://fr.wikipedia.org/wiki/Tunisie_T%C3%A9l%C3%A9com,
-65,tn,Ooredoo,http://www.ooredoo.tn/,,https://fr.wikipedia.org/wiki/Ooredoo_(Tunisie),
-66,tn,Orange,http://www.orange.tn/,,https://fr.wikipedia.org/wiki/Orange_Tunisie,
-67,ls,Vodacom,http://www.vodacom.co.ls/,,,
-68,ls,Econet Lesotho,https://www.etl.co.ls/,,https://en.wikipedia.org/wiki/Econet_Telecom_Lesotho,
+ID,ISO,Operator,URL,Previously,Wiki_URL
+1,bf,Onatel,http://www.onatel.bf/,,
+2,bf,Orange,http://www.orange.bf/,,
+3,bf,Telecel,http://www.telecelfaso.bf/,,
+4,bw,BeMobile,http://www.btclmobile.co.bw/,,
+5,bw,Mascom,https://www.mascom.bw/,,https://en.wikipedia.org/wiki/MASCOM
+6,bw,Orange,http://www.orange.co.bw,Vista Cellular,
+7,cm,Camtel,http://www.camtel.cm/,,https://en.wikipedia.org/wiki/Camtel
+8,cm,MTN,https://www.mtncameroon.net/,,
+9,cm,NeXttel,http://www.nexttel.cm/,,
+10,cm,Orange,http://www.orange.cm,,
+11,eg,Etisalat,http://www.etisalat.eg/,,https://en.wikipedia.org/wiki/Etisalat_Egypt
+12,eg,Orange,https://www.orange.eg/,,https://en.wikipedia.org/wiki/Orange_Egypt
+13,eg,Vodafone,http://www.vodafone.com.eg,,https://en.wikipedia.org/wiki/Vodafone_Egypt
+14,eg,Telecom Egypt,http://te.eg/,,https://en.wikipedia.org/wiki/Telecom_Egypt
+15,gh,Airtel,http://www.africa.airtel.com/wps/wcm/connect/africarevamp/Ghana/,,
+16,gh,Glo,http://www.gloworld.com/gh/,,
+17,gh,MTN,https://www.mtn.com.gh/,,
+18,gh,Tigo,https://www.tigo.com.gh/,,
+19,gh,Vodafone,http://www.vodafone.com.gh/,Ghana Telecom,https://en.wikipedia.org/wiki/Vodafone_Ghana
+20,mz,mCel,https://www.mcel.co.mz/,,
+21,mz,Movitel,http://movitel.co.mz/,,"https://en.wikipedia.org/wiki/Movitel,_SA"
+22,mz,Vodacom,http://www.vm.co.mz/,,
+23,ng,Glo,http://www.gloworld.com/ng/,,
+24,ke,Safaricom,https://www.safaricom.co.ke/,,https://en.wikipedia.org/wiki/Safaricom
+25,ke,Telkom Kenya,http://www.telkom.co.ke/,Orange,https://en.wikipedia.org/wiki/Telkom_Kenya
+26,ke,Airtel,http://africa.airtel.com/wps/wcm/connect/africarevamp/Kenya/,,
+27,na,MTC,http://www.mtc.com.na/,,https://en.wikipedia.org/wiki/MTC_Namibia
+28,na,Telecom Namibia,http://www.telecom.na/,,https://en.wikipedia.org/wiki/Telecom_Namibia
+29,za,Vodacom,http://www.vodacom.co.za/,,https://en.wikipedia.org/wiki/Vodacom
+30,za,CellC,https://www.cellc.co.za/,,https://en.wikipedia.org/wiki/Cell_C
+31,za,MTN,http://www.mtn.co.za/,,https://en.wikipedia.org/wiki/MTN_Group
+32,ug,Africell,http://africell.ug/,Orange,https://en.wikipedia.org/wiki/Africell
+33,ug,MTN,https://www.mtn.co.ug/,,https://en.wikipedia.org/wiki/MTN_Uganda
+34,ug,Vodafone,https://vodafone.co.ug/,,
+35,ug,UTL,http://www.utl.co.ug,,https://en.wikipedia.org/wiki/Uganda_Telecom
+36,ug,Airtel,http://www.africa.airtel.com/uganda/,Zain / Celtel,https://en.wikipedia.org/wiki/Airtel_Uganda
+37,ng,nTel,http://www.ntel.com.ng/,,
+38,ng,MTN,http://www.mtnonline.com/,,https://en.wikipedia.org/wiki/MTN_Group
+39,ng,Glo,http://www.gloworld.com/ng/,,https://en.wikipedia.org/wiki/Globacom
+40,ng,Airtel,http://www.africa.airtel.com/nigeria/,,https://en.wikipedia.org/wiki/Airtel_Africa
+41,ng,Etisalat,http://9mobile.com.ng/,,https://en.wikipedia.org/wiki/Etisalat#Etisalat_Nigeria
+42,na,Paratus,http://www.paratustelco.com/na/,,
+43,tz,Zantel,http://www.zantel.com/,,
+44,tz,Tigo,https://www.tigo.co.tz/,Mobitel,https://en.wikipedia.org/wiki/MIC_Tanzania_Limited
+45,tz,Vodacom,https://vodacom.co.tz/,,https://en.wikipedia.org/wiki/Vodacom_Tanzania
+46,tz,Bol,?,,
+47,tz,Airtel,http://africa.airtel.com/wps/wcm/connect/africarevamp/Tanzania/,Celtel,https://en.wikipedia.org/wiki/Airtel_Tanzania
+48,tz,Halotel,http://halotel.co.tz/,,https://en.wikipedia.org/wiki/Viettel_Tanzania
+49,tz,Hits Telecom,http://www.hitstelecom.net/,,
+50,ma,Orange,http://www.orange.ma/,,https://en.wikipedia.org/wiki/Orange_S.A.
+51,ma,Maroc Telecom,http://www.iam.ma/,,https://en.wikipedia.org/wiki/Maroc_Telecom
+52,ma,Inwi,https://www.inwi.ma/,Maroc Connect,https://en.wikipedia.org/wiki/Inwi
+53,bw,Government,,,
+54,ke,Yu,,,
+55,ng,9Mobile,https://9mobile.com.ng/,Etisalat,
+56,za,Telkom,http://www.telkom.co.za/,,https://en.wikipedia.org/wiki/Telkom_(South_Africa)
+57,ug,iTel,https://www.itel-mobile.com,,
+58,lb,Lonestar Cell MTN,http://www.lonestarcell.com,,https://en.wikipedia.org/wiki/Lonestar_Cell
+59,lb,Orange,http://www.orange.com.lr/,Cellcom,https://en.wikipedia.org/wiki/Orange_S.A.
+60,lb,Libtelco,http://www.libtelco.com.lr/,,https://en.wikipedia.org/wiki/Liberia_Telecommunications_Corporation
+61,ci,MTN,http://www.mtn.ci/,,https://fr.wikipedia.org/wiki/MTN_C%C3%B4te_d%27Ivoire
+62,ci,Orange,https://www.orange.ci/,,https://fr.wikipedia.org/wiki/Orange_C%C3%B4te_d%27Ivoire
+63,ci,Moov,http://www.moov.com/,,https://fr.wikipedia.org/wiki/Moov_C%C3%B4te_d%27Ivoire
+64,tn,Tunisie Telecom,https://www.tunisietelecom.tn/,,https://fr.wikipedia.org/wiki/Tunisie_T%C3%A9l%C3%A9com
+65,tn,Ooredoo,http://www.ooredoo.tn/,,https://fr.wikipedia.org/wiki/Ooredoo_(Tunisie)
+66,tn,Orange,http://www.orange.tn/,,https://fr.wikipedia.org/wiki/Orange_Tunisie
+67,ls,Vodacom,http://www.vodacom.co.ls/,,
+68,ls,Econet Lesotho,https://www.etl.co.ls/,,https://en.wikipedia.org/wiki/Econet_Telecom_Lesotho
 69,za,Rain,https://www.rain.co.za/,Wireless Business Solutions (WBS),https://en.wikipedia.org/wiki/Rain_(network_operator)
 70,za,Neotel Liquid Telecom,https://www.neotel.co.za/,Neotel,https://en.wikipedia.org/wiki/Neotel
