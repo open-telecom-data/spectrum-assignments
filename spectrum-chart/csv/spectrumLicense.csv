@@ -148,3 +148,9 @@ ID,Country,ISO,Operator,Operator_ID,Band,Type
 147,Lesotho,ls,Econet Lesotho,68,1800,FDD
 148,Lesotho,ls,Vodacom,67,2100,FDD
 149,Lesotho,ls,Econet Lesotho,68,2100,FDD
+150,South Africa,za,Vodacom,29,1800,FDD
+151,South Africa,za,CellC,30,1800,FDD
+152,South Africa,za,MTN,31,1800,FDD
+153,South Africa,za,Telkom,56,1800,FDD
+154,South Africa,za,Rain,69,1800,FDD
+155,South Africa,za,Neotel Liquid Telecom,70,1800,FDD

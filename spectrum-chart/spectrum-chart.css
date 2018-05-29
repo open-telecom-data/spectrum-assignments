@@ -169,6 +169,10 @@
     fill: #00AAC6;
 }
 
+.Telkom {
+    fill: #0083C2;
+}
+
 .Camtel {
   fill: #00AEEF;
 }
@@ -195,6 +199,14 @@
 
 .Ooredoo {
     fill: #EE1C25;
+}
+
+.Neotel_Liquid_Telecom {
+    fill:  #E92590;
+}
+
+.Rain {
+    fill: #0076C3;
 }
 
 .guardband {
