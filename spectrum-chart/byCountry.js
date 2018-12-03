@@ -541,7 +541,9 @@ function wrap(text, width) {
                 });
                 tspan.text(spanContent);
                 line = [word];
-                tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', ++lineNumber * lineHeight + dy + 'em').text(word);
+                ++lineNumber;
+                console.log("lineNumber: " + lineNumber + "and y:" + y);
+                tspan = text.append('tspan').attr('x', x).attr('y', parseInt(y) + lineNumber * 12).attr('dy',  dy + 'em').text(word);
             }
             tabs.classed('tab-pane', true).classed('fade', true);
         }
