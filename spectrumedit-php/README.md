@@ -1,4 +1,4 @@
-# PHP layer to SQLite database for Editing Spectrum data
+# PHP code and SQLite database for Editing Spectrum data
 
 ## Notes
 
