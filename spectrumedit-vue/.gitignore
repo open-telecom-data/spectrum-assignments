@@ -5,8 +5,7 @@ node_modules
 # local env files
 .env.local
 .env.*.local
-vue.config.js
-package-lock.json
+main.js
 
 # Log files
 npm-debug.log*
