@@ -5,7 +5,8 @@ import './plugins/vuetify'
 
 import { routes } from './routes';
 
-Vue.prototype.PURL = 'http://localhost/spectrumedit/phpsqlite';
+//Vue.prototype.PURL = 'http://localhost/spectrumedit/phpsqlite';
+Vue.prototype.PURL = 'http://localhost/spectrum-assignments/spectrumedit-php';
 
 Vue.use(VueRouter);
 
