@@ -48,14 +48,13 @@ PRAGMA foreign_keys = ON;
 
 .mode csv
 
-.import country.csv country
-.import freqBands.csv freqBands
-.import ../spectrum-chart/csv/owner.csv owner_tmp
-.import ../spectrum-chart/csv/operator.csv operator_tmp
-.import ../spectrum-chart/csv/spectrumLicense.csv spectrumLicense_tmp
-.import ../spectrum-chart/csv/freqAssignment.csv freqAssignment_tmp
-.import ../spectrum-chart/csv/shareholding.csv shareHolding_tmp
-
+.import country_nohead.csv country
+.import freqBands_nohead.csv freqBands
+.import owner_nohead.csv owner_tmp
+.import operator_nohead.csv operator_tmp
+.import spectrumLicense_nohead.csv spectrumLicense_tmp
+.import freqAssignment_nohead.csv freqAssignment_tmp
+.import shareholding_nohead.csv shareHolding_tmp
 
 .mode list
 
