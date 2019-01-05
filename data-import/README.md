@@ -1,4 +1,4 @@
-# Tools to build sqlite atabase and import CSV files
+# Tools to build sqlite database and import CSV files
 
 1. To build the schema
 
