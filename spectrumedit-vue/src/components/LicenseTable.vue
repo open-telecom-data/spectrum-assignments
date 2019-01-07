@@ -413,7 +413,7 @@
 					this.response_axios = false;
 					if (this.editedIndex2 > -1) {
 
-						Object.assign(this.freqRows[this.editedIndex2], this.editedItem2);
+
 
 						// Function to Update record in Owners table in sqlite database
 						axios.post(this.PURL + "/api.php?action=update&table=frequencies", formData)
@@ -422,8 +422,7 @@
 									if (response.data.error) {
 										this.errorMessage = response.data.message;
 									} else {
-										this.response_axios = true;
-										console.log(response.data)
+										Object.assign(this.freqRows[this.editedIndex2], this.editedItem2);
 									}
 								});
 
@@ -436,8 +435,6 @@
 									if (response.data.error) {
 										this.errorMessage = response.data.message;
 									} else {
-										this.response_axios = true;
-										console.log(response.data)
 										this.freqRows.push(this.editedItem2);
 									}
 								});
