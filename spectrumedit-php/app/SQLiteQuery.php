@@ -81,4 +81,13 @@ class SQLiteQuery {
 		return $rowarray;
 	}
 
+	public function getShares($Operator_ID) {
+		$stmt = $this->pdo->query("select shareHolding.ID,Owner_ID,Name,SharePercent,Type from shareHolding inner join owner on shareHolding.Owner_ID=owner.ID where Investment_ID=$Operator_ID");
+		$rowarray = array();
+		while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+			array_push($rowarray,$row);
+		}
+		return $rowarray;
+	}
+
 }

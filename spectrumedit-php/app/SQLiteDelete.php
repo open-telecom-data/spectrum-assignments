@@ -71,4 +71,13 @@ class SQLiteDelete {
 		return $stmt;
 	}
 
+	public function deleteShare($ID) {
+		// SQL statement to insert a record
+		$sql = "DELETE FROM shareHolding "
+			. "WHERE ID = $ID";
+		echo "Got $sql";
+		$stmt = $this->pdo->query($sql);
+		return $stmt;
+	}
+
 }

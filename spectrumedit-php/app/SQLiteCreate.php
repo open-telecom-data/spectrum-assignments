@@ -73,5 +73,16 @@ class SQLiteCreate {
     return $stmt;
   }
 
+  public function createShare($investment_ID,$owner_ID,$SharePercent,$Type) {
+    // SQL statement to insert a record
+    $sql = "INSERT INTO shareHolding "
+      . "('Investment_ID','Owner_ID','SharePercent','Type') "
+      . "VALUES ('$investment_ID','$owner_ID','$SharePercent','$Type')";
+    echo "Got $sql";
+    $stmt = $this->pdo->query($sql);
+    return $stmt;
+  }
+
+
 }
 

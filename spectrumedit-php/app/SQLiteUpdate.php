@@ -99,4 +99,21 @@ class SQLiteUpdate {
 		return $stmt;
 	}
 
+	public function updateShare($ID,$investment_ID,$owner_ID,$SharePercent,$Type) {
+		// SQL statement to insert a record
+		$sql = "UPDATE shareHolding "
+			. "SET Investment_ID = $investment_ID, "
+			. "Owner_ID = $owner_ID, "
+			. "SharePercent = $SharePercent, "
+			. "Type = '$Type' "
+			. "WHERE ID = $ID";
+
+		echo "Got $sql";
+		$stmt = $this->pdo->query($sql);
+		return $stmt;
+	}
+
+	
+
+
 }

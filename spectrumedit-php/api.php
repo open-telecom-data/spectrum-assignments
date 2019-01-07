@@ -53,9 +53,10 @@ if($action == 'read'){
 			$license_ID = $_GET['license_ID'];
 			$result = $sqliteQ->getFreqAssignment($license_ID);
       	}
-		/*if ($table == 'shareholding') {
-	    $result = $sqliteQ->getShares();
-	    }*/
+		if ($table == 'shares') {
+			$Operator_ID = $_GET['Operator_ID'];
+	   		$result = $sqliteQ->getShares($Operator_ID);
+	    }
 
 
 		if ($result) {
@@ -115,6 +116,16 @@ if($action == 'create'){
 			$freqend = $_POST['freqEnd'];
 			
 			$result = $sqliteC->createFrequency($license_ID,$freqstart,$freqend);
+
+		}
+
+		if ($table == 'shares') {
+			$investment_ID = $_POST['Investment_ID'];
+			$owner_ID = $_POST['Owner_ID'];
+			$SharePercent = $_POST['SharePercent'];
+			$Type = $_POST['Type'];
+			
+			$result = $sqliteC->createShare($investment_ID,$owner_ID,$SharePercent,$Type);
 
 		}
 
@@ -184,6 +195,17 @@ if($action == 'update'){
 
 		}
 
+		if ($table == 'shares') {
+			$id = $_POST['ID'];
+			$investment_ID = $_POST['Investment_ID'];
+			$owner_ID = $_POST['Owner_ID'];
+			$SharePercent = $_POST['SharePercent'];
+			$Type = $_POST['Type'];
+			
+			$result = $sqliteU->updateShare($id,$investment_ID,$owner_ID,$SharePercent,$Type);
+
+		}
+
 		if ($result)
 				echo "Record updated";
 		else
@@ -217,10 +239,27 @@ if($action == 'delete'){
 			$result = $sqliteD->deleteFrequency($id);
 		}
 
+		if ($table == 'shares') {
+			$id = $_POST['ID'];
+			$result = $sqliteD->deleteShare($id);
+		}
+
 
 		if ($result)
 				echo "record deleted";
 		else
 				echo "Whoops, something went wrong.";
 	}
+}
+
+
+if($action == 'exectute'){
+	if(isset($_GET['action'])){
+		$action = $_GET['action'];
+		if ($action == 'write') {
+			$result = $sqliteU->writeCSV();
+		}
+
+	}
+	echo $result;
 }

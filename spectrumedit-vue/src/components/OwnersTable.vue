@@ -25,22 +25,7 @@
 						</v-layout>
 
 
-						<v-btn  color="primary" :disabled="newShareBTN" dark @click="dialog2 = true" class="mb-2">New Share</v-btn>
-						<v-data-table :headers="shareHeaders" :items="shareRows" hide-actions class="elevation-1">
-							<template slot="items" slot-scope="props">
-								<td class="text-xs-left">{{ props.item.Operator }}</td>
-								<td class="text-xs-left">{{ props.item.SharePercent }}</td>
-								<td class="text-xs-left">{{ props.item.Type }}</td>
-								<td class="justify-center layout px-0">
-									<v-btn icon class="mx-0" @click="editItemShare(props.item)">
-										<v-icon color="teal">edit</v-icon>
-									</v-btn>
-									<v-btn icon class="mx-0" @click="deleteItemShare(props.item)">
-										<v-icon color="pink">delete</v-icon>
-									</v-btn>
-								</td>
-							</template>
-						</v-data-table>
+
 
 
 					</v-container>
@@ -80,8 +65,7 @@
 			rawHtml: '<h1">Owners Table</h1>',
 			title: 'Spectrum Assignment Editor',
 			dialog: false,
-			dialog2: false,
-			newShareBTN: true,
+
 			headers: [
 				{
 					text: 'Name',
@@ -92,13 +76,9 @@
 				{ text: 'Wiki URL', value: 'Wiki_URL' },
 				{ text: 'Country', value: 'CountryName' },
 			],
-			shareHeaders: [
-				{ text: 'Operator', value: 'Operator' },
-				{ text: 'Share Percent', value: 'SharePercent' },
-				{ text: 'Type', value: 'Type' }
-			],
+
 			tableRows: [],
-			shareRows: [],
+
 			editedIndex: -1,
 			editedItem: {},
 
@@ -111,14 +91,7 @@
 				CountryName: 'South Africa'
 			},
 
-			defaultShare: {
-				ID: 0,
-				Investment_ID: 0,
-				Operator_ID: 0,
-				Operator: '',
-				SharePercent: 0,
-				Type: ''
-			}
+
 
 		}),
 
@@ -186,10 +159,13 @@
 
 				},
 
+
+
 				editItem(item) {
 					this.editedIndex = this.tableRows.indexOf(item)
 					this.editedItem = Object.assign({}, item)
 					this.dialog = true
+
 				},
 
 
