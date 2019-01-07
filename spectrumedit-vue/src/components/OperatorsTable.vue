@@ -34,7 +34,7 @@
 		</v-dialog>
 		<v-data-table :headers="headers" :items="tableRows" hide-actions class="elevation-1">
 			<template slot="items" slot-scope="props">
-				<td>{{ props.item.Operator }}</td>
+				<td class="text-xs-left">{{ props.item.Operator }}</td>
 				<td class="text-xs-left">{{ props.item.URL }}</td>
 				<td class="text-xs-left">{{ props.item.Wiki_URL }}</td>
 				<td class="text-xs-left">{{ props.item.CountryName }}</td>
@@ -61,15 +61,12 @@
 			rawHtml: '<h1">Operators Table</h1>',
 			dialog: false,
 			headers: [
-				{
-					text: 'Name',
-					align: 'left',
-					value: 'name'
-				},
+				{ text: 'Name', value: 'Operator'},
 				{ text: 'URL', value: 'URL' },
 				{ text: 'Wiki URL', value: 'Wiki_URL' },
 				{ text: 'Country', value: 'CountryName' },
 			],
+
 			tableRows: [],
 			editedIndex: -1,
 			editedItem: {},

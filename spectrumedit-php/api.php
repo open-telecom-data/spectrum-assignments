@@ -42,22 +42,21 @@ if($action == 'read'){
 		}
 
 		if ($table == 'freqbands') {
-      $result = $sqliteQ->getFreqBands();
-    } 
+			$result = $sqliteQ->getFreqBands();
+		} 
 
+		if ($table == 'licenses') {
+			$result = $sqliteQ->getLicenses();
+		} 
+
+		if ($table == 'frequencies') {
+			$license_ID = $_GET['license_ID'];
+			$result = $sqliteQ->getFreqAssignment($license_ID);
+      	}
 		/*if ($table == 'shareholding') {
 	    $result = $sqliteQ->getShares();
-	  }
+	    }*/
 
-	  if ($table == 'spectrumlicense') {
-	    //$result = $sqliteQ->getSpectrum();
-	  }
-
-		if ($table == 'freqassignment') {
-      $result = $sqliteQ->getFreqAssignment();
-    }*/
-
-		
 
 		if ($result) {
 			header("Content-type: application/json");
@@ -65,7 +64,7 @@ if($action == 'read'){
 			//echo 'result received';
 		}
 		else
-			echo "Whoops, something wrong happened.";
+			echo "[]";
 	}
 }
 
@@ -99,6 +98,26 @@ if($action == 'create'){
 			$result = $sqliteC->createFreqBand($band,$bandstart,$bandend,$guardstart,$guardend,$type,$downlink);
 
 		}
+
+		if ($table == 'licenses') {
+			$band_ID = $_POST['Band_ID'];
+			$operator_ID = $_POST['Operator_ID'];
+			$licstartyear = $_POST['licStartYear'];
+			$licendyear = $_POST['licEndYear'];
+			
+			$result = $sqliteC->createLicense($band_ID,$operator_ID,$licstartyear,$licendyear);
+
+		}
+
+		if ($table == 'frequencies') {
+			$license_ID = $_POST['license_ID'];
+			$freqstart = $_POST['freqStart'];
+			$freqend = $_POST['freqEnd'];
+			
+			$result = $sqliteC->createFrequency($license_ID,$freqstart,$freqend);
+
+		}
+
 		if ($result)
 				echo "Record inserted";
 		else
@@ -144,6 +163,27 @@ if($action == 'update'){
 
 		}
 
+		if ($table == 'licenses') {
+			$id = $_POST['ID'];
+			$band_ID = $_POST['Band_ID'];
+			$operator_ID = $_POST['Operator_ID'];
+			$licstartyear = $_POST['licStartYear'];
+			$licendyear = $_POST['licEndYear'];
+			
+			$result = $sqliteU->updateLicense($id,$band_ID,$operator_ID,$licstartyear,$licendyear);
+
+		}
+
+		if ($table == 'frequencies') {
+			$id = $_POST['ID'];
+			$license_ID = $_POST['license_ID'];
+			$freqstart = $_POST['freqStart'];
+			$freqend = $_POST['freqEnd'];
+			
+			$result = $sqliteU->updateFrequency($id,$license_ID,$freqstart,$freqend);
+
+		}
+
 		if ($result)
 				echo "Record updated";
 		else
@@ -168,6 +208,15 @@ if($action == 'delete'){
 			$id = $_POST['ID'];
 			$result = $sqliteD->deleteFreqBand($id);
 		}
+		if ($table == 'licenses') {
+			$id = $_POST['ID'];
+			$result = $sqliteD->deleteLicense($id);
+		}
+		if ($table == 'frequencies') {
+			$id = $_POST['ID'];
+			$result = $sqliteD->deleteFrequency($id);
+		}
+
 
 		if ($result)
 				echo "record deleted";

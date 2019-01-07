@@ -49,7 +49,7 @@
 			items: [
 				{ icon: 'bubble_chart', title: 'Owners', route: '/' },
 				{ icon: 'bubble_chart', title: 'Operators', route: '/operators' },
-				//{ icon: 'bubble_chart', title: 'Spectrum Licenses', route: '/spectrum' },
+				{ icon: 'bubble_chart', title: 'Spectrum Licenses', route: '/licenses' },
 				//{ icon: 'bubble_chart', title: 'Frequency Assignments', route: '/frequency' },
 				{ icon: 'bubble_chart', title: 'Frequency Bands', route: '/bands' }
 			],

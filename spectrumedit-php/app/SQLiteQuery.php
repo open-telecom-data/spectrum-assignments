@@ -63,6 +63,22 @@ class SQLiteQuery {
 		return $rowarray;
 	}
 
+	public function getLicenses() {
+		$stmt = $this->pdo->query('select ID,Operator,Operator_ID,band,Band_ID,licStartYear,licEndYear,CountryName from (select s.ID,Operator,Operator_ID,band,band_ID,licStartYear,licEndYear,CountryName from (select spectrumLicense.ID,Operator,Operator_ID,band,Band_ID,licStartYear,licEndYear,Country_ID  from spectrumLicense inner join freqBands on spectrumLicense.Band_ID = freqBands.ID inner join operators on spectrumLicense.Operator_ID = operators.ID) as s inner join country on Country_ID=country.ID);');
+		$rowarray = array();
+		while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+			array_push($rowarray,$row);
+		}
+		return $rowarray;
+	}
 
+	public function getFreqAssignment($license_ID) {
+		$stmt = $this->pdo->query("select * from freqAssignment where license_ID=$license_ID");
+		$rowarray = array();
+		while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+			array_push($rowarray,$row);
+		}
+		return $rowarray;
+	}
 
 }

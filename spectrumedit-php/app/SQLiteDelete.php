@@ -54,5 +54,21 @@ class SQLiteDelete {
 		$stmt = $this->pdo->query($sql);
 		return $stmt;
 	}
+	public function deleteLicense($ID) {
+		// SQL statement to insert a record
+		$sql = "DELETE FROM spectrumLicense "
+			. "WHERE ID = $ID";
+		echo "Got $sql";
+		$stmt = $this->pdo->query($sql);
+		return $stmt;
+	}
+	public function deleteFrequency($ID) {
+		// SQL statement to insert a record
+		$sql = "DELETE FROM freqAssignment "
+			. "WHERE ID = $ID";
+		echo "Got $sql";
+		$stmt = $this->pdo->query($sql);
+		return $stmt;
+	}
 
 }

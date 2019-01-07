@@ -52,5 +52,26 @@ class SQLiteCreate {
     
     return $stmt;
   }
+
+  public function createLicense($band_ID,$operator_ID,$licstartyear,$licendyear) {
+    // SQL statement to insert a record
+    $sql = "INSERT INTO spectrumLicense "
+      . "('band_ID','Operator_ID','licStartYear','licEndYear') "
+      . "VALUES ('$band_ID','$operator_ID','$licstartyear','$licendyear')";
+    echo "Got $sql";
+    $stmt = $this->pdo->query($sql);
+    return $stmt;
+  }
+
+  public function createFrequency($license_ID,$freqstart,$freqend) {
+    // SQL statement to insert a record
+    $sql = "INSERT INTO freqAssignment "
+      . "('license_ID','freqStart','freqEnd') "
+      . "VALUES ('$license_ID','$freqstart','$freqend')";
+    echo "Got $sql";
+    $stmt = $this->pdo->query($sql);
+    return $stmt;
+  }
+
 }
 

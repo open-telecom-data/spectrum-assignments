@@ -72,4 +72,31 @@ class SQLiteUpdate {
 		return $stmt;
 	}
 
+	public function updateLicense($ID,$band_ID,$operator_ID,$licstartyear,$licendyear) {
+		// SQL statement to insert a record
+		$sql = "UPDATE spectrumLicense "
+			. "SET band_ID = $band_ID, "
+			. "Operator_ID = '$operator_ID', "
+			. "licStartYear = $licstartyear, "
+			. "licEndYear = $licendyear "
+			. "WHERE ID = $ID";
+
+		echo "Got $sql";
+		$stmt = $this->pdo->query($sql);
+		return $stmt;
+	}
+
+
+	public function updateFrequency($ID,$license_ID,$freqstart,$freqend) {
+		// SQL statement to insert a record
+		$sql = "UPDATE freqAssignment "
+			. "SET freqStart = $freqstart, "
+			. "freqEnd = $freqend "
+			. "WHERE ID = $ID";
+
+		echo "Got $sql";
+		$stmt = $this->pdo->query($sql);
+		return $stmt;
+	}
+
 }
