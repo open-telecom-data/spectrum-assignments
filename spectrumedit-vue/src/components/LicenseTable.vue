@@ -24,7 +24,7 @@
 							</v-flex>
 						</v-layout>
 						<v-btn  color="primary" :disabled="newfreqBTN" dark @click="dialog2 = true" class="mb-2">New Frequency entry</v-btn>
-						<v-data-table :headers="freqheaders" :items="freqRows" hide-actions class="elevation-1">
+						<v-data-table :headers="freqheaders" v-bind:items="freqRows" hide-actions class="elevation-1">
 							<template slot="items" slot-scope="props">
 								<td class="text-xs-left">{{ props.item.freqStart }}</td>
 								<td class="text-xs-left">{{ props.item.freqEnd }}</td>
@@ -77,7 +77,7 @@
 			</v-card>
 		</v-dialog>
 
-		<v-data-table :headers="headers" :items="tableRows" hide-actions class="elevation-1" :v-model="selected">
+		<v-data-table :headers="headers" v-bind:items="tableRows" hide-actions class="elevation-1" :v-model="selected">
 			<template slot="items" slot-scope="props">
 				<td>{{ props.item.Operator }}</td>
 				<td class="text-xs-left">{{ props.item.CountryName }}</td>
@@ -332,7 +332,7 @@
 
 						Object.assign(this.tableRows[this.editedIndex], this.editedItem);
 
-						// Function to Update record in Owners table in sqlite database
+						// Function to Update record in Licenses table in sqlite database
 						axios.post(this.PURL + "/api.php?action=update&table=licenses", formData)
 							.then(response => {
 
@@ -343,10 +343,10 @@
 									console.log(response.data)
 								}
 							});
-
+						this.getAllLicenses();
 					} else {
 
-						// Function to Add record in Operators table in sqlite database
+						// Function to Add record in Licneses table in sqlite database
 						axios.post(this.PURL + "/api.php?action=create&table=licenses", formData)
 							.then(response => {
 
@@ -358,7 +358,7 @@
 									this.tableRows.push(this.editedItem);
 								}
 							});
-
+						this.getAllLicenses();
 					}
 					this.close()
 				},
@@ -415,7 +415,7 @@
 
 
 
-						// Function to Update record in Owners table in sqlite database
+						// Function to Update record in Frequencies table in sqlite database
 						axios.post(this.PURL + "/api.php?action=update&table=frequencies", formData)
 								.then(response => {
 
@@ -428,7 +428,8 @@
 
 					} else {
 
-						// Function to Add record in Operators table in sqlite database
+						// Function to Add record in Frequencies table in sqlite database
+
 						axios.post(this.PURL + "/api.php?action=create&table=frequencies", formData)
 								.then(response => {
 

@@ -2,7 +2,7 @@
 	<div>
 		<p><span v-html="rawHtml"></span></p>
 		<v-dialog v-model="dialog" max-width="700px">
-			<v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
+			<v-btn slot="activator" color="primary" @click="NewOperator" dark class="mb-2">New Item</v-btn>
 			<v-card>
 				<v-card-title>
 					<span class="headline">{{ formTitle }}</span>
@@ -26,7 +26,7 @@
 						</v-layout>
 
 						<v-btn  color="primary" :disabled="newShareBTN" dark @click="dialog2=true" class="mb-2">New Share</v-btn>
-						<v-data-table :headers="shareHeaders" :items="shareRows" hide-actions class="elevation-1">
+						<v-data-table :headers="shareHeaders" v-bind:items="shareRows" hide-actions class="elevation-1">
 							<template slot="items" slot-scope="props">
 								<td class="text-xs-left">{{ props.item.Name }}</td>
 								<td class="text-xs-left">{{ props.item.SharePercent }}</td>
@@ -84,7 +84,7 @@
 
 
 
-		<v-data-table :headers="headers" :items="tableRows" hide-actions class="elevation-1">
+		<v-data-table :headers="headers" v-bind:items="tableRows" hide-actions class="elevation-1">
 			<template slot="items" slot-scope="props">
 				<td class="text-xs-left">{{ props.item.Operator }}</td>
 				<td class="text-xs-left">{{ props.item.CountryName }}</td>
@@ -189,6 +189,10 @@
 				this.getAllCountries();
 				// Fill in the OWner item table
 				this.getAllOwners();
+			},
+
+			NewOperator () {
+				this.shareRows = [];
 			},
 
 			// Function to convert object to Form data for a HTTP POST
@@ -315,7 +319,7 @@
 
 				this.response_axios = false;
 				if (this.editedIndex > -1) {
-					Object.assign(this.tableRows[this.editedIndex], this.editedItem)
+
 
 					// Function to Update record in Operators table in sqlite database
 					axios.post(this.PURL + "/api.php?action=update&table=operators", formData)
@@ -324,13 +328,11 @@
 								if (response.data.error) {
 									this.errorMessage = response.data.message;
 								} else {
-									this.response_axios = true;
-									console.log(response.data)
-									//this.tableRows.push(this.editedItem)
+									Object.assign(this.tableRows[this.editedIndex], this.editedItem)
 								}
 							});
-					if (this.response_axios)
-						this.getAllOperators();
+
+					this.getAllOperators();
 				} else {
 
 					// Function to Add record in Operators table in sqlite database
@@ -340,12 +342,11 @@
 								if (response.data.error) {
 									this.errorMessage = response.data.message;
 								} else {
-									this.response_axios = true;
 									this.tableRows.push(this.editedItem);
 								}
 							});
-					if (this.response_axios)
-						this.getAllOperators();
+
+					this.getAllOperators();
 				}
 				this.close()
 			},

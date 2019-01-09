@@ -64,6 +64,7 @@ CREATE TABLE `spectrumLicense`
                 ON UPDATE RESTRICT
 );
 
+
 CREATE TABLE `freqAssignment` 
 (
 	`ID` integer PRIMARY KEY not null,

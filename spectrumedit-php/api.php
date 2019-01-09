@@ -253,13 +253,16 @@ if($action == 'delete'){
 }
 
 
-if($action == 'exectute'){
-	if(isset($_GET['action'])){
-		$action = $_GET['action'];
-		if ($action == 'write') {
-			$result = $sqliteU->writeCSV();
+if($action == 'execute'){
+	if(isset($_GET['command'])){
+		$action = $_GET['command'];
+		if ($action == 'writecsv') {			
+			$result = shell_exec('sh exportdata.sh');
 		}
 
 	}
-	echo $result;
+	if ($result)
+		echo "Exported CSV";
+	else
+		echo "Whoops, something went wrong.";
 }

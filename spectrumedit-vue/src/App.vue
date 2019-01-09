@@ -23,7 +23,47 @@
 				</v-btn>
 
 				<v-toolbar-title v-text="title"></v-toolbar-title>
+
+
 				<v-spacer></v-spacer>
+
+				<v-dialog
+						v-model="dialog"
+						width="500"
+				>
+					<v-btn slot="activator" color="primary" dark @click="exportCSV()" class="mb-2"> Export CSV File </v-btn>
+
+					<v-card>
+						<v-card-title
+								class="headline grey lighten-2"
+								primary-title
+						>
+							Information
+						</v-card-title>
+
+						<v-card-text>
+							CSV files succesfully exported - Spectrum chart will now contain updated information
+						</v-card-text>
+
+						<v-divider></v-divider>
+
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn
+									color="primary"
+									flat
+									@click="dialog = false"
+							>
+								OK
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+				</v-dialog>
+
+
+
+
+
 
 			</v-toolbar>
 			<main>
@@ -43,7 +83,7 @@
 </template>
 
 <script>
-
+	import axios from 'axios';
 	export default {
 		data: () => ({
 			items: [
@@ -64,20 +104,20 @@
 			listPrimitive: null
 		}),
 
-		/*components: {
-			appDataTable: DataTable
-		},*/
 
-		computed: {
-			formTitle() {
-				return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-			}
-		},
+		methods: {
 
-		watch: {
-			dialog(val) {
-				val || this.close()
+			exportCSV () {
+				axios.get(this.PURL + "/api.php?action=execute&command=writecsv")
+						.then(response => {
+							if (response.data.error) {
+								this.errorMessage = response.data.message;
+							}
+						})
 			}
+
 		}
+
+
 	}
 </script>
