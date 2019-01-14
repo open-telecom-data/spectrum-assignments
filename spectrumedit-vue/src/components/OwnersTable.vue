@@ -1,6 +1,17 @@
 <template>
 	<div>
 		<p><span v-html="rawHtml"></span></p>
+
+		<v-flex xs12 sm6>
+			<v-text-field
+					v-model="search"
+					append-icon="search"
+					label="Search"
+					box
+			></v-text-field>
+		</v-flex>
+
+
 		<v-dialog v-model="dialog" max-width="700px">
 			<v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
 			<v-card>
@@ -37,7 +48,7 @@
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
-		<v-data-table :headers="headers" :items="tableRows" hide-actions class="elevation-1">
+		<v-data-table :headers="headers" :items="tableRows" :search="search" hide-actions class="elevation-1">
 			<template slot="items" slot-scope="props">
 				<td>{{ props.item.Name }}</td>
 				<td class="text-xs-left">{{ props.item.URL }}</td>
@@ -60,9 +71,10 @@
 	import axios from 'axios';
 	export default {
 		data: () => ({
+			search: '',
 			errorMessage: '',
 			Country_items: [],
-			rawHtml: '<h1">Owners Table</h1>',
+			rawHtml: '<h3>Owners Table</h3>',
 			title: 'Spectrum Assignment Editor',
 			dialog: false,
 

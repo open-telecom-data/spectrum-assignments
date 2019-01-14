@@ -1,6 +1,16 @@
 <template>
 	<div>
 		<p><span v-html="rawHtml"></span></p>
+
+		<v-flex xs12 sm6>
+			<v-text-field
+					v-model="search"
+					append-icon="search"
+					label="Search"
+					box
+			></v-text-field>
+		</v-flex>
+
 		<v-dialog v-model="dialog" max-width="500px">
 			<v-btn  slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
 			<v-card>
@@ -77,7 +87,7 @@
 			</v-card>
 		</v-dialog>
 
-		<v-data-table :headers="headers" v-bind:items="tableRows" hide-actions class="elevation-1" :v-model="selected">
+		<v-data-table :headers="headers" v-bind:items="tableRows" hide-actions :search="search" class="elevation-1" :v-model="selected">
 			<template slot="items" slot-scope="props">
 				<td>{{ props.item.Operator }}</td>
 				<td class="text-xs-left">{{ props.item.CountryName }}</td>
@@ -102,6 +112,7 @@
 	import axios from 'axios';
 	export default {
 		data: () => ({
+			search: '',
 			errorMessage: '',
 			newfreqBTN: true,
 			Band_items: [],
@@ -109,7 +120,7 @@
 			Country_items: [],
 			selected: [],
 
-			rawHtml: '<h1">Spectrum License Table</h1>',
+			rawHtml: '<h3>Spectrum License Table</h3>',
 			dialog: false,
 			dialog2: false,
 			freqheaders: [

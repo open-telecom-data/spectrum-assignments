@@ -1,6 +1,16 @@
 <template>
 	<div>
 		<p><span v-html="rawHtml"></span></p>
+
+		<v-flex xs12 sm6>
+			<v-text-field
+					v-model="search"
+					append-icon="search"
+					label="Search"
+					box
+			></v-text-field>
+		</v-flex>
+
 		<v-dialog v-model="dialog" max-width="700px">
 			<v-btn slot="activator" color="primary" dark class="mb-2">New Item</v-btn>
 			<v-card>
@@ -42,7 +52,7 @@
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
-		<v-data-table :headers="headers" :items="tableRows" hide-actions class="elevation-1">
+		<v-data-table :headers="headers" :items="tableRows" hide-actions :search="search" class="elevation-1">
 			<template slot="items" slot-scope="props">
 				<td>{{ props.item.band }}</td>
 				<td class="text-xs-left">{{ props.item.bandStart}}</td>
@@ -68,6 +78,7 @@
 	import axios from 'axios';
 	export default {
 		data: () => ({
+			search: '',
 			errorMessage: '',
 			rawHtml: '<h1">Frequency Bands Table</h1>',
 

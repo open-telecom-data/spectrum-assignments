@@ -1,8 +1,19 @@
 <template>
 	<div>
 		<p><span v-html="rawHtml"></span></p>
+
+		<v-flex xs12 sm6>
+			<v-text-field
+					v-model="search"
+					append-icon="search"
+					label="Search"
+					box
+			></v-text-field>
+		</v-flex>
+
 		<v-dialog v-model="dialog" max-width="700px">
 			<v-btn slot="activator" color="primary" @click="NewOperator" dark class="mb-2">New Item</v-btn>
+
 			<v-card>
 				<v-card-title>
 					<span class="headline">{{ formTitle }}</span>
@@ -84,7 +95,10 @@
 
 
 
-		<v-data-table :headers="headers" v-bind:items="tableRows" hide-actions class="elevation-1">
+
+
+
+		<v-data-table :headers="headers" v-bind:items="tableRows" :search="search" hide-actions class="elevation-1">
 			<template slot="items" slot-scope="props">
 				<td class="text-xs-left">{{ props.item.Operator }}</td>
 				<td class="text-xs-left">{{ props.item.CountryName }}</td>
@@ -108,10 +122,11 @@
 	import axios from 'axios';
 	export default {
 		data: () => ({
+			search: '',
 			errorMessage: '',
 			Country_items: [],
 			Owner_items: [],
-			rawHtml: '<h1">Operators Table</h1>',
+			rawHtml: '<h3>Operators Table</h3>',
 			dialog: false,
 
 			dialog2: false,
