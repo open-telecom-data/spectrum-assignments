@@ -11,6 +11,7 @@ Vue.prototype.PURL = 'http://localhost/spectrum-assignments/spectrumedit-php';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
+  base: '/spectrum-data/',
   routes: routes,
   mode: 'history'
 });

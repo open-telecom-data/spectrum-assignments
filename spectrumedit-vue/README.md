@@ -12,21 +12,20 @@
  ```
  npm run serve
  ```
- 
+ Folllowing this you will be able to access the site at http://<server>:8080/spectrum-data
  ### Compiles and minifies for production
  ```
  npm run build
  ```
  
- ### Run your tests
+ ### Prepare server folder
+ Note this setup is designed to be installed in <WWW_PATH>/spectrum-data
  ```
- npm run test
+ cp -rv dist/* <WWW_PATH>/spectrum-data
+ cp .htaccess <WWW_PATH>/spectrum-data
  ```
+ Following this you will be able to access the site at http://<WWW_PATH>/spectrum-data
  
- ### Lints and fixes files
- ```
- npm run lint
- ```
  
  ### Customize configuration
  See [Configuration Reference](https://cli.vuejs.org/config/).
