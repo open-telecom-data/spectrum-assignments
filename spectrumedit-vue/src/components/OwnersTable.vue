@@ -193,7 +193,7 @@
 						// Function to Delete record in Owners table in sqlite database
 						axios.post(this.PURL + "/api.php?action=delete&table=owners", formData)
 							.then(response => {
-								console.log(response);
+							//	console.log(response);
 
 								if (response.data.error) {
 									this.errorMessage = response.data.message;
@@ -223,8 +223,8 @@
 					this.editedItem.Country_ID = this.Country_items.find(x => x.CountryName === this.editedItem.CountryName).ID;
 
 					var formData = this.toFormData(this.editedItem);
-					console.log(this.editedItem);
-					console.log(formData);
+					// console.log(this.editedItem);
+					// console.log(formData);
 
 					this.response_axios = false;
 					if (this.editedIndex > -1) {
@@ -238,7 +238,7 @@
 									this.errorMessage = response.data.message;
 								} else {
 									this.response_axios = true;
-									console.log(response.data)
+									// console.log(response.data)
 									//this.tableRows.push(this.editedItem)
 								}
 							});
@@ -254,7 +254,7 @@
 									this.errorMessage = response.data.message;
 								} else {
 									this.response_axios = true;
-									console.log(response.data)
+									// console.log(response.data)
 									this.tableRows.push(this.editedItem);
 								}
 							});
