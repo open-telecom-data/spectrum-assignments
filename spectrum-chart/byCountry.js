@@ -24,7 +24,7 @@ displayAssignments(2100, 1920, 2170, 1980, 2110);
 displayAssignments(2600, 2500, 2690, 2570, 2620);
 
 function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
-    // displayAssignments imports a csv file of spectrum assignments 
+    // displayAssignments imports a csv file of spectrum assignments
     // for a given frequency range and displays them as a chart
 
     let specID = "#MHz" + band,
@@ -90,6 +90,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     d.ID = +d.ID;
                                 });
 
+                                opData = opData.map(v => {v.Operator_DOM = 'AA_' + String(v.Operator); return v;});
+
                                 ownData.forEach(function (d) {
                                     d.ID = +d.ID;
                                 });
@@ -120,6 +122,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     return {
                                         Operator_ID:  op.ID,
                                         Operator: op.Operator,
+                                        Operator_DOM: op.Operator_DOM,
                                         Country: (cnt !== undefined) ? cnt.CountryName : null,
                                         ISO: (cnt !== undefined) ? cnt.ISO : null,
                                         URL: op.URL,
@@ -138,6 +141,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                         Country: (op !== undefined) ? op.Country : null,
                                         ISO: (op !== undefined) ? op.ISO : null,
                                         Operator: (op !== undefined) ? op.Operator : null,
+                                        Operator_DOM: (op !== undefined) ? op.Operator_DOM : null,
                                         Operator_ID: lic.Operator_ID,
                                         licStartYear: lic.licStartYear,
                                         licEndYear: lic.licEndYear,
@@ -151,6 +155,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                         Country: lic.Country,
                                         ISO: lic.ISO,
                                         Operator: lic.Operator,
+                                        Operator_DOM: lic.Operator_DOM,
                                         Operator_ID: lic.Operator_ID,
                                         Band: (bnd !== undefined) ? bnd.band : null,
                                         Type: (bnd !== undefined) ? bnd.Type : null
@@ -167,6 +172,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                         freqSize: freq.freqEnd - freq.freqStart,
                                         Country: (lic !== undefined) ? lic.Country : null,
                                         Operator: (lic !== undefined) ? lic.Operator : null,
+                                        Operator_DOM: (lic !== undefined) ? lic.Operator_DOM : null,
                                         ISO: (lic !== undefined) ? lic.ISO : null,
                                         Operator_ID: (lic !== undefined) ? lic.Operator_ID : null,
                                         license_ID: (lic !== undefined) ? lic.ID : null,
@@ -181,6 +187,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     return {
                                         Country: licJ.Country,
                                         Operator: licJ.Operator,
+                                        Operator_DOM: licJ.Operator_DOM,
                                         ISO: licJ.ISO,
                                         Operator_ID: licJ.Operator_ID,
                                         Band: licJ.Band,
@@ -331,7 +338,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     .attr("data-target", "#myModal")
                                     .append("rect")
                                     .attr("class", function (d) {
-                                        return d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_').replace(/'/g, "");
+                                        return d.Operator_DOM.replace(/\s+/g, '_').replace(/\W/g, '') + " " + d.Country.replace(/\s+/g, '_').replace(/'/g, "");
                                     })
                                     .classed("bar", true)
                                     .attr("y", function (d) {
@@ -364,7 +371,7 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                 /* MHz ToolTip for each operator spectrum assignment */
                                 bars.on("mouseover", function (d) {
                                     /* calculate total spectrum assigned */
-                                    let infoB = h.selectAll("." + d.Operator.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_').replace(/'/g, "")).each(function (d, i) {
+                                    let infoB = h.selectAll("." + d.Operator_DOM.replace(/\s+/g, '_').replace(/\W/g, '') + "." + d.Country.replace(/\s+/g, '_').replace(/'/g, "")).each(function (d, i) {
                                         totSpec = f(d.freqSize) + " + " + totSpec;
                                         sumSpec = sumSpec + d.freqSize;
                                         midRect = x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2;
@@ -587,7 +594,7 @@ function tabulate(data, columns) {
 
 function getTranslation(transform) {
     /* Create a dummy g for calculation purposes only. This will never
-       be appended to the DOM and will be discarded once this function 
+       be appended to the DOM and will be discarded once this function
        returns.  */
     let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
 

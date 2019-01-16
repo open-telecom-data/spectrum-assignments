@@ -24,7 +24,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 23,Benin,BJ,Africa,"Sub-Saharan Africa",2
 24,Bermuda,BM,Americas,"Northern America",1
 25,Bhutan,BT,Asia,"Southern Asia",3
-26,"Bolivia (Plurinational State of)",BO,Americas,"Latin America and the Caribbean",1
+26,"Bolivia",BO,Americas,"Latin America and the Caribbean",1
 27,"Bonaire Sint Eustatius and Saba",BQ,Americas,"Latin America and the Caribbean",1
 28,"Bosnia and Herzegovina",BA,Europe,"Southern Europe",2
 29,Botswana,BW,Africa,"Sub-Saharan Africa",2
@@ -45,11 +45,11 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 44,Chile,CL,Americas,"Latin America and the Caribbean",1
 45,China,CN,Asia,"Eastern Asia",3
 46,"Christmas Island",CX,Oceania,"Australia and New Zealand",3
-47,"Cocos (Keeling) Islands",CC,Oceania,"Australia and New Zealand",3
+47,"Cocos Islands",CC,Oceania,"Australia and New Zealand",3
 48,Colombia,CO,Americas,"Latin America and the Caribbean",1
 49,Comoros,KM,Africa,"Sub-Saharan Africa",2
 50,Congo,CG,Africa,"Sub-Saharan Africa",2
-51,"Congo (Democratic Republic of the)",CD,Africa,"Sub-Saharan Africa",2
+51,"Democratic Republic of Congo",CD,Africa,"Sub-Saharan Africa",2
 52,"Cook Islands",CK,Oceania,Polynesia,3
 53,"Costa Rica",CR,Americas,"Latin America and the Caribbean",1
 54,"Cote dIvoire",CI,Africa,"Sub-Saharan Africa",2
@@ -70,7 +70,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 69,Estonia,EE,Europe,"Northern Europe",2
 70,Eswatini,SZ,Africa,"Sub-Saharan Africa",2
 71,Ethiopia,ET,Africa,"Sub-Saharan Africa",2
-72,"Falkland Islands (Malvinas)",FK,Americas,"Latin America and the Caribbean",1
+72,"Falkland Islands",FK,Americas,"Latin America and the Caribbean",1
 73,"Faroe Islands",FO,Europe,"Northern Europe",2
 74,Fiji,FJ,Oceania,Melanesia,3
 75,Finland,FI,Europe,"Northern Europe",2
@@ -103,7 +103,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 102,Iceland,IS,Europe,"Northern Europe",2
 103,India,IN,Asia,"Southern Asia",3
 104,Indonesia,ID,Asia,"South-eastern Asia",3
-105,"Iran (Islamic Republic of)",IR,Asia,"Southern Asia",3
+105,"Iran",IR,Asia,"Southern Asia",3
 106,Iraq,IQ,Asia,"Western Asia",2
 107,Ireland,IE,Europe,"Northern Europe",2
 108,"Isle of Man",IM,Europe,"Northern Europe",2
@@ -116,8 +116,8 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 115,Kazakhstan,KZ,Asia,"Central Asia",2
 116,Kenya,KE,Africa,"Sub-Saharan Africa",2
 117,Kiribati,KI,Oceania,Micronesia,3
-118,"Korea (Democratic People's Republic of)",KP,Asia,"Eastern Asia",3
-119,"Korea (Republic of)",KR,Asia,"Eastern Asia",3
+118,"North Korea",KP,Asia,"Eastern Asia",3
+119,"South Korea",KR,Asia,"Eastern Asia",3
 120,Kuwait,KW,Asia,"Western Asia",2
 121,Kyrgyzstan,KG,Asia,"Central Asia",2
 122,"Lao People's Democratic Republic",LA,Asia,"South-eastern Asia",3
@@ -130,7 +130,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 129,Lithuania,LT,Europe,"Northern Europe",2
 130,Luxembourg,LU,Europe,"Western Europe",2
 131,Macao,MO,Asia,"Eastern Asia",2
-132,"Macedonia (the former Yugoslav Republic of)",MK,Europe,"Southern Europe",2
+132,"Macedonia",MK,Europe,"Southern Europe",2
 133,Madagascar,MG,Africa,"Sub-Saharan Africa",2
 134,Malawi,MW,Africa,"Sub-Saharan Africa",2
 135,Malaysia,MY,Asia,"South-eastern Asia",3
@@ -143,8 +143,8 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 142,Mauritius,MU,Africa,"Sub-Saharan Africa",2
 143,Mayotte,YT,Africa,"Sub-Saharan Africa",2
 144,Mexico,MX,Americas,"Latin America and the Caribbean",1
-145,"Micronesia (Federated States of)",FM,Oceania,Micronesia,3
-146,"Moldova (Republic of)",MD,Europe,"Eastern Europe",2
+145,"Micronesia",FM,Oceania,Micronesia,3
+146,"Moldova",MD,Europe,"Eastern Europe",2
 147,Monaco,MC,Europe,"Western Europe",2
 148,Mongolia,MN,Asia,"Eastern Asia",3
 149,Montenegro,ME,Europe,"Southern Europe",2
@@ -168,7 +168,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 167,Oman,OM,Asia,"Western Asia",2
 168,Pakistan,PK,Asia,"Southern Asia",3
 169,Palau,PW,Oceania,Micronesia,3
-170,"Palestine (State of)",PS,Asia,"Western Asia",2
+170,"Palestine",PS,Asia,"Western Asia",2
 171,Panama,PA,Americas,"Latin America and the Caribbean",1
 172,"Papua New Guinea",PG,Oceania,Melanesia,3
 173,Paraguay,PY,Americas,"Latin America and the Caribbean",1
@@ -187,7 +187,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 186,"Saint Helena Ascension and Tristan da Cunha",SH,Africa,"Sub-Saharan Africa",2
 187,"Saint Kitts and Nevis",KN,Americas,"Latin America and the Caribbean",1
 188,"Saint Lucia",LC,Americas,"Latin America and the Caribbean",1
-189,"Saint Martin (French part)",MF,Americas,"Latin America and the Caribbean",1
+189,"Saint Martin",MF,Americas,"Latin America and the Caribbean",1
 190,"Saint Pierre and Miquelon",PM,Americas,"Northern America",1
 191,"Saint Vincent and the Grenadines",VC,Americas,"Latin America and the Caribbean",1
 192,Samoa,WS,Oceania,Polynesia,3
@@ -199,7 +199,7 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 198,Seychelles,SC,Africa,"Sub-Saharan Africa",2
 199,"Sierra Leone",SL,Africa,"Sub-Saharan Africa",2
 200,Singapore,SG,Asia,"South-eastern Asia",3
-201,"Sint Maarten (Dutch part)",SX,Americas,"Latin America and the Caribbean",1
+201,"Sint Maarten",SX,Americas,"Latin America and the Caribbean",1
 202,Slovakia,SK,Europe,"Eastern Europe",2
 203,Slovenia,SI,Europe,"Southern Europe",2
 204,"Solomon Islands",SB,Oceania,Melanesia,3
@@ -215,9 +215,9 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 214,Sweden,SE,Europe,"Northern Europe",2
 215,Switzerland,CH,Europe,"Western Europe",2
 216,"Syrian Arab Republic",SY,Asia,"Western Asia",2
-217,"Taiwan (Province of China)",TW,Asia,"Eastern Asia",3
+217,"Taiwan",TW,Asia,"Eastern Asia",3
 218,Tajikistan,TJ,Asia,"Central Asia",2
-219,"Tanzania (United Republic of)",TZ,Africa,"Sub-Saharan Africa",2
+219,"Tanzania",TZ,Africa,"Sub-Saharan Africa",2
 220,Thailand,TH,Asia,"South-eastern Asia",3
 221,Timor-Leste,TL,Asia,"South-eastern Asia",3
 222,Togo,TG,Africa,"Sub-Saharan Africa",2
@@ -238,10 +238,9 @@ ID,CountryName,ISO,Region,SubRegion,ITURegion
 237,Uruguay,UY,Americas,"Latin America and the Caribbean",1
 238,Uzbekistan,UZ,Asia,"Central Asia",2
 239,Vanuatu,VU,Oceania,Melanesia,3
-240,"Venezuela (Bolivarian Republic of)",VE,Americas,"Latin America and the Caribbean",1
+240,"Venezuela",VE,Americas,"Latin America and the Caribbean",1
 241,"Viet Nam",VN,Asia,"South-eastern Asia",3
-242,"Virgin Islands (British)",VG,Americas,"Latin America and the Caribbean",1
-243,"Virgin Islands (U.S.)",VI,Americas,"Latin America and the Caribbean",1
+243,"US Virgin Islands",VI,Americas,"Latin America and the Caribbean",1
 244,"Wallis and Futuna",WF,Oceania,Polynesia,3
 245,"Western Sahara",EH,Africa,"Northern Africa",2
 246,Yemen,YE,Asia,"Western Asia",2
