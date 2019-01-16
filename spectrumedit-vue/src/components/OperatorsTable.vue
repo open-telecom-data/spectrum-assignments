@@ -418,7 +418,7 @@
 				this.response_axios = false;
 				if (this.editedIndex2 > -1) {
 
-					Object.assign(this.shareRows[this.editedIndex2], this.editedItem2);
+
 
 					// Function to Update record in Owners table in sqlite database
 					axios.post(this.PURL + "/api.php?action=update&table=shares", formData)
@@ -431,6 +431,7 @@
 									console.log(response.data)
 								}
 							});
+					Object.assign(this.shareRows[this.editedIndex2], this.editedItem2);
 
 				} else {
 
@@ -443,9 +444,10 @@
 								} else {
 									this.response_axios = true;
 									console.log(response.data)
-									this.shareRows.push(this.editedItem2);
+
 								}
 							});
+					this.shareRows.push(this.editedItem2);
 
 				}
 				this.close2()

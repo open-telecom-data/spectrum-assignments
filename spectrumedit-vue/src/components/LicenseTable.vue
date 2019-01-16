@@ -432,10 +432,9 @@
 
 									if (response.data.error) {
 										this.errorMessage = response.data.message;
-									} else {
-										Object.assign(this.freqRows[this.editedIndex2], this.editedItem2);
 									}
 								});
+						Object.assign(this.freqRows[this.editedIndex2], this.editedItem2);
 
 					} else {
 
@@ -446,10 +445,9 @@
 
 									if (response.data.error) {
 										this.errorMessage = response.data.message;
-									} else {
-										this.freqRows.push(this.editedItem2);
 									}
 								});
+						this.freqRows.push(this.editedItem2);
 
 					}
 					this.close2()

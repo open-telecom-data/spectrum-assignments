@@ -5,7 +5,7 @@ import './plugins/vuetify'
 
 import { routes } from './routes';
 
-//Vue.prototype.PURL = 'http://localhost/spectrumedit/phpsqlite';
+//Vue.prototype.PURL = 'http://ec2-54-174-106-192.compute-1.amazonaws.com/spectrumedit-php';
 Vue.prototype.PURL = 'http://localhost/spectrum-assignments/spectrumedit-php';
 
 Vue.use(VueRouter);
@@ -16,10 +16,10 @@ const router = new VueRouter({
   mode: 'history'
 });
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 
 new Vue({
   router: router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
