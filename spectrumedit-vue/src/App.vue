@@ -31,7 +31,7 @@
 						v-model="dialog"
 						width="500"
 				>
-					<v-btn slot="activator" color="primary" dark @click="exportCSV()" class="mb-2"> Export CSV File </v-btn>
+					<v-btn slot="activator" color="primary" dark @click="exportCSV()" class="mb-2"> Export CSV Files </v-btn>
 
 					<v-card>
 						<v-card-title
