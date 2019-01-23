@@ -269,7 +269,4 @@ if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1') or ($_SERVER['REMOTE_ADDR'] == '::1
 			echo "Whoops, something went wrong.";
 	}
 }
-else {
-	echo "Banned! from ";
-	echo $_SERVER['REMOTE_ADDR'];
-}
+
