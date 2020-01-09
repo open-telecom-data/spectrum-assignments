@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prototyping a new comparative visualisation of spectrum assignments around the world</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+        }
+        select {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="eachCountry.css" />
+</head>
+
+<body>
+    <h1>Spectrum Assignments by Country</h1>
+    <h4>Open Telecom Data<br>Source code:  <a href="https://github.com/open-telecom-data/spectrum-assignments/">https://github.com/open-telecom-data/spectrum-assignments/</a></h4>
+    <div id="dropDown"></div>
+    <div id="M800">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz800" width="1200" height="500"></svg>
+    </div>
+    <div id="M900" class="tab-pane fade in active">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz900" width="1200" height="500"></svg>
+    </div>
+    <div id="M1800">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz1800" width="1200" height="500"></svg>
+    </div>
+    <div id="M2100">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz2100" width="1200" height="500"></svg>
+    </div>
+    <div id="M2600">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz2600" width="1200" height="500"></svg>
+    </div>
+    <div class="operatorTip" style="opacity:0"></div>
+    <div class="countryTip" style="opacity:0"></div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="opLogo"></div>
+                    <div class="opTitle">
+                        <h2 class="modal-title"></h2></div>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="eachCountry.js"></script>
+</body>
+
+</html>

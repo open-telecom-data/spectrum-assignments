@@ -12,18 +12,50 @@ let p = d3.format('.0%');
 let totSpec = "";
 let sumSpec = 0;
 let numAssigns = 0;
+let ISO = 'gh';
+let countryID = 84;
+let countryList = [];
 
-/*      band, bandStart, bandEnd, guardStart, guardEnd  */
+/* Create list of countries */
+/* Load data from operators_sql.csv file */
+d3.csv('csv/operators_sql.csv', function(error, opData) {
+    /* Load data from countries.csv file */
+    d3.csv('csv/country.csv', function(error, countryData) {
+        // console.log(countryList);
+        var uniqueCountries = d3.map(opData, function(d){return(d.Country_ID)}).keys()
+        countryData = d3.map(countryData, function(d){return(d.ID)})
+
+        uniqueCountries.forEach(function(cntryID) {
+            // console.log(countryData.get(cntryID));
+            countryList.push([countryData.get(cntryID).ID, countryData.get(cntryID).ISO, countryData.get(cntryID).CountryName, countryData.get(cntryID).Region]); 
+        });
+        console.log(countryList);
+        var dropdownChange = '';
+
+        var dropdown = d3.select("#dropDown")
+            .insert("select", "svg")
+            .on("change", dropdownChange);
+
+        dropdown.selectAll("option")
+            .data(countryList)
+            .enter().append("option")
+            .attr("value", function (d) { return d[0]; })
+            .text(function (d) { return d[2]; // capitalize 1st letter
+            });
+    });
+});
+
 /* Display 800MHz assignments */
-displayAssignments(800, 790, 862, 821, 832);
+/* variables: band, bandStart, bandEnd, guardStart, guardEnd  */
+displayAssignments(800, 790, 862, 821, 832, ISO);
 /* Display 900MHz assignments */
-displayAssignments(900, 880, 960, 915, 925);
+displayAssignments(900, 880, 960, 915, 925, ISO);
 /* Display 1800MHz assignments */
-displayAssignments(1800, 1710, 1880, 1784.8, 1805.2);
+displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, ISO);
 /* Display 2100MHz assignments */
-displayAssignments(2100, 1920, 2170, 1980, 2110);
+displayAssignments(2100, 1920, 2170, 1980, 2110, ISO);
 /* Display 2600MHz assignments */
-displayAssignments(2600, 2500, 2690, 2570, 2620);
+displayAssignments(2600, 2500, 2690, 2570, 2620, ISO);
 
 function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     // displayAssignments imports a csv file of spectrum assignments
@@ -61,7 +93,6 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     } else {
         guardBand = "Guard Band";
     }
-
     /* Load data from freqAssignments.csv file */
     d3.csv('csv/freqAssignment_sql.csv', function(error, freqData) {
         /* Load data from spectrumLicense.csv file */
@@ -215,10 +246,12 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     };
                                 });
 
-                                /* filter data to relevant selected frequency */
+                                /* filter data to relevant selected frequency and country*/
                                 freqDataBand = operatorJoin.filter(function (d) {
-                                    return d.Band == band
+                                    return d.Band == band && d.ISO == "GH"
                                 });
+
+                                console.log(freqDataBand);
 
                                 /* Sort data by Country */
                                 freqDataBand = freqDataBand.sort(function (a, b) {
@@ -257,47 +290,6 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
                                     .call(d3.axisLeft(y))
                                     .selectAll(".tick text")
                                     .classed("countryStyle", true)
-
-                                /*  Build mouseover infobox for each country in y axis legend */
-                                h.selectAll(".axis--y .tick text")
-                                    .on("mouseover", function () {
-                                        totSpec = 0;
-                                        let myElement = d3.select(this);
-                                        let countryName = myElement.text();
-                                        /*  determine absolute coordinates for left edge of SVG */
-                                        let matrix = this.getScreenCTM()
-                                            .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
-                                        h.selectAll("." + countryName.replace(/\s+/g, '_').replace(/'/g, "")).each(function (d) {
-                                            totSpec += d.freqEnd;
-                                            totSpec -= d.freqStart;
-                                            sumSpec = sumSpec + d.freqEnd - d.freqStart;
-                                            cntryISO = d.ISO;
-                                        });
-                                        let availPercent = totSpec / availSpec;
-
-                                        countryBox.transition()
-                                            .duration(200)
-                                            .style("opacity", .9);
-                                        let pnode = d3.select(this.parentNode).attr("transform");
-                                        /* console.debug(pnode);
-                                        console.log("y.bandwidth(): " + y.bandwidth()/2);
-                                        console.log("svgContainerDiv: " + svgContainerDiv.offsetTop);
-                                        console.log("window.pageXOffset: " + window.pageXOffset); */
-                                        let yText = getTranslation(d3.select(this.parentNode).attr("transform"));
-                                        countryBox.html('<table selected"><tbody><tr><td rowspan="3"><img src="flag/' + cntryISO.toLowerCase() + '.png"></td><td>' + countryName + '</td></tr><tr><td>' + r(totSpec) + ' MHz assigned out of ' + r(availSpec) + ' MHz available.</td></tr><tr><td><b>Band occupancy ' + p(availPercent) + '</td></tr></tbody></table>')
-                                        /* countryBox.html('<table selected"><tbody><tr><th>' + opLogo + '</th><th><h1>' + d.Operator + '</h1></th></tr><tr><td>Band:</td><td>' + d.Band + '</td></tr><tr><td>Assignment:</td><td>' + totSpec.replace(/\s\+\s$/, '') + ' MHz</td></tr><tr><td>Total:</td><td>' + f(sumSpec) + " MHz</td><tr></tbody></table>") */
-
-                                            .style("left", (window.pageXOffset + matrix.e) + "px")
-                                            // .style("top", (svgContainerDiv.offsetTop + yText[1] - window.pageYOffset) + "px")
-                                            .style('top', matrix.f - y.bandwidth() / 2 + 7 + 'px')
-                                            .style("height", y.bandwidth() + "px")
-                                            .style("width", width + "px");
-                                    })
-                                    .on("mouseout", function () {
-                                        countryBox.transition()
-                                            .duration(500)
-                                            .style("opacity", 0);
-                                    });
 
                                 /* Add rectangles for guard bands */
                                 h.selectAll("guard")
@@ -648,10 +640,45 @@ function wrap(text, width) {
                 tspan.text(spanContent);
                 line = [word];
                 ++lineNumber;
-                console.log("lineNumber: " + lineNumber + "and y:" + y);
+                // console.log("lineNumber: " + lineNumber + "and y:" + y);
                 tspan = text.append('tspan').attr('x', x).attr('y', parseInt(y) + lineNumber * 12).attr('dy',  dy + 'em').text(word);
             }
             tabs.classed('tab-pane', true).classed('fade', true);
         }
     });
 }
+
+var updateBars = function(data) {
+    // First update the y-axis domain to match data
+    yScale.domain( d3.extent(data) );
+    yAxisHandleForUpdate.call(yAxis);
+
+    var bars = canvas.selectAll(".bar").data(data);
+
+    // Add bars for new data
+    bars.enter()
+      .append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d,i) { return xScale( nutritionFields[i] ); })
+        .attr("width", xScale.rangeBand())
+        .attr("y", function(d,i) { return yScale(d); })
+        .attr("height", function(d,i) { return height - yScale(d); });
+
+    // Update old ones, already have x / width from before
+    bars
+        .transition().duration(250)
+        .attr("y", function(d,i) { return yScale(d); })
+        .attr("height", function(d,i) { return height - yScale(d); });
+
+    // Remove old ones
+    bars.exit().remove();
+};
+
+
+// Handler for dropdown value change
+var dropdownChange = function() {
+    var newCereal = d3.select(this).property('value'),
+        newData   = cerealMap[newCereal];
+
+    updateBars(newData);
+};

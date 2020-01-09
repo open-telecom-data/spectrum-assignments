@@ -1,0 +1,390 @@
+.bars {
+    fill: steelblue;
+    stroke: grey;
+    stroke-width: .5;
+}
+
+.FreqLegend {
+    fill: #144667;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 22px;
+}
+
+.specInfo {
+    fill: black;
+    font-family: "Arial",sans-serif;
+    font-size: 10px;
+}
+
+.label {
+    fill: white;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 16px;
+}
+
+.axis--x path {
+    display: none;
+}
+
+.axis--y path {
+    display: none;
+}
+
+.axis--x .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+.axis--y .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+.countryStyle {
+    fill: #144667;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 14px;
+}
+
+
+/*  Operator colour assignments based on corporate colours */
+
+.AA_Orange {
+    fill: #f16e00;
+}
+
+.AA_Safaricom {
+    fill: #61a60e;
+}
+
+.AA_Yu {
+    fill: #61a60e;
+}
+
+.AA_Airtel {
+    fill: #A7010A;
+}
+
+.AA_CellC {
+    fill: #0b0b0b;
+}
+
+.AA_MTN {
+    fill: #ffbe00;
+}
+
+.AA_Lonestar_Cell_MTN {
+    fill: #ffbe00;
+}
+
+.AA_Vodacom {
+    fill: #e60000
+}
+
+.AA_Vodafone {
+    fill: #e60000;
+}
+
+.AA_Mascom {
+    fill: #fee100;
+}
+
+.AA_BeMobile {
+    fill: #65BD0F;
+}
+
+.AA_Onatel {
+    fill: #E5418A;
+}
+
+.AA_Telecel {
+    fill: #527B97;
+}
+
+.AA_Etisalat {
+    fill: #719E19;
+}
+
+.AA_Tigo {
+    fill: #162458;
+}
+
+.AA_Glo {
+    fill: #45B649;
+}
+
+.AA_MTC {
+    fill: #00AAF0;
+}
+
+.AA_Telecom_Namibia {
+    fill: #FD8326;
+}
+
+.AA_Paratus {
+    fill: #273896;
+}
+
+.AA_TMCEL {
+    fill: #008d6d;
+}
+
+.AA_Movitel {
+    fill: #FE9413;
+}
+
+.AA_ntel {
+    fill: #E6077C;
+}
+
+.AA_Africell {
+    fill: #ff6220;
+}
+
+.AA_UTL {
+    fill: #34479B;
+}
+
+.AA_Zantel {
+    fill: #8bc53f;
+}
+
+.AA_Tigo {
+    fill: #01214D;
+}
+
+.AA_Hits_Telecom {
+    fill: #4F9E2D;
+}
+
+.AA_Halotel {
+    fill: #F47920;
+}
+
+.AA_neXttel {
+  fill: #E0001D;
+}
+
+.AA_Telkom_Kenya {
+    fill: #00AAC6;
+}
+
+.AA_Telkom {
+    fill: #0083C2;
+}
+
+.AA_Camtel {
+  fill: #00AEEF;
+}
+
+.AA_Maroc_Telecom {
+    fill: #0066B3;
+}
+
+.AA_Inwi {
+    fill: #AD2184;
+}
+
+.AA_Moov {
+    fill:  #C1D72E;
+}
+
+.AA_Tunisie_Telecom {
+    fill:  #F54689;
+}
+
+.AA_Econet_Lesotho {
+    fill:  #2C318C;
+}
+
+.AA_Ooredoo {
+    fill: #EE1C25;
+}
+
+.AA_Neotel_Liquid_Telecom {
+    fill:  #E92590;
+}
+
+.AA_Rain {
+    fill: #0076C3;
+}
+
+.AA_TTCL {
+    fill: #020302;
+}
+
+.AA_9Mobile {
+    fill: #006e52;
+}
+
+.AA_interc {
+    fill: #1763ae;
+}
+
+.AA_Smart_Tanzania {
+    fill: #0046b4;
+}
+
+.AA_nTel {
+    fill: #e7077d;
+}
+
+.AA_Unitel_Mais {
+    fill: #F47920;
+}
+
+.AA_CV_Movel {
+    fill: #009bb4;
+}
+
+.guardband {
+    fill: #aaaaaa;
+}
+
+.selected {
+    stroke: none;
+    stroke-width: 0;
+    fill: none;
+}
+
+div.operatorTip {
+    position: absolute;
+    text-align: left;
+    width: 300px;
+    height: 300px;
+    font-family: arial;
+    font-size: 1em;
+    line-height: 1.5;
+    background: #144667;
+    padding: 5px;
+    border: 2px;
+    color: white;
+    border-style: solid;
+    border-width: 5px;
+    border-color: black;
+    border-radius: 3px;
+    pointer-events: none;
+    -webkit-transform: translate3d(0, -0.5em, 0);
+    -ms-transform: translate3d(0, -0.5em, 0);
+    -moz-transform: translate3d(0, -0.5em, 0);
+    -o-transform: translate3d(0, -0.5em, 0);
+    transform: translate3d(0, -0.5em, 0);
+    -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
+    -o-transition: opacity 0.1s, -o-transform 0.1s;
+    transition: opacity 0.1s, transform 0.1s;
+}
+
+div.operatorTip:hover:before {
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
+
+/*  Country ToolTip  */
+
+div.countryTip {
+    position: fixed;
+    z-index: 99;
+    text-align: left;
+    font-family: arial;
+    font-size: 1em;
+    line-height: 1.5;
+    padding: 1.5em;
+    background: #144667;
+    color: white;
+    pointer-events: none;
+    -webkit-transform: translate3d(0, -0.5em, 0);
+    -ms-transform: translate3d(0, -0.5em, 0);
+    -moz-transform: translate3d(0, -0.5em, 0);
+    -o-transform: translate3d(0, -0.5em, 0);
+    transform: translate3d(0, -0.5em, 0);
+    -webkit-transition: opacity 0.1s, -webkit-transform 0.1s;
+    -moz-transition: opacity 0.1s, -moz-transform 0.1s;
+    -o-transition: opacity 0.1s, -o-transform 0.1s;
+    transition: opacity 0.1s, transform 0.1s;
+}
+
+div.countryTip:hover:before {
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 0;
+    content: "";
+    position: fixed;
+    z-index: 99;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h1+p {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+h4 {
+  text-align: center;
+}
+
+.countryTip table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+    margin: auto;
+}
+.countryTip th {
+    border-top: 0;
+    padding: 4px 8px;
+}
+.countryTip td {
+    border-bottom: 0;
+    padding: 4px 8px;
+}
+
+.operatorTip table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+    margin: auto;
+}
+.operatorTip th {
+    border-top: 0;
+    padding: 4px 8px;
+}
+.operatorTip td {
+    border-bottom: 1px solid #ddd;
+    padding: 4px 8px;
+}
+
+/* modal dialog styles */
+
+.opLogo {
+    float: left;
+}
+
+.opTitle {
+    display: inline;
+}
+
+.modal-title {
+    display: inline;
+}
+
+.modal-header {
+   text-align: center;
+}
+
+
+/* div { outline: 1px dashed blue } span { outline: 1px dashed green } */
