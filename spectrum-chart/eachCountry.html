@@ -9,37 +9,32 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
-        .bs-example {
-            margin: 20px;
-        }
-        select {
-            display: block;
-        }
+    .bs-example {
+        margin: 20px;
+    }
+
+    select {
+        display: block;
+    }
     </style>
     <link rel="stylesheet" href="eachCountry.css" />
 </head>
 
 <body>
     <h1>Spectrum Assignments by Country</h1>
-    <h4>Open Telecom Data<br>Source code:  <a href="https://github.com/open-telecom-data/spectrum-assignments/">https://github.com/open-telecom-data/spectrum-assignments/</a></h4>
+    <h4>Open Telecom Data<br>Source code: <a href="https://github.com/open-telecom-data/spectrum-assignments/">https://github.com/open-telecom-data/spectrum-assignments/</a></h4>
     <div id="dropDown"></div>
-    <div id="M800">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz800" width="1200" height="500"></svg>
+    <div id="M800" class="freqBand">
     </div>
-    <div id="M900" class="tab-pane fade in active">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz900" width="1200" height="500"></svg>
+    <div id="M900" class="freqBand">
     </div>
-    <div id="M1800">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz1800" width="1200" height="500"></svg>
+    <div id="M1800" class="freqBand">
     </div>
-    <div id="M2100">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz2100" width="1200" height="500"></svg>
+    <div id="M2100" class="freqBand">
     </div>
-    <div id="M2600">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="MHz2600" width="1200" height="500"></svg>
+    <div id="M2600" class="freqBand">
     </div>
     <div class="operatorTip" style="opacity:0"></div>
-    <div class="countryTip" style="opacity:0"></div>
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
@@ -47,7 +42,8 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="opLogo"></div>
                     <div class="opTitle">
-                        <h2 class="modal-title"></h2></div>
+                        <h2 class="modal-title"></h2>
+                    </div>
                 </div>
                 <div class="modal-body">
                 </div>
@@ -57,7 +53,7 @@
             </div>
         </div>
     </div>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script type="text/javascript" src="eachCountry.js"></script>
 </body>
 
