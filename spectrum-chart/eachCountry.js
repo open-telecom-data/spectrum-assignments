@@ -1,11 +1,16 @@
 const infoBox = d3.select('.operatorTip');
 
-const r = d3.format('.0f');
+// const r = d3.format('.0f');
 const f = d3.format('.1f');
-const p = d3.format('.0%');
-const dropdownISO = 'BW';
+// const p = d3.format('.0%');
+var dropdownISO = 'BW';
 const countryList = [];
 
+/* Check to see whether a country parameter has been passed to the page */
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const urlISO = urlParams.get('ISO')
+if (urlISO != '' ) { dropdownISO = urlISO}
 /* Create list of countries */
 /* Load data from operators_sql.csv file */
 // d3.csv('csv/operators_sql.csv',d3.autoType).then(function (opData) {
@@ -157,12 +162,12 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
               });
               /* sort countries alphabetically */
               countryList.sort((a, b) => d3.ascending(a[0], b[0]));
-
+              console.log(countryList);
               // Handler for dropdown value change
               const dropdownChange = function () {
                 const newCountryISO = d3.select(this).property('value');
-                console.log("newcountryISO");
-                console.log(newCountryISO);
+                // console.log("newcountryISO");
+                // console.log(newCountryISO);
                 var svgBands = d3.selectAll('svgBand');
                 svgBands.remove();
                 d3.select('#svg800').remove();
@@ -171,23 +176,23 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
                 displayAssignments(800, 790, 862, 821, 832, operators, newCountryISO);
                 displayAssignments(900, 880, 960, 915, 925, operators, newCountryISO);
                 displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, newCountryISO);                
-
+                displayAssignments(2100, 1920, 2170, 1980, 2110, operators, newCountryISO);
+                displayAssignments(2600, 2500, 2690, 2570, 2620, operators, newCountryISO);  
                 // updateBars(newData);
               };
 
-              const dropdown = d3.select('#dropDown')
+              var dropdown = d3.select('#dropDown')
                 .insert("select", "svg")
                 .on('change', dropdownChange);
 
-              dropdown.selectAll('option')
+              var options = dropdown.selectAll('option')
                 .data(countryList)
-                .enter().append('option')
+                .enter()
+                .append('option')
                 .attr('value', (d) => d[1])
-                .text((d) => d[2])
+                .text((d) => d[2]);
 
-
-
-
+              options.property("selected", function(d){return d[1] === dropdownISO});
 
 
               /* Display 800MHz assignments */
