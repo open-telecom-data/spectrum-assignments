@@ -1,7 +1,9 @@
 .DS_Store
 node_modules
 /dist
-
+open-spectrum.sublime-project
+sftp-config.json
+open-spectrum.sublime-workspace
 # local env files
 .env.local
 .env.*.local
