@@ -3,49 +3,12 @@ const infoBox = d3.select('.operatorTip');
 // const r = d3.format('.0f');
 const f = d3.format('.1f');
 // const p = d3.format('.0%');
-var dropdownISO = 'BW';
 const countryList = [];
 
 /* Check to see whether a country parameter has been passed to the page */
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const urlISO = urlParams.get('ISO')
-if (urlISO != '' ) { dropdownISO = urlISO}
-/* Create list of countries */
-/* Load data from operators_sql.csv file */
-// d3.csv('csv/operators_sql.csv',d3.autoType).then(function (opData) {
-//   /* Load data from countries.csv file */
-//   d3.csv('csv/country.csv',d3.autoType).then(function (countryData) {
-//     // only capture unique countries
-//     const uniqueCountries = d3.map(opData, (d) => (d.Country_ID)).keys();
-//     countryData = d3.map(countryData, (d) => (d.ID));
-//     // create array of countrie ISO, Name, and Region
-//     uniqueCountries.forEach((cntryID) => {
-//       countryList.push([countryData.get(cntryID).ID, countryData.get(cntryID).ISO, countryData.get(cntryID).CountryName, countryData.get(cntryID).Region]);
-//     });
-//     /* sort countries alphabetically */
-//     countryList.sort((a, b) => d3.ascending(a[0], b[0]));
-
-//     // Handler for dropdown value change
-//     const dropdownChange = function () {
-//       const newCountryISO = d3.select(this).property('value');
-
-//       // updateBars(newData);
-//     };
-
-//     const dropdown = d3.select('#dropDown')
-//       .insert("select", "svg")
-//       .on('change', dropdownChange);
-
-//     dropdown.selectAll('option')
-//       .data(countryList)
-//       .enter().append('option')
-//       .attr('value', (d) => d[1])
-//       .text((d) => d[2])
-
-//   });
-// });
-
 
 d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
   /* Load data from spectrumLicense.csv file */
@@ -60,9 +23,6 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
           d3.csv('csv/country.csv',d3.autoType).then(function (countryData) {
             /* Load data from freqBands.csv file */
             d3.csv('csv/freqBands_sql.csv',d3.autoType).then(function (bandData) {
-
-
-
 
               opData = opData.map((v) => { v.Operator_DOM = `AA_${String(v.Operator)}`; return v; });
 
@@ -162,29 +122,38 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
               });
               /* sort countries alphabetically */
               countryList.sort((a, b) => d3.ascending(a[0], b[0]));
-              console.log(countryList);
+
               // Handler for dropdown value change
               const dropdownChange = function () {
-                const newCountryISO = d3.select(this).property('value');
-                // console.log("newcountryISO");
-                // console.log(newCountryISO);
+                var newCountryISO = d3.select(this).property('value');
+                var selectedText = d3.select('#dropDown option:checked').text();
                 var svgBands = d3.selectAll('svgBand');
+                // Change the title of the page
+                d3.select("#countryTitle").remove()
+                d3.select(".countryName")
+                  .append("h2")
+                  .attr("id", "countryTitle")
+                  .append("text")
+                  .text(selectedText)
                 svgBands.remove();
                 d3.select('#svg800').remove();
                 d3.select('#svg900').remove();
                 d3.select('#svg1800').remove();
-                displayAssignments(800, 790, 862, 821, 832, operators, newCountryISO);
-                displayAssignments(900, 880, 960, 915, 925, operators, newCountryISO);
-                displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, newCountryISO);                
-                displayAssignments(2100, 1920, 2170, 1980, 2110, operators, newCountryISO);
-                displayAssignments(2600, 2500, 2690, 2570, 2620, operators, newCountryISO);  
+                d3.select('#svg2100').remove();
+                d3.select('#svg2600').remove();
+                displayAssignments(800, 790, 862, 821, 832, operators, ownership, newCountryISO);
+                displayAssignments(900, 880, 960, 915, 925, operators, ownership, newCountryISO);
+                displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, ownership, newCountryISO);                
+                displayAssignments(2100, 1920, 2170, 1980, 2110, operators, ownership, newCountryISO);
+                displayAssignments(2600, 2500, 2690, 2570, 2620, operators, ownership, newCountryISO);  
                 // updateBars(newData);
               };
 
+
+              // populate country dropdown
               var dropdown = d3.select('#dropDown')
                 .insert("select", "svg")
                 .on('change', dropdownChange);
-
               var options = dropdown.selectAll('option')
                 .data(countryList)
                 .enter()
@@ -192,20 +161,40 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
                 .attr('value', (d) => d[1])
                 .text((d) => d[2]);
 
+              // Set ISO code and Country Name by picking the first item in the lits
+              var dropdownISO = countryList[0][1];
+              var defaultCntry = countryList[0][2];
+
+              // Change ISO code and Country Name if specified in URL e.g. ?ISO=ZA
+              if (urlISO) { 
+                dropdownISO = urlISO;
+                const cIndex = countryList.findIndex(element => element[1] === urlISO);
+                defaultCntry = countryList[cIndex][2];
+              }
+
+              // change the dropdown to reflect selected country
               options.property("selected", function(d){return d[1] === dropdownISO});
+
+              // set initial country title
+              d3.select("#countryTitle").remove()
+              d3.select(".countryName")
+                .append("h2")
+                .attr("id", "countryTitle")
+                .append("text")
+                .text(defaultCntry)
 
 
               /* Display 800MHz assignments */
               /* variables: band, bandStart, bandEnd, guardStart, guardEnd, band data  */
-              displayAssignments(800, 790, 862, 821, 832, operators, dropdownISO);
+              displayAssignments(800, 790, 862, 821, 832, operators, ownership, dropdownISO);
               /* Display 900MHz assignments */
-              displayAssignments(900, 880, 960, 915, 925, operators, dropdownISO);
+              displayAssignments(900, 880, 960, 915, 925, operators, ownership, dropdownISO);
               // /* Display 1800MHz assignments */
-              displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, dropdownISO);
+              displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, ownership, dropdownISO);
               // // /* Display 2100MHz assignments */
-              displayAssignments(2100, 1920, 2170, 1980, 2110, operators, dropdownISO);
+              displayAssignments(2100, 1920, 2170, 1980, 2110, operators, ownership, dropdownISO);
               // // /* Display 2600MHz assignments */
-              displayAssignments(2600, 2500, 2690, 2570, 2620, operators, dropdownISO);  
+              displayAssignments(2600, 2500, 2690, 2570, 2620, operators, ownership, dropdownISO);  
             });
           });
         });
@@ -215,7 +204,7 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
 });
 
 
-function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, operators, ISO) {
+function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, operators, ownership, ISO) {
   // displayAssignments imports a csv file of spectrum assignments
   // for a given frequency range and displays them as a chart
 
@@ -223,6 +212,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
   var freqDataBand =  operators.filter((d) => d.Band == band && d.ISO == ISO);
   const bandID = `#M${band}`;
   const svgID =  `svg${band}`;
+  // console.log(svgID);
+  // console.log(freqDataBand);
   const margin = {
     top: 60, right: 50, bottom: 30, left: 120 
   };
@@ -286,8 +277,30 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     .attr('y', 30)
     .text('Frequency (MHz)');
 
+  /* If there is no data add a rect saying so */
+  if (freqDataBand.length == 0) {
+
+    h.append('rect')
+      .attr('class', 'nodata')
+      .attr('y', y('GH') )
+      .attr('x', 30)
+      .attr('width', width-100)
+      .attr('height', y.bandwidth());
+
+    h.append("text")
+      .attr('class', 'label')
+      .attr('y', y('GH') + y.bandwidth()/2 )
+      .attr('x', width/2 - 120)
+      .text("No Data Available");
+
+    // h.append('circle')
+    // .attr('class', 'dot')
+    // .attr("cx", 30)
+    // .attr("cy", y('GH'))
+    // .attr("r", 5);
+  }
+
   /* Add the frequency assignments */
-  console.log(freqDataBand);
   h.selectAll('.bar')
     .data(freqDataBand)
     .enter()
@@ -298,10 +311,11 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     .append('rect')
     .attr('class', (d) => `${d.Operator_DOM.replace(/\s+/g, '_').replace(/\W/g, '')} ${d.Country.replace(/\s+/g, '_').replace(/'/g, '')}`)
     .classed('bar', true)
-    .attr('y', (d) => y('GH'))
+    .attr('y', y('GH'))
     .attr('x', (d) => x(d.freqStart))
     .attr('width', (d) => x(d.freqEnd) - x(d.freqStart))
     .attr('height', y.bandwidth());
+
 
   /* Add operator label to each spectrum assignment */
   const bars = h.selectAll('.bars');
@@ -309,9 +323,12 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     .attr('class', 'label')
     .attr('transform', 'rotate(-90)')
     .attr('y', (d) => x(d.freqStart) + (x(d.freqEnd) - x(d.freqStart)) / 2 + 5)
-    .attr('x', (d) => -y('GH') - y.bandwidth() + 10)
-    .text((d) => d.Operator);
-    // .call(wrap, y.bandwidth());
+    .attr('x', -y('GH') - y.bandwidth() + 10)
+    .text((d) => d.Operator)
+    .call(wrap, y.bandwidth()- 10);
+
+  // h.selectAll(".bars text")
+  //   .call(wrap, y.bandwidth());
 
   /* Add rectangles for guard bands */
   h.selectAll('guard')
@@ -321,13 +338,9 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     .attr("class", "guardbands")
     .append('rect')
     .attr('class', 'guardband')
-    .attr("y", function (d) {
-        return y('GH');
-    })
+    .attr("y", y('GH'))
     .attr("x", x(guardStart))
-    .attr("width", function (d) {
-        return x(guardEnd) - x(guardStart);
-    })
+    .attr("width", x(guardEnd) - x(guardStart))
     .attr("height", y.bandwidth());
 
   /* Add label to guardbands */
@@ -335,8 +348,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     .append('text')
     .attr('class', 'label')
     .attr('transform', 'rotate(-90)')
-    .attr('y', (d) => x(guardStart) + (x(guardEnd) - x(guardStart)) / 2 + 5)
-    .attr('x', (d) => -y('GH') - y.bandwidth() + 10)
+    .attr('y', x(guardStart) + (x(guardEnd) - x(guardStart)) / 2 + 5)
+    .attr('x', -y('GH') - y.bandwidth() + 10)
     .text(guardBand);
 
 
@@ -431,11 +444,10 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     opLogo = `<img src="operator-logo/${d.ISO.toLowerCase()}-${d.Operator.replace(/\s+/g, '_').toLowerCase()}.png">`;
     //  draw mouseover box
     let svgContainerDiv = document.getElementById(`M${band}`);
-    console.log(svgContainerDiv);
+    // console.log(svgContainerDiv);
     infoBox.html(`<table class="operatorTip selected"><tbody><tr><th>${opLogo}</th><th><h1>${d.Operator}</h1></th></tr><tr><td>Band:</td><td>${d.Band}</td></tr><tr><td>Assignment (MHz):</td><td>${totSpec.replace(/\s\+\s$/, '')}</td></tr><tr><td>Total (MHz):</td><td>${f(sumSpec)}</td><tr></tbody></table>`)
-      .style('left', svgContainerDiv.ofsetLeft + svgContainerDiv.offsetWidth/5  + "px")
-      .style('top', svgContainerDiv.offsetTop + y.bandwidth()*2 + "px")
-      .style('width', svgContainerDiv.offsetWidth/2 + "px");
+      .style('left', freqMid  + "px")
+      .style('top', y('GH') + y.bandwidth() + margin.top + svgContainerDiv.offsetTop + 33 + "px");
   })
     .on('mouseout', (d) => {
       totSpec = '';
@@ -456,9 +468,9 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
   // open modal dialogue on click
   $('#myModal').on('show.bs.modal', () => {
     const e = d3.select('.opData').data().pop();
-    const freqDataOperator = freqDataBand.filter((d) => e.Operator_ID == d.Operator_ID);
+    freqDataBand.filter((d) => e.Operator_ID == d.Operator_ID);
     const sharesHeld = ownership.filter((d) => e.Operator_ID == d.Operator_ID);
-    const freqsHeld = operatorJoin.filter((d) => e.Operator_ID == d.Operator_ID);
+    const freqsHeld = operators.filter((d) => e.Operator_ID == d.Operator_ID);
     const opLicenses = d3.nest()
       .key((d) => d.Band)
       .entries(freqsHeld);
@@ -566,57 +578,25 @@ function getTranslation(transform) {
   return [matrix.e, matrix.f];
 }
 
-/* Text wrapping function */
-/* Source: https://gist.github.com/ericsoco/647db6ebadd4f4756cae */
 function wrap(text, width) {
-  text.each(function () {
-    const breakChars = ['/', '&', '-'];
-    const text = d3.select(this);
-    let textContent = text.text();
-    let spanContent;
-    breakChars.forEach((char) => {
-      /* Add a space after each break char for the function to use to determine line breaks */
-      textContent = textContent.replace(char, `${char} `);
-    });
-    const words = textContent.split(/\s+/).reverse();
-    let word;
-    let line = [];
-    let lineNumber = 0;
-    const x = text.attr('x');
-    const y = text.attr('y');
-    const dy = parseFloat(text.attr('dy') || 0);
-    let tspan = text.text(null).append('tspan').attr('x', x).attr('y', y)
-      .attr('dy', `${dy}em`);
-    while (word == words.pop()) {
-      line.push(word);
-      tspan.text(line.join(' '));
-      /* console.log("text:" + tspan.text() +" Length: " + tspan.node().getComputedTextLength());  */
-      const tabs = d3.selectAll('div.tab-pane').classed('tab-pane', false).classed('fade', false);
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        y = text.attr("y"),
+        x = text.attr('x'),
+        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", -5);
+    while (word = words.pop()) {
+      line.push(word)
+      tspan.text(line.join(" "))
       if (tspan.node().getComputedTextLength() > width) {
-        line.pop();
-        spanContent = line.join(' ');
-        breakChars.forEach((char) => {
-          /* Remove spaces trailing breakChars that were added above */
-          spanContent = spanContent.replace(`${char} `, char);
-        });
-        tspan.text(spanContent);
-        line = [word];
-        ++lineNumber;
-        // console.log("lineNumber: " + lineNumber + "and y:" + y);
-        tspan = text.append('tspan').attr('x', x).attr('y', parseInt(y) + lineNumber * 12).attr('dy', `${dy}em`)
-          .text(word);
+        line.pop()
+        tspan.text(line.join(" "))
+        line = [word]
+        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", 10).text(word)
       }
-      tabs.classed('tab-pane', true).classed('fade', true);
     }
-  });
+  })
 }
 
-
-// // handle on click event
-// d3.select('#dropDown')
-//   .on('change', function() {
-//     var newData = eval(d3.select(this).property('value'));
-//     console.log("newData")
-//     console.log(newData);
-//     //updateLegend(newData);
-// });

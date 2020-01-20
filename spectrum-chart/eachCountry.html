@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prototyping a new comparative visualisation of spectrum assignments around the world</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Spectrum assignments around the world</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <style type="text/css">
     .bs-example {
         margin: 20px;
@@ -22,17 +22,44 @@
 
 <body>
     <h1>Spectrum Assignments by Country</h1>
-    <h4>Open Telecom Data<br>Source code: <a href="https://github.com/open-telecom-data/spectrum-assignments/">https://github.com/open-telecom-data/spectrum-assignments/</a></h4>
-    <div id="dropDown"></div>
-    <div id="M800" class="freqBand">
-    </div>
-    <div id="M900" class="freqBand">
-    </div>
-    <div id="M1800" class="freqBand">
-    </div>
-    <div id="M2100" class="freqBand">
-    </div>
-    <div id="M2600" class="freqBand">
+    <h4>Open Telecom Data<br>Source code: <a href="https://github.com/open-telecom-data/spectrum-assignments/">https://github.com/open-telecom-data/
+            spectrum-assignments/</a></h4>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class='countryName'>
+                <h2 id='countryTitle'></h2>
+            </div>
+            <div id="dropDown"></div>
+            <div id="M800" class="freqBand">
+            </div>
+            <div id="M900" class="freqBand">
+            </div>
+            <div id="M1800" class="freqBand">
+            </div>
+            <div id="M2100" class="freqBand">
+            </div>
+            <div id="M2600" class="freqBand">
+            </div>
+            <div class="operatorTip" style="opacity:0"></div>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="opLogo"></div>
+                            <div class="opTitle">
+                                <h2 class="modal-title"></h2>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="operatorTip" style="opacity:0"></div>
     <div class="modal fade" id="myModal" role="dialog">
@@ -42,8 +69,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="opLogo"></div>
                     <div class="opTitle">
-                        <h2 class="modal-title"></h2>
-                    </div>
+                        <h2 class="modal-title"></h2></div>
                 </div>
                 <div class="modal-body">
                 </div>

@@ -1,3 +1,23 @@
+h2 {
+  text-align: center;  
+}
+
+.main {
+  position: relative;
+}
+
+.child {
+  width: 300px;
+  height: 100px;
+  padding: 20px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin: -70px 0 0 -170px;
+}
+
 .bars {
     fill: steelblue;
     stroke: grey;
@@ -264,6 +284,23 @@
     stroke: none;
     stroke-width: 0;
     fill: none;
+}
+
+.nodata {
+    fill: #aaaaaa;
+    opacity: 0.7;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 16px;
+}
+
+.nodata-text {
+    fill: #ffffff;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 16px;
+}
+
+.dot {
+    fill: #red;
 }
 
 div.operatorTip {
