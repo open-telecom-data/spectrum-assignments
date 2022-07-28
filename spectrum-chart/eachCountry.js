@@ -136,16 +136,22 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
                   .append("text")
                   .text(selectedText)
                 svgBands.remove();
+                d3.select('#svg700').remove();
                 d3.select('#svg800').remove();
                 d3.select('#svg900').remove();
                 d3.select('#svg1800').remove();
                 d3.select('#svg2100').remove();
                 d3.select('#svg2600').remove();
+                d3.select('#svg3500').remove();
+                displayAssignments(700, 703, 803, 748, 758, operators, ownership, newCountryISO);
                 displayAssignments(800, 790, 862, 821, 832, operators, ownership, newCountryISO);
                 displayAssignments(900, 880, 960, 915, 925, operators, ownership, newCountryISO);
                 displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, ownership, newCountryISO);                
                 displayAssignments(2100, 1920, 2170, 1980, 2110, operators, ownership, newCountryISO);
                 displayAssignments(2600, 2500, 2690, 2570, 2620, operators, ownership, newCountryISO);  
+                displayAssignments(3500, 3400, 3600, 3490, 3510, operators, ownership, newCountryISO);  
+
+
                 // updateBars(newData);
               };
 
@@ -184,17 +190,21 @@ d3.csv('csv/freqAssignment_sql.csv',d3.autoType).then(function (freqData) {
                 .text(defaultCntry)
 
 
-              /* Display 800MHz assignments */
               /* variables: band, bandStart, bandEnd, guardStart, guardEnd, band data  */
+              /* Display 700MHz assignments */
+              displayAssignments(700, 703, 803, 748, 758, operators, ownership, dropdownISO);
+              /* Display 800MHz assignments */
               displayAssignments(800, 790, 862, 821, 832, operators, ownership, dropdownISO);
               /* Display 900MHz assignments */
               displayAssignments(900, 880, 960, 915, 925, operators, ownership, dropdownISO);
-              // /* Display 1800MHz assignments */
+              /* Display 1800MHz assignments */
               displayAssignments(1800, 1710, 1880, 1784.8, 1805.2, operators, ownership, dropdownISO);
-              // // /* Display 2100MHz assignments */
-              displayAssignments(2100, 1920, 2170, 1980, 2110, operators, ownership, dropdownISO);
-              // // /* Display 2600MHz assignments */
-              displayAssignments(2600, 2500, 2690, 2570, 2620, operators, ownership, dropdownISO);  
+              /* Display 2100MHz assignments */
+              displayAssignments(2100, 1920, 2170, 1980, 2110, operators, ownership, dropdownISO);             
+              /* Display 2600MHz assignments */
+              displayAssignments(2600, 2500, 2690, 2570, 2620, operators, ownership, dropdownISO);
+              /* Display 3500MHz assignments */
+              displayAssignments(3500, 3400, 3600, 3490, 3510, operators, ownership, dropdownISO);  
             });
           });
         });
@@ -231,10 +241,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
   let guardBand = '';
   if (band == '2600') {
     guardBand = 'TDD';
-  } else if (band == '2100') {
-    guardBand = 'Guard Band?';
   } else {
-    guardBand = 'Guard Band';
+    guardBand = 'FDD spacing';
   }
 
   var h = d3.select(bandID)
@@ -350,7 +358,8 @@ function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd, oper
     .attr('transform', 'rotate(-90)')
     .attr('y', x(guardStart) + (x(guardEnd) - x(guardStart)) / 2 + 5)
     .attr('x', -y('GH') - y.bandwidth() + 10)
-    .text(guardBand);
+    .text(guardBand)
+    .call(wrap, y.bandwidth()- 10);
 
 
   /* MHz ToolTip for each operator spectrum assignment */
@@ -584,11 +593,14 @@ function wrap(text, width) {
         words = text.text().split(/\s+/).reverse(),
         word,
         line = [],
-        y = text.attr("y"),
+        y = text.attr('y'),
         x = text.attr('x'),
         tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", -5);
+        console.log("tspan is now: ");
+        console.log(tspan);
     while (word = words.pop()) {
       line.push(word)
+      console.log("line is: " + line);
       tspan.text(line.join(" "))
       if (tspan.node().getComputedTextLength() > width) {
         line.pop()

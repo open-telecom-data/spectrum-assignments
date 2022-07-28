@@ -13,7 +13,9 @@ let totSpec = "";
 let sumSpec = 0;
 let numAssigns = 0;
 
-/*      band, bandStart, bandEnd, guardStart, guardEnd  */
+/* band, bandStart, bandEnd, guardStart, guardEnd  */
+/* Display 700MHz assignments */
+displayAssignments(700, 703, 803, 748, 758);
 /* Display 800MHz assignments */
 displayAssignments(800, 790, 862, 821, 832);
 /* Display 900MHz assignments */
@@ -24,6 +26,8 @@ displayAssignments(1800, 1710, 1880, 1784.8, 1805.2);
 displayAssignments(2100, 1920, 2170, 1980, 2110);
 /* Display 2600MHz assignments */
 displayAssignments(2600, 2500, 2690, 2570, 2620);
+/* Display 3500MHz assignments */
+displayAssignments(3500, 3400, 3600, 3490, 3510);
 
 function displayAssignments(band, bandStart, bandEnd, guardStart, guardEnd) {
     // displayAssignments imports a csv file of spectrum assignments

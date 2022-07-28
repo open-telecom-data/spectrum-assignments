@@ -85,6 +85,11 @@ h2 {
     font-size: 14px;
 }
 
+.countryName {
+    color: #144667;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 24px;
+}
 
 /*  Operator colour assignments based on corporate colours */
 
@@ -275,6 +280,28 @@ h2 {
 .AA_CV_Movel {
     fill: #009bb4;
 }
+
+
+.AA_MTN_Business_Kenya {
+    fill: #ffbe00;
+}
+
+.AA_Liquid_Telecom {
+    fill:  #E92590;
+}
+
+.AA_SimbaNet {
+    fill: #000000;
+}
+
+.AA_Wananchi {
+    fill:  #18431E;
+}
+
+.AA_Jamii_Telecommunications_Ltd {
+    fill: #74AA50;
+}
+
 
 .guardband {
     fill: #aaaaaa;
